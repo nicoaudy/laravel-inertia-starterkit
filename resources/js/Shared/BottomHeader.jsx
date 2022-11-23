@@ -7,7 +7,7 @@ export default () => {
   const [menuOpened, setMenuOpened] = useState(false);
   return (
     <div className="flex items-center justify-between w-full p-4 text-sm bg-white border-b md:py-0 md:px-12 d:text-md">
-      <div className="mt-1 mr-4">{auth.user.data.account.name}</div>
+      <div className="mt-1 mr-4">Organization Name</div>
       <div className="relative">
         <div
           className="flex items-center cursor-pointer select-none group"
@@ -15,7 +15,7 @@ export default () => {
         >
           <div className="mr-1 text-gray-800 whitespace-nowrap group-hover:text-indigo-600 focus:text-indigo-600">
             <span>{auth.user.data.first_name}</span>
-            <span className="hidden ml-1 md:inline">{auth.user.data.last_name}</span>
+            <span className="hidden ml-1 md:inline">{auth.user.data.name}</span>
           </div>
           <Icon
             className="w-5 h-5 text-gray-800 fill-current group-hover:text-indigo-600 focus:text-indigo-600"

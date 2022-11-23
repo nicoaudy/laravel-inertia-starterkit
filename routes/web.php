@@ -1,13 +1,11 @@
 <?php
 
-use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\OrganizationsController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 // Route::get('/', function () {
     // return Inertia::render('Dashboard/Index');
@@ -52,15 +50,6 @@ Route::get('organizations/{organization}/edit')->name('organizations.edit')->use
 Route::put('organizations/{organization}')->name('organizations.update')->uses([OrganizationsController::class, 'update'])->middleware('auth');
 Route::delete('organizations/{organization}')->name('organizations.destroy')->uses([OrganizationsController::class, 'destroy'])->middleware('auth');
 Route::put('organizations/{organization}/restore')->name('organizations.restore')->uses([OrganizationsController::class, 'restore'])->middleware('auth');
-
-// Contacts
-Route::get('contacts')->name('contacts')->uses([ContactsController::class, 'index'])->middleware('remember', 'auth');
-Route::get('contacts/create')->name('contacts.create')->uses([ContactsController::class, 'create'])->middleware('auth');
-Route::post('contacts')->name('contacts.store')->uses([ContactsController::class, 'store'])->middleware('auth');
-Route::get('contacts/{contact}/edit')->name('contacts.edit')->uses([ContactsController::class, 'edit'])->middleware('auth');
-Route::put('contacts/{contact}')->name('contacts.update')->uses([ContactsController::class, 'update'])->middleware('auth');
-Route::delete('contacts/{contact}')->name('contacts.destroy')->uses([ContactsController::class, 'destroy'])->middleware('auth');
-Route::put('contacts/{contact}/restore')->name('contacts.restore')->uses([ContactsController::class, 'restore'])->middleware('auth');
 
 // Reports
 Route::get('reports')->name('reports')->uses(ReportsController::class)->middleware('auth');

@@ -39,15 +39,6 @@ class User extends Authenticatable
         'owner' => 'boolean',
     ];
 
-    public function account()
-    {
-        return $this->belongsTo(Account::class);
-    }
-
-    public function getNameAttribute()
-    {
-        return $this->first_name.' '.$this->last_name;
-    }
 
     public function setPasswordAttribute($password)
     {
