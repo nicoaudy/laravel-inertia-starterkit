@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserDeleteRequest;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use Inertia\Inertia;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
+use Inertia\Inertia;
 
 class UsersController extends Controller
 {
@@ -20,8 +18,7 @@ class UsersController extends Controller
         return Inertia::render('Users/Index', [
             'filters' => Request::all('search', 'role', 'trashed'),
             'users' => new UserCollection(
-                Auth::user()->account->users()
-                    ->orderByName()
+                User::orderByName()
                     ->filter(Request::only('search', 'role', 'trashed'))
                     ->paginate()
                     ->appends(Request::all())
@@ -36,11 +33,9 @@ class UsersController extends Controller
 
     public function store(UserStoreRequest $request)
     {
-        Auth::user()->account->users()->create(
-            $request->validated()
-        );
+        User::create($request->validated());
 
-        return Redirect::route('users')->with('success', 'User created.');
+        return Redirect::route('users.index')->with('success', 'User created.');
     }
 
     public function edit(User $user)
@@ -52,14 +47,12 @@ class UsersController extends Controller
 
     public function update(User $user, UserUpdateRequest $request)
     {
-        $user->update(
-            $request->validated()
-        );
+        $user->update($request->validated());
 
         return Redirect::back()->with('success', 'User updated.');
     }
 
-    public function destroy(User $user, UserDeleteRequest $request)
+    public function destroy(User $user)
     {
         $user->delete();
 

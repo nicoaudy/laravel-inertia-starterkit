@@ -129,6 +129,7 @@ const Create = () => {
                   <option value="CA">Canada</option>
                   <option value="US">United States</option>
                 </SelectInput>
+                <InputError message={errors.country} className="mt-2" />
               </div>
 
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">

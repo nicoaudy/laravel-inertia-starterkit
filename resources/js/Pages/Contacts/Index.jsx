@@ -1,8 +1,8 @@
 import React from 'react';
 import { Head, Link, usePage } from '@inertiajs/inertia-react';
-import Icon from '@/Shared/Icon';
-import SearchFilter from '@/Shared/SearchFilter';
-import Pagination from '@/Shared/Pagination';
+import Icon from '@/Components/Icon';
+import SearchFilter from '@/Components/SearchFilter';
+import Pagination from '@/Components/Pagination';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 const Index = () => {

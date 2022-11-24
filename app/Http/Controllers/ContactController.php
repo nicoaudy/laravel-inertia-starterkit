@@ -18,10 +18,10 @@ class ContactController extends Controller
         return Inertia::render('Contacts/Index', [
             'filters' => Request::all('search', 'trashed'),
             'contacts' => new ContactCollection(
-                    Contact::orderBy('name')
-                    ->filter(Request::only('search', 'trashed'))
-                    ->paginate()
-                    ->appends(Request::all())
+                Contact::orderBy('name')
+                ->filter(Request::only('search', 'trashed'))
+                ->paginate()
+                ->appends(Request::all())
             ),
         ]);
     }
@@ -34,6 +34,7 @@ class ContactController extends Controller
     public function store(ContactStoreRequest $request)
     {
         Contact::create($request->validated());
+
         return Redirect::route('contacts.index')->with('success', 'Contact created.');
     }
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { InertiaLink, usePage } from '@inertiajs/inertia-react';
-import Icon from '@/Shared/Icon';
+import Icon from '@/Components/Icon';
 
 export default () => {
   const { auth } = usePage().props;
@@ -32,7 +32,7 @@ export default () => {
               My Profile
             </InertiaLink>
             <InertiaLink
-              href={route('users')}
+              href={route('users.index')}
               className="block px-6 py-2 hover:bg-indigo-600 hover:text-white"
               onClick={() => setMenuOpened(false)}
             >

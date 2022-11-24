@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'John Doe',
             'email' => 'johndoe@example.com',
         ]);
-        Contact::factory()->count(100);
+        User::factory()->count(100)->create();
+        Contact::factory()->count(1000)->create();
     }
 }

@@ -4,20 +4,19 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\URL;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,12 +40,15 @@ class User extends Authenticatable
 
     public function setPhotoAttribute($photo)
     {
-        if(!$photo) return;
+        if (! $photo) {
+            return;
+        }
 
-        // $this->attributes['photo_path'] = $photo instanceof UploadedFile ? $photo->store('users') : $photo;
+        $this->attributes['photo_path'] = $photo instanceof UploadedFile ? $photo->store('users') : $photo;
     }
 
-    public function getPhotoAttribute() {
+    public function getPhotoAttribute()
+    {
         return $this->photoUrl(['w' => 40, 'h' => 40, 'fit' => 'crop']);
     }
 
@@ -64,7 +66,7 @@ class User extends Authenticatable
 
     public function scopeOrderByName($query)
     {
-        $query->orderBy('last_name')->orderBy('first_name');
+        $query->orderBy('name');
     }
 
     public function scopeWhereRole($query, $role)
@@ -79,8 +81,7 @@ class User extends Authenticatable
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->where(function ($query) use ($search) {
-                $query->where('first_name', 'like', '%'.$search.'%')
-                    ->orWhere('last_name', 'like', '%'.$search.'%')
+                $query->where('name', 'like', '%'.$search.'%')
                     ->orWhere('email', 'like', '%'.$search.'%');
             });
         })->when($filters['role'] ?? null, function ($query, $role) {

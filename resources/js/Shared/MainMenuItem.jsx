@@ -1,7 +1,7 @@
 import React from 'react';
-import { InertiaLink } from '@inertiajs/inertia-react';
+import { Link } from '@inertiajs/inertia-react';
 import classNames from 'classnames';
-import Icon from '@/Shared/Icon';
+import Icon from '@/Components/Icon';
 
 export default ({ icon, link, text }) => {
   const isActive = route().current(link + '*');
@@ -18,10 +18,10 @@ export default ({ icon, link, text }) => {
 
   return (
     <div className="mb-4">
-      <InertiaLink href={route(link)} className="flex items-center group py-3">
+      <Link href={route(link)} className="flex items-center group py-3">
         <Icon name={icon} className={iconClasses} />
         <div className={textClasses}>{text}</div>
-      </InertiaLink>
+      </Link>
     </div>
   );
 };

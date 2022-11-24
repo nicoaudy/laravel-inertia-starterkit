@@ -39,7 +39,7 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'auth' => function () {
                 return [
-                    'user' => Auth::check() ? new UserResource(auth()->user()) : null
+                    'user' => Auth::check() ? new UserResource(auth()->user()) : null,
                 ];
             },
             'flash' => function () use ($request) {
