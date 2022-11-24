@@ -1,239 +1,188 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 import { Inertia } from '@inertiajs/inertia';
-import { InertiaLink, usePage, useForm } from '@inertiajs/inertia-react';
-import Layout from '@/Shared/Layout';
-import DeleteButton from '@/Shared/DeleteButton';
-import LoadingButton from '@/Shared/LoadingButton';
-import TextInput from '@/Shared/TextInput';
-import SelectInput from '@/Shared/SelectInput';
-import TrashedMessage from '@/Shared/TrashedMessage';
-import Icon from '@/Shared/Icon';
+import { Link, Head, usePage, useForm } from '@inertiajs/inertia-react';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import DeleteButton from '@/Components/DeleteButton';
+import LoadingButton from '@/Components/LoadingButton';
+import TextInput from '@/Components/TextInput';
+import InputError from '@/Components/InputError';
+import InputLabel from '@/Components/InputLabel';
+import SelectInput from '@/Components/SelectInput';
+import TrashedMessage from '@/Components/TrashedMessage';
 
 const Edit = () => {
-  const { organization } = usePage().props;
+  const pageProps = usePage().props;
+  const contact = pageProps.contact.data;
+
   const { data, setData, errors, put, processing } = useForm({
-    name: organization.name || '',
-    email: organization.email || '',
-    phone: organization.phone || '',
-    address: organization.address || '',
-    city: organization.city || '',
-    region: organization.region || '',
-    country: organization.country || '',
-    postal_code: organization.postal_code || ''
+    name: contact.name || '',
+    email: contact.email || '',
+    phone: contact.phone || '',
+    address: contact.address || '',
+    city: contact.city || '',
+    region: contact.region || '',
+    country: contact.country || '',
+    postal_code: contact.postal_code || ''
   });
 
   function handleSubmit(e) {
     e.preventDefault();
-    put(route('organizations.update', organization.id));
+    put(route('contacts.update', contact.id));
   }
 
   function destroy() {
-    if (confirm('Are you sure you want to delete this organization?')) {
-      Inertia.delete(route('organizations.destroy', organization.id));
+    if (confirm('Are you sure you want to delete this contact?')) {
+      Inertia.delete(route('contacts.destroy', contact.id));
     }
   }
 
   function restore() {
-    if (confirm('Are you sure you want to restore this organization?')) {
-      Inertia.put(route('organizations.restore', organization.id));
+    if (confirm('Are you sure you want to restore this contact?')) {
+      Inertia.put(route('contacts.restore', contact.id));
     }
   }
 
   return (
-    <div>
-      <Helmet title={data.name} />
+    <AuthenticatedLayout>
+      <Head title={data.name} />
+
       <h1 className="mb-8 text-3xl font-bold">
-        <InertiaLink
-          href={route('organizations')}
+        <Link
+          href={route('contacts.index')}
           className="text-indigo-600 hover:text-indigo-700"
         >
-          Organizations
-        </InertiaLink>
+          Contacts
+        </Link>
         <span className="mx-2 font-medium text-indigo-600">/</span>
         {data.name}
       </h1>
-      {organization.deleted_at && (
+      {contact.deleted_at && (
         <TrashedMessage onRestore={restore}>
           This organization has been deleted.
         </TrashedMessage>
       )}
       <div className="max-w-3xl overflow-hidden bg-white rounded shadow">
         <form onSubmit={handleSubmit}>
-          <div className="flex flex-wrap p-8 -mb-8 -mr-6">
-            <TextInput
-              className="w-full pb-8 pr-6 lg:w-1/2"
-              label="Name"
-              name="name"
-              errors={errors.name}
-              value={data.name}
-              onChange={e => setData('name', e.target.value)}
-            />
-            <TextInput
-              className="w-full pb-8 pr-6 lg:w-1/2"
-              label="Email"
-              name="email"
-              type="email"
-              errors={errors.email}
-              value={data.email}
-              onChange={e => setData('email', e.target.value)}
-            />
-            <TextInput
-              className="w-full pb-8 pr-6 lg:w-1/2"
-              label="Phone"
-              name="phone"
-              type="text"
-              errors={errors.phone}
-              value={data.phone}
-              onChange={e => setData('phone', e.target.value)}
-            />
-            <TextInput
-              className="w-full pb-8 pr-6 lg:w-1/2"
-              label="Address"
-              name="address"
-              type="text"
-              errors={errors.address}
-              value={data.address}
-              onChange={e => setData('address', e.target.value)}
-            />
-            <TextInput
-              className="w-full pb-8 pr-6 lg:w-1/2"
-              label="City"
-              name="city"
-              type="text"
-              errors={errors.city}
-              value={data.city}
-              onChange={e => setData('city', e.target.value)}
-            />
-            <TextInput
-              className="w-full pb-8 pr-6 lg:w-1/2"
-              label="Province/State"
-              name="region"
-              type="text"
-              errors={errors.region}
-              value={data.region}
-              onChange={e => setData('region', e.target.value)}
-            />
-            <SelectInput
-              className="w-full pb-8 pr-6 lg:w-1/2"
-              label="Country"
-              name="country"
-              errors={errors.country}
-              value={data.country}
-              onChange={e => setData('country', e.target.value)}
-            >
-              <option value=""></option>
-              <option value="CA">Canada</option>
-              <option value="US">United States</option>
-            </SelectInput>
-            <TextInput
-              className="w-full pb-8 pr-6 lg:w-1/2"
-              label="Postal Code"
-              name="postal_code"
-              type="text"
-              errors={errors.postal_code}
-              value={data.postal_code}
-              onChange={e => setData('postal_code', e.target.value)}
-            />
+          <div className="flex flex-col p-8 my-2 mb-4">
+            <div className="-mx-3 md:flex mb-6">
+              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+                <InputLabel forInput="name" value="Name" />
+                <TextInput
+                  type="text"
+                  name="name"
+                  value={data.name}
+                  className="w-full"
+                  handleChange={e => setData('name', e.target.value)}
+                />
+                <InputError message={errors.name} className="mt-2" />
+              </div>
+              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+                <InputLabel forInput="email" value="Email" />
+                <TextInput
+                  type="email"
+                  name="email"
+                  value={data.email}
+                  className="w-full"
+                  handleChange={e => setData('email', e.target.value)}
+                />
+                <InputError message={errors.email} className="mt-2" />
+              </div>
+            </div>
+
+            <div className="-mx-3 md:flex mb-6">
+              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+                <InputLabel forInput="phone" value="Phone" />
+                <TextInput
+                  type="number"
+                  name="phone"
+                  value={data.phone}
+                  className="w-full"
+                  handleChange={e => setData('phone', e.target.value)}
+                />
+                <InputError message={errors.phone} className="mt-2" />
+              </div>
+
+              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+                <InputLabel forInput="address" value="Address" />
+                <TextInput
+                  type="text"
+                  name="address"
+                  value={data.address}
+                  className="w-full"
+                  handleChange={e => setData('address', e.target.value)}
+                />
+                <InputError message={errors.address} className="mt-2" />
+              </div>
+            </div>
+
+            <div className="-mx-3 md:flex mb-6">
+              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+                <InputLabel forInput="city" value="City" />
+                <TextInput
+                  type="text"
+                  name="city"
+                  value={data.city}
+                  className="w-full"
+                  handleChange={e => setData('city', e.target.value)}
+                />
+                <InputError message={errors.city} className="mt-2" />
+              </div>
+              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+                <InputLabel forInput="region" value="Province/State" />
+                <TextInput
+                  type="text"
+                  name="region"
+                  value={data.region}
+                  className="w-full"
+                  handleChange={e => setData('region', e.target.value)}
+                />
+                <InputError message={errors.region} className="mt-2" />
+              </div>
+            </div>
+
+            <div className="-mx-3 md:flex mb-6">
+              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+                <InputLabel forInput="country" value="Country" />
+                <SelectInput
+                  name="country"
+                  errors={errors.country}
+                  value={data.country}
+                  className="w-full"
+                  onChange={e => setData('country', e.target.value)}
+                >
+                  <option value=""></option>
+                  <option value="CA">Canada</option>
+                  <option value="US">United States</option>
+                </SelectInput>
+              </div>
+
+              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+                <InputLabel forInput="postal_code" value="Postal Code" />
+                <TextInput
+                  type="text"
+                  name="postal_code"
+                  value={data.postal_code}
+                  className="w-full"
+                  handleChange={e => setData('postal_code', e.target.value)}
+                />
+                <InputError message={errors.postal_code} className="mt-2" />
+              </div>
+            </div>
           </div>
           <div className="flex items-center px-8 py-4 bg-gray-100 border-t border-gray-200">
-            {!organization.deleted_at && (
+            {!contact.deleted_at && (
               <DeleteButton onDelete={destroy}>
-                Delete Organization
+                Delete Contact
               </DeleteButton>
             )}
-            <LoadingButton
-              loading={processing}
-              type="submit"
-              className="ml-auto btn-indigo"
-            >
-              Update Organization
+            <LoadingButton loading={processing} type="submit" className="ml-auto btn-indigo">
+              Update Contact
             </LoadingButton>
           </div>
         </form>
       </div>
-      <h2 className="mt-12 text-2xl font-bold">Contacts</h2>
-      <div className="mt-6 overflow-x-auto bg-white rounded shadow">
-        <table className="w-full whitespace-nowrap">
-          <thead>
-            <tr className="font-bold text-left">
-              <th className="px-6 pt-5 pb-4">Name</th>
-              <th className="px-6 pt-5 pb-4">City</th>
-              <th className="px-6 pt-5 pb-4" colSpan="2">
-                Phone
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {organization.contacts.map(
-              ({ id, name, phone, city, deleted_at }) => {
-                return (
-                  <tr
-                    key={id}
-                    className="hover:bg-gray-100 focus-within:bg-gray-100"
-                  >
-                    <td className="border-t">
-                      <InertiaLink
-                        href={route('contacts.edit', id)}
-                        className="flex items-center px-6 py-4 focus:text-indigo focus:outline-none"
-                      >
-                        {name}
-                        {deleted_at && (
-                          <Icon
-                            name="trash"
-                            className="flex-shrink-0 w-3 h-3 ml-2 text-gray-400 fill-current"
-                          />
-                        )}
-                      </InertiaLink>
-                    </td>
-                    <td className="border-t">
-                      <InertiaLink
-                        tabIndex="-1"
-                        href={route('contacts.edit', id)}
-                        className="flex items-center px-6 py-4 focus:text-indigo focus:outline-none"
-                      >
-                        {city}
-                      </InertiaLink>
-                    </td>
-                    <td className="border-t">
-                      <InertiaLink
-                        tabIndex="-1"
-                        href={route('contacts.edit', id)}
-                        className="flex items-center px-6 py-4 focus:text-indigo focus:outline-none"
-                      >
-                        {phone}
-                      </InertiaLink>
-                    </td>
-                    <td className="w-px border-t">
-                      <InertiaLink
-                        tabIndex="-1"
-                        href={route('contacts.edit', id)}
-                        className="flex items-center px-4"
-                      >
-                        <Icon
-                          name="cheveron-right"
-                          className="block w-6 h-6 text-gray-400 fill-current"
-                        />
-                      </InertiaLink>
-                    </td>
-                  </tr>
-                );
-              }
-            )}
-            {organization.contacts.length === 0 && (
-              <tr>
-                <td className="px-6 py-4 border-t" colSpan="4">
-                  No contacts found.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-    </div>
+    </AuthenticatedLayout>
   );
 };
-
-Edit.layout = page => <Layout children={page} />;
 
 export default Edit;

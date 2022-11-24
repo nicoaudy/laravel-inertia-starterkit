@@ -7,9 +7,6 @@ use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
-// Dashboard
-Route::get('/')->name('dashboard')->uses(DashboardController::class)->middleware('auth');
-
 // Users
 Route::get('users')->name('users')->uses([UsersController::class, 'index'])->middleware('remember', 'auth');
 Route::get('users/create')->name('users.create')->uses([UsersController::class, 'create'])->middleware('auth');
@@ -22,15 +19,18 @@ Route::put('users/{user}/restore')->name('users.restore')->uses([UsersController
 // Images
 Route::get('/img/{path}', [ImagesController::class, 'show'])->where('path', '.*');
 
-Route::resource('contacts', ContactController::class)->middleware('auth');
-Route::put('contacts/{contact}/restore')->name('contact.restore')->middleware('auth');
+Route::middleware('auth')->group(function() {
+  Route::get('/', DashboardController::class)->name('dashboard');
 
-// Reports
-Route::get('reports')->name('reports')->uses(ReportsController::class)->middleware('auth');
+  Route::resource('contacts', ContactController::class);
+  Route::put('contacts/{contact}/restore', [ContactController::class, 'restore'])->name('contacts.restore');
+
+  Route::get('reports', ReportsController::class)->name('reports');
+});
 
 // 500 error
 Route::get('500', function () {
-    echo $fail;
+    abort(500);
 });
 
 
