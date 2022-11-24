@@ -6,24 +6,19 @@ use App\Http\Requests\ContactStoreRequest;
 use App\Http\Requests\ContactUpdateRequest;
 use App\Http\Resources\ContactCollection;
 use App\Http\Resources\ContactResource;
-use App\Http\Resources\UserOrganizationCollection;
 use App\Models\Contact;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
-class ContactsController extends Controller
+class ContactController extends Controller
 {
     public function index()
     {
         return Inertia::render('Contacts/Index', [
             'filters' => Request::all('search', 'trashed'),
             'contacts' => new ContactCollection(
-                Auth::user()->account->contacts()
-                    ->with('organization')
-                    ->orderByName()
+                    Contact::orderBy('name')
                     ->filter(Request::only('search', 'trashed'))
                     ->paginate()
                     ->appends(Request::all())
@@ -33,41 +28,25 @@ class ContactsController extends Controller
 
     public function create()
     {
-        return Inertia::render('Contacts/Create', [
-            'organizations' => new UserOrganizationCollection(
-                Auth::user()->account->organizations()
-                    ->orderBy('name')
-                    ->get()
-            ),
-        ]);
+        return Inertia::render('Contacts/Create');
     }
 
     public function store(ContactStoreRequest $request)
     {
-        Auth::user()->account->contacts()->create(
-            $request->validated()
-        );
-
-        return Redirect::route('contacts')->with('success', 'Contact created.');
+        Contact::create($request->validated());
+        return Redirect::route('contacts.index')->with('success', 'Contact created.');
     }
 
     public function edit(Contact $contact)
     {
         return Inertia::render('Contacts/Edit', [
             'contact' => new ContactResource($contact),
-            'organizations' => new UserOrganizationCollection(
-                Auth::user()->account->organizations()
-                    ->orderBy('name')
-                    ->get()
-            ),
         ]);
     }
 
     public function update(Contact $contact, ContactUpdateRequest $request)
     {
-        $contact->update(
-            $request->validated()
-        );
+        $contact->update($request->validated());
 
         return Redirect::back()->with('success', 'Contact updated.');
     }

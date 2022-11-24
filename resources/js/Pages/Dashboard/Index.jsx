@@ -1,11 +1,10 @@
 import React from 'react';
-import { InertiaLink } from '@inertiajs/inertia-react';
-import { Head } from '@inertiajs/inertia-react';
-import Layout from '@/Layouts/Layout';
+import { Head, Link } from '@inertiajs/inertia-react';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 const Dashboard = () => {
   return (
-    <Layout>
+    <AuthenticatedLayout>
       <Head title="Dashboard" />
 
       <h1 className="mb-8 text-3xl font-bold">Dashboard</h1>
@@ -28,14 +27,14 @@ const Dashboard = () => {
         .
       </p>
       <div>
-        <InertiaLink className="mr-1 btn-indigo" href="/500">
+        <Link className="mr-1 btn-indigo" href="/500">
           500 error
-        </InertiaLink>
-        <InertiaLink className="btn-indigo" href="/404">
+        </Link>
+        <Link className="btn-indigo" href="/404">
           404 error
-        </InertiaLink>
+        </Link>
       </div>
-    </Layout>
+    </AuthenticatedLayout>
   );
 };
 

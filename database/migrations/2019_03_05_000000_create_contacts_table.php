@@ -4,11 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrganizationsTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
-        Schema::create('organizations', function (Blueprint $table) {
+        Schema::create('contacts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 100);
             $table->string('email', 50)->nullable();
@@ -22,4 +22,9 @@ class CreateOrganizationsTable extends Migration
             $table->softDeletes();
         });
     }
-}
+
+    public function down()
+    {
+        Schema::dropIfExists('contacts');
+    }
+};

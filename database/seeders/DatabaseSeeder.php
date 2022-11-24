@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Organization;
+use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +14,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'John Doe',
             'email' => 'johndoe@example.com',
         ]);
-        Organization::factory()->count(100);
+        Contact::factory()->count(100);
     }
 }

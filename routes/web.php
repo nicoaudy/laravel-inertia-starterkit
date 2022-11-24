@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImagesController;
-use App\Http\Controllers\OrganizationsController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -22,14 +22,8 @@ Route::put('users/{user}/restore')->name('users.restore')->uses([UsersController
 // Images
 Route::get('/img/{path}', [ImagesController::class, 'show'])->where('path', '.*');
 
-// Organizations
-Route::get('organizations')->name('organizations')->uses([OrganizationsController::class, 'index'])->middleware('remember', 'auth');
-Route::get('organizations/create')->name('organizations.create')->uses([OrganizationsController::class, 'create'])->middleware('auth');
-Route::post('organizations')->name('organizations.store')->uses([OrganizationsController::class, 'store'])->middleware('auth');
-Route::get('organizations/{organization}/edit')->name('organizations.edit')->uses([OrganizationsController::class, 'edit'])->middleware('auth');
-Route::put('organizations/{organization}')->name('organizations.update')->uses([OrganizationsController::class, 'update'])->middleware('auth');
-Route::delete('organizations/{organization}')->name('organizations.destroy')->uses([OrganizationsController::class, 'destroy'])->middleware('auth');
-Route::put('organizations/{organization}/restore')->name('organizations.restore')->uses([OrganizationsController::class, 'restore'])->middleware('auth');
+Route::resource('contacts', ContactController::class)->middleware('auth');
+Route::put('contacts/{contact}/restore')->name('contact.restore')->middleware('auth');
 
 // Reports
 Route::get('reports')->name('reports')->uses(ReportsController::class)->middleware('auth');

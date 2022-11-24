@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ContactStoreRequest extends FormRequest
@@ -26,11 +24,7 @@ class ContactStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => ['required', 'max:50'],
-            'last_name' => ['required', 'max:50'],
-            'organization_id' => ['nullable', Rule::exists('organizations', 'id')->where(function ($query) {
-                $query->where('account_id', Auth::user()->account_id);
-            })],
+            'name' => ['required', 'max:100'],
             'email' => ['nullable', 'max:50', 'email'],
             'phone' => ['nullable', 'max:50'],
             'address' => ['nullable', 'max:150'],
