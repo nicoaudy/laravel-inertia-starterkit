@@ -7,26 +7,6 @@ use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-    // return Inertia::render('Dashboard/Index');
-    // return Inertia::render('Welcome', [
-    //     'canLogin' => Route::has('login'),
-    //     'canRegister' => Route::has('register'),
-    //     'laravelVersion' => Application::VERSION,
-    //     'phpVersion' => PHP_VERSION,
-    // ]);
-// });
-
-
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-
-// Route::get('login')->name('login')->uses([LoginController::class, 'showLoginForm'])->middleware('guest');
-// Route::post('login')->name('login.attempt')->uses([LoginController::class, 'login'])->middleware('guest');
-// Route::post('logout')->name('logout')->uses([LoginController::class, 'logout']);
-
 // Dashboard
 Route::get('/')->name('dashboard')->uses(DashboardController::class)->middleware('auth');
 

@@ -1,10 +1,13 @@
 import React from 'react';
 import { InertiaLink } from '@inertiajs/inertia-react';
-import Layout from '@/Shared/Layout';
+import { Head } from '@inertiajs/inertia-react';
+import Layout from '@/Layouts/Layout';
 
 const Dashboard = () => {
   return (
-    <div>
+    <Layout>
+      <Head title="Dashboard" />
+
       <h1 className="mb-8 text-3xl font-bold">Dashboard</h1>
       <p className="mb-12 leading-normal">
         Hey there! Welcome to Ping CRM, a demo app designed to help illustrate
@@ -32,12 +35,8 @@ const Dashboard = () => {
           404 error
         </InertiaLink>
       </div>
-    </div>
+    </Layout>
   );
 };
-
-// Persistent layout
-// Docs: https://inertiajs.com/pages#persistent-layouts
-Dashboard.layout = page => <Layout title="Dashboard" children={page} />;
 
 export default Dashboard;

@@ -39,14 +39,6 @@ class User extends Authenticatable
         'owner' => 'boolean',
     ];
 
-
-    public function setPasswordAttribute($password)
-    {
-        if(!$password) return;
-
-        $this->attributes['password'] = Hash::make($password);
-    }
-
     public function setPhotoAttribute($photo)
     {
         if(!$photo) return;
