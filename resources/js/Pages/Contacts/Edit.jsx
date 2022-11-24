@@ -58,7 +58,7 @@ const Edit = () => {
       </h1>
       {contact.deleted_at && (
         <TrashedMessage onRestore={restore}>
-          This organization has been deleted.
+          This contact has been deleted.
         </TrashedMessage>
       )}
       <div className="max-w-3xl overflow-hidden bg-white rounded shadow">

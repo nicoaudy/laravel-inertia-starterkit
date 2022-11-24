@@ -60,7 +60,7 @@ const Edit = () => {
           {data.name}
         </h1>
         {user.photo && (
-          <img className="block w-8 h-8 ml-4 rounded-full" src={user.photo} />
+          <img className="block w-8 h-8 ml-4 rounded-full" src={`/${user.photo}`} />
         )}
       </div>
       {user.deleted_at && (

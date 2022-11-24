@@ -33,7 +33,13 @@ class UsersController extends Controller
 
     public function store(UserStoreRequest $request)
     {
-        User::create($request->validated());
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'owner' => $request->owner,
+            'photo_path' => $request->file('photo') ? $request->file('photo')->store('users') : null,
+        ]);
 
         return Redirect::route('users.index')->with('success', 'User created.');
     }
@@ -47,7 +53,19 @@ class UsersController extends Controller
 
     public function update(User $user, UserUpdateRequest $request)
     {
-        $user->update($request->validated());
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'owner' => $request->owner,
+        ]);
+
+        if ($request->file('photo')) {
+            $user->update(['photo_path' => $request->file('photo')->store('users')]);
+        }
+
+        if ($request->password) {
+            $user->update(['password' => bcrypt($request->password)]);
+        }
 
         return Redirect::back()->with('success', 'User updated.');
     }
