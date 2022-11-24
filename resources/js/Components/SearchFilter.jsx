@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 import { usePage } from '@inertiajs/inertia-react';
 import { usePrevious } from 'react-use';
-import SelectInput from '@/Shared/SelectInput';
+import SelectInputFilter from '@/Components/SelectInputFilter';
 import pickBy from 'lodash/pickBy';
 
 export default () => {
@@ -63,7 +63,7 @@ export default () => {
           ></div>
           <div className="relative z-30 w-64 px-4 py-6 mt-2 bg-white rounded shadow-lg">
             {filters.hasOwnProperty('role') && (
-              <SelectInput
+              <SelectInputFilter
                 className="mb-4"
                 label="Role"
                 name="role"
@@ -73,9 +73,9 @@ export default () => {
                 <option value=""></option>
                 <option value="user">User</option>
                 <option value="owner">Owner</option>
-              </SelectInput>
+              </SelectInputFilter>
             )}
-            <SelectInput
+            <SelectInputFilter
               label="Trashed"
               name="trashed"
               value={values.trashed}
@@ -84,7 +84,7 @@ export default () => {
               <option value=""></option>
               <option value="with">With Trashed</option>
               <option value="only">Only Trashed</option>
-            </SelectInput>
+            </SelectInputFilter>
           </div>
         </div>
         <button

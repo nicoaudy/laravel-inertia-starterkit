@@ -1,8 +1,8 @@
 import React from 'react';
-import MainMenu from '@/Shared/MainMenu';
-import FlashMessages from '@/Shared/FlashMessages';
-import TopHeader from '@/Shared/TopHeader';
-import BottomHeader from '@/Shared/BottomHeader';
+import MainMenu from '@/Components/MainMenu';
+import FlashMessages from '@/Components/FlashMessages';
+import TopHeader from '@/Components/TopHeader';
+import BottomHeader from '@/Components/BottomHeader';
 
 export default function AuthenticatedLayout({ children }) {
   return (

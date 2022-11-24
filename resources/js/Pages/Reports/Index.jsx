@@ -1,14 +1,14 @@
 import React from 'react';
-import Layout from '@/Shared/Layout';
+import { Head } from '@inertiajs/inertia-react';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 const Index = () => {
   return (
-    <div>
+    <AuthenticatedLayout>
+      <Head title="Reports" />
       <h1 className="mb-8 text-3xl font-bold">Reports</h1>
-    </div>
+    </AuthenticatedLayout>
   );
 };
-
-Index.layout = page => <Layout title="Reports" children={page} />;
 
 export default Index;
