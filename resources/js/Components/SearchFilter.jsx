@@ -28,10 +28,8 @@ export default () => {
   useEffect(() => {
     // https://reactjs.org/docs/hooks-faq.html#how-to-get-the-previous-props-or-state
     if (prevValues) {
-      const query = Object.keys(pickBy(values)).length
-        ? pickBy(values)
-        : { remember: 'forget' };
-      Inertia.get(route(route().current()), query, {
+      let query = pickBy(values);
+      Inertia.get(route(route().current()), Object.keys(query).length ? query : {}, {
         replace: true,
         preserveState: true
       });

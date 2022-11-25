@@ -38,7 +38,7 @@ class UsersController extends Controller
             'email' => $request->email,
             'password' => $request->password,
             'owner' => $request->owner,
-            'photo_path' => $request->file('photo') ? $request->file('photo')->store('users') : null,
+            'photo_path' => $request->file('photo') ? $request->file('photo')->store('avatar') : null,
         ]);
 
         return Redirect::route('users.index')->with('success', 'User created.');
@@ -60,7 +60,7 @@ class UsersController extends Controller
         ]);
 
         if ($request->file('photo')) {
-            $user->update(['photo_path' => $request->file('photo')->store('users')]);
+            $user->update(['photo_path' => $request->file('photo')->store('avatar')]);
         }
 
         if ($request->password) {
