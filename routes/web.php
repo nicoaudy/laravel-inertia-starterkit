@@ -16,6 +16,10 @@ Route::middleware('auth')->group(function () {
     Route::put('users/{user}/restore', [UsersController::class, 'restore'])->name('users.restore');
 
     Route::get('reports', ReportsController::class)->name('reports');
+
+    Route::get('dummy-users', DashboardController::class)->name('dummy-users');
+    Route::get('dummy-permissions', DashboardController::class)->name('dummy-permissions');
+    Route::get('dummy-roles', DashboardController::class)->name('dummy-roles');
 });
 
 // 500 error
@@ -23,4 +27,4 @@ Route::get('500', function () {
     abort(500);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -1,26 +1,30 @@
-import React from 'react';
-import MainMenu from '@/Components/MainMenu';
+import React, { useState } from 'react';
+import { usePage } from '@inertiajs/inertia-react';
 import FlashMessages from '@/Components/FlashMessages';
-import TopHeader from '@/Components/TopHeader';
-import BottomHeader from '@/Components/BottomHeader';
+import Sidebar from '../Components/Sidebar';
 
 export default function AuthenticatedLayout({ children }) {
+  const { app_name } = usePage().props;
+  const [navOpen, setNavOpen] = useState(false)
+
   return (
-    <div className="flex flex-col">
-      <div className="flex flex-col h-screen">
-        <div className="md:flex">
-          <TopHeader />
-          <BottomHeader />
-        </div>
-        <div className="flex flex-grow overflow-hidden">
-          <MainMenu className="flex-shrink-0 hidden w-56 p-12 overflow-y-auto bg-indigo-800 md:block" />
-          {/* To reset scroll region (https://inertiajs.com/pages#scroll-regions) add `scroll-region="true"` to div below */}
-          <div className="w-full px-4 py-8 overflow-hidden overflow-y-auto md:p-12">
-            <FlashMessages />
-            {children}
-          </div>
-        </div>
-      </div>
+    <div className="flex relative">
+      <Sidebar navOpen={navOpen} appName={app_name} />
+
+        {/* PAGE CONTENT */}
+        <main className="flex-1 h-screen overflow-y-scroll overflow-x-hidden">
+            <div className="md:hidden justify-between items-center bg-black text-white flex">
+                <h1 className="text-2xl font-bold px-4">{app_name}</h1>
+                <button onClick={() => setNavOpen(!navOpen)} className="btn p-4 focus:outline-none hover:bg-gray-800">
+                    <svg className="w-6 h-6 fill-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+            <section className="max-w-7xl mx-auto py-4 px-5">
+
+                <FlashMessages />
+                {children}
+            </section>
+        </main>
     </div>
   );
 }

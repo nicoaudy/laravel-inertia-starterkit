@@ -10,7 +10,7 @@ import TextInput from '@/Components/TextInput';
 export default function Login({ status, canResetPassword }) {
   const { data, setData, post, processing, errors, reset } = useForm({
     email: 'johndoe@example.com',
-    password: 'secret',
+    password: 'password',
     remember: true
   });
 
