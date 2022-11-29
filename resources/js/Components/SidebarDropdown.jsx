@@ -1,75 +1,46 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import classNames from 'classnames';
+import Icon from '@/Components/Icon';
 import SidebarDropdownLink from './SidebarDropdownLink';
 
-const SidebarDropdown = ({ items, text }) => {
+const SidebarDropdown = ({ items, icon, text, prefixLink }) => {
+    const isActive = route().current(`${prefixLink}*`);
     const [open, setOpen] = useState(false);
+
+    const openWhenActive = useCallback(() => {
+        if(isActive) {
+            setOpen(true);
+        }
+    })
+    useEffect(() => openWhenActive(), [])
+
+    const navClass = classNames(
+        "flex items-center py-2.5 px-4 justify-between rounded hover:bg-gray-800 hover:text-white",
+        {
+            " bg-gray-800 text-white": isActive,
+            "": !isActive,
+        }
+    );
+
+    const iconClasses = classNames("w-4 h-4", {
+        "text-white fill-current": isActive,
+        "fill-current": !isActive,
+    });
 
     return (
         <div className="block">
-            <div
-                onClick={() => setOpen(!open)}
-                className="flex items-center justify-between hover:bg-gray-800 hover:text-white cursor-pointer py-2.5 px-4 rounded"
-            >
+            <div onClick={() => setOpen(!open)} className={navClass}>
                 <div className="flex items-center space-x-2">
-                    <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-                        ></path>
-                    </svg>
+                    <Icon name={icon} className={iconClasses} />
                     <span>{text}</span>
                 </div>
-                {open ? (
-                    <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M5 15l7-7 7 7"
-                        ></path>
-                    </svg>
-                ) : (
-                    <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M19 9l-7 7-7-7"
-                        ></path>
-                    </svg>
-                )}
+                {open ?  <Icon name='arrow-up' className="w-4 h-4" /> : <Icon name='arrow-down' className="w-4 h-4" />}
             </div>
             {open && (
                 <div className="text-sm border-l-2 border-gray-800 mx-6 my-2.5 px-2.5 flex flex-col gap-y-1">
-                    <a
-                        href="#"
-                        class="block py-2 px-4 hover:bg-gray-800 hover:text-white rounded"
-                    >
-                        Categories
-                    </a>
-                    {items.map(({ link, text }) => {
-                        <SidebarDropdownLink link={link} text={text} />;
-                    })}
+                    {items.map(({ link, text }, index) => (
+                        <SidebarDropdownLink link={link} text={text} key={`${text}-${index}`} />
+                    ))}
                 </div>
             )}
         </div>

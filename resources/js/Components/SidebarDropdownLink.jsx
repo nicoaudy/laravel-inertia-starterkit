@@ -1,10 +1,21 @@
 import { Link } from "@inertiajs/inertia-react"
+import classNames from 'classnames';
 
 const SidebarDropdownLink = ({ link, text }) => {
+    const isActive = route().current(link + "*");
+
+    const navClass = classNames(
+        "block py-2 px-4 hover:bg-gray-800 hover:text-white rounded",
+        {
+            " bg-gray-800 text-white": isActive,
+            "": !isActive,
+        }
+    );
+
     return (
-        <a href={route(link)} className="block py-2 px-4 hover:bg-gray-800 hover:text-white rounded">
+        <Link href={route(link)} className={navClass}>
             {text}
-        </a>
+        </Link>
     );
 }
 

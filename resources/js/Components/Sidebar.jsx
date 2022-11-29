@@ -1,5 +1,6 @@
 import { usePage, Link } from '@inertiajs/inertia-react';
 import classNames from 'classnames';
+import Icon from '@/Components/Icon';
 import SidebarDropdown from './SidebarDropdown';
 import SidebarLink from './SidebarLink';
 
@@ -40,11 +41,13 @@ const Sidebar = ({ navOpen, appName }) => {
                         <SidebarLink text="Reports" link="reports" icon="printer" />
 
                         <SidebarDropdown
-                            text="Management"
+                            text='Management'
+                            prefixLink='dummy'
+                            icon="book"
                             items={[
                                 { link: 'dummy-users', text: 'Users' },
                                 { link: 'dummy-roles', text: 'Roles' },
-                                { link: 'dummy-permisions', text: 'Permissions' },
+                                { link: 'dummy-permissions', text: 'Permissions' },
                             ]}
                         />
                     </div>
@@ -69,20 +72,7 @@ const Sidebar = ({ navOpen, appName }) => {
                         className="hover:bg-gray-800 hover:text-white p-2 rounded"
                         method="post"
                     >
-                        <svg
-                            className="w-6 h-6"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                            ></path>
-                        </svg>
+                        <Icon name="logout" className='w-6 h-6' />
                     </Link>
                 </div>
             </div>
