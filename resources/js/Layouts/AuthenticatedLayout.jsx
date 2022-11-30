@@ -10,7 +10,7 @@ export default function AuthenticatedLayout({ children }) {
   return (
     <div className="flex relative">
       <Sidebar navOpen={navOpen} appName={app_name} />
-      <main className="flex-1 h-screen overflow-y-scroll overflow-x-hidden">
+      <main className="flex-1 h-screen overflow-y-scroll overflow-x-hidden bg-gray-100">
         <div className="md:hidden justify-between items-center bg-black text-white flex">
           <h1 className="text-2xl font-bold px-4">{app_name}</h1>
           <button

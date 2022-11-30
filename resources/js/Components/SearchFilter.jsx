@@ -59,7 +59,7 @@ export default function SearchFilter() {
             onClick={() => setOpened(false)}
             className="fixed inset-0 z-20 bg-black opacity-25"
           ></div>
-          <div className="relative z-30 w-64 px-4 py-6 mt-2 bg-white rounded shadow-lg">
+          <div className="relative z-30 w-64 px-4 py-4 mt-2 bg-white rounded shadow-lg">
             {filters.hasOwnProperty('role') && (
               <SelectInputFilter
                 className="mb-4"
