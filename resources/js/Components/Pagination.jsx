@@ -6,11 +6,11 @@ const PageLink = ({ active, label, url }) => {
   const className = classNames(
     [
       'mr-1 mb-1',
-      'px-4 py-3',
+      'px-2 py-2',
       'border border-solid border-gray-300 rounded',
       'text-sm',
       'hover:bg-white',
-      'focus:outline-none focus:border-indigo-700 focus:text-indigo-700',
+      'focus:outline-none focus:border-gray-700 focus:text-gray-700',
     ],
     {
       'bg-white': active,
@@ -28,7 +28,7 @@ const PageLink = ({ active, label, url }) => {
 // and dots, if exists (...)
 const PageInactive = ({ label }) => {
   const className = classNames(
-    'mr-1 mb-1 px-3 py-2 text-sm border rounded border-solid border-gray-300 text-gray'
+    'mr-1 mb-1 px-2 py-2 text-sm border rounded border-solid border-gray-300 text-gray'
   );
   return <div className={className} dangerouslySetInnerHTML={{ __html: label }} />;
 };
