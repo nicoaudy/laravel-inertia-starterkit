@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 import { Head, Link, usePage } from '@inertiajs/inertia-react';
-import { debounce, pickBy, values } from 'lodash';
+import { debounce, pickBy } from 'lodash';
 import { usePrevious } from 'react-use';
 import Icon from '@/Components/Icon';
 import ResponsivePagination from '@/Components/ResponsivePagination';
@@ -59,8 +59,8 @@ const Index = () => {
     <AuthenticatedLayout>
       <Head title="Contacts" />
 
-      <div className="flex items-center justify-between">
-        <h1 className="mb-8 text-3xl font-bold">Contacts</h1>
+      <div className="flex justify-between items-center border-b border-gray-300">
+        <h1 className="text-2xl font-semibold pt-2 pb-6">Contacts</h1>
 
         <Link
           className="btn-primary focus:outline-none"
