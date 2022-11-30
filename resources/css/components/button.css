@@ -29,3 +29,7 @@
     transform: rotate(360deg);
   }
 }
+
+.btn-pagination {
+  @apply relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md focus:outline-none text-gray-700 hover:text-gray-500 bg-white active:bg-gray-100 active:text-gray-700 disabled:opacity-50 transition ease-in-out duration-150;
+}

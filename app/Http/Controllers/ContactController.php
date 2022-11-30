@@ -7,21 +7,20 @@ use App\Http\Requests\ContactUpdateRequest;
 use App\Http\Resources\ContactCollection;
 use App\Http\Resources\ContactResource;
 use App\Models\Contact;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ContactController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         return Inertia::render('Contacts/Index', [
-            'filters' => Request::all('search', 'trashed'),
+            'filters' => $request->all('search', 'perPage'),
             'contacts' => new ContactCollection(
                 Contact::orderBy('name')
-                ->filter(Request::only('search', 'trashed'))
-                ->paginate()
-                ->appends(Request::all())
+                    ->filter($request->only('search', 'perPage'))
+                    ->paginate($request->input('perPage', 10))
+                    ->appends($request->all())
             ),
         ]);
     }
@@ -35,7 +34,7 @@ class ContactController extends Controller
     {
         Contact::create($request->validated());
 
-        return Redirect::route('contacts.index')->with('success', 'Contact created.');
+        return redirect()->route('contacts.index')->with('success', 'Contact created.');
     }
 
     public function edit(Contact $contact)
@@ -49,20 +48,20 @@ class ContactController extends Controller
     {
         $contact->update($request->validated());
 
-        return Redirect::back()->with('success', 'Contact updated.');
+        return redirect()->back()->with('success', 'Contact updated.');
     }
 
     public function destroy(Contact $contact)
     {
         $contact->delete();
 
-        return Redirect::back()->with('success', 'Contact deleted.');
+        return redirect()->back()->with('success', 'Contact deleted.');
     }
 
     public function restore(Contact $contact)
     {
         $contact->restore();
 
-        return Redirect::back()->with('success', 'Contact restored.');
+        return redirect()->back()->with('success', 'Contact restored.');
     }
 }

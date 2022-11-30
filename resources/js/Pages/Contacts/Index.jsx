@@ -1,24 +1,67 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
+import { Inertia } from '@inertiajs/inertia';
 import { Head, Link, usePage } from '@inertiajs/inertia-react';
+import { debounce, pickBy, values } from 'lodash';
+import { usePrevious } from 'react-use';
 import Icon from '@/Components/Icon';
-import SearchFilter from '@/Components/SearchFilter';
-import Pagination from '@/Components/Pagination';
+import ResponsivePagination from '@/Components/ResponsivePagination';
+import TextInput from '@/Components/TextInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 const Index = () => {
-  const { contacts } = usePage().props;
-  const {
-    data,
-    meta: { links },
-  } = contacts;
+  const { contacts, filters } = usePage().props;
+  const { data, meta } = contacts;
+
+  const [form, setForm] = useState({
+    search: filters.search || '',
+    perPage: filters.perPage || '',
+    page: filters.page || '',
+  });
+
+  const prevForm = usePrevious(form);
+
+  function handleChange(e) {
+    const key = e.target.name;
+    const value = e.target.value;
+
+    // Reset if page to null when perPage was changed
+    if (key === 'perPage') {
+      setForm((values) => ({
+        ...values,
+        page: '',
+      }));
+    }
+
+    setForm((values) => ({
+      ...values,
+      [key]: value,
+    }));
+  }
+
+  useEffect(() => {
+    if (prevForm) {
+      const search = debounce(() => {
+        let query = pickBy(form);
+        Inertia.get(
+          route(route().current()),
+          Object.keys(query).length ? query : {},
+          {
+            replace: true,
+            preserveState: true,
+          }
+        );
+      }, 150);
+      search();
+    }
+  }, [form]);
 
   return (
     <AuthenticatedLayout>
       <Head title="Contacts" />
 
-      <h1 className="mb-8 text-3xl font-bold">Contacts</h1>
-      <div className="flex items-center justify-between mb-6">
-        <SearchFilter />
+      <div className="flex items-center justify-between">
+        <h1 className="mb-8 text-3xl font-bold">Contacts</h1>
+
         <Link
           className="btn-primary focus:outline-none"
           href={route('contacts.create')}
@@ -27,6 +70,35 @@ const Index = () => {
           <span className="hidden md:inline"> Contact</span>
         </Link>
       </div>
+
+      <div className="flex flex-col md:flex-row justify-between my-6">
+        <div className="flex items-center mb-2 md:mb-0">
+          <label className="mr-2">Showing</label>
+          <div className="relative">
+            <select
+              className="form-select form-select-sm"
+              name="perPage"
+              onChange={handleChange}
+            >
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </div>
+          <label className="ml-2">Entries</label>
+        </div>
+        <TextInput
+          className="w-full md:w-1/3"
+          autoComplete="off"
+          type="text"
+          name="search"
+          value={form.search}
+          onChange={handleChange}
+          placeholder="Search…"
+        />
+      </div>
+
       <div className="overflow-x-auto bg-white rounded shadow">
         <table className="w-full whitespace-nowrap">
           <thead>
@@ -99,7 +171,15 @@ const Index = () => {
           </tbody>
         </table>
       </div>
-      <Pagination links={links} />
+      <ResponsivePagination
+        source={meta}
+        paginate={(p) =>
+          setForm((values) => ({
+            ...values,
+            page: p,
+          }))
+        }
+      />
     </AuthenticatedLayout>
   );
 };
