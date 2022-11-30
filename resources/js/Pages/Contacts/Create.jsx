@@ -148,7 +148,11 @@ const Create = () => {
             </div>
           </div>
           <div className="flex items-center justify-end px-8 py-4 bg-gray-100 border-t border-gray-200">
-            <LoadingButton loading={processing} type="submit" className="btn-indigo">
+            <LoadingButton
+              loading={processing}
+              type="submit"
+              className="btn-primary"
+            >
               Submit
             </LoadingButton>
           </div>

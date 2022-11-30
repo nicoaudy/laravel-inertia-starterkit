@@ -17,8 +17,7 @@ const SidebarDropdown = ({ items, icon, text, prefixLink }) => {
   const navClass = classNames(
     'flex items-center py-2.5 px-4 justify-between rounded hover:bg-gray-800 hover:text-white',
     {
-      ' bg-gray-800 text-white': isActive,
-      '': !isActive,
+      'bg-gray-800 text-white': isActive,
     }
   );
 

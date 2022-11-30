@@ -18,7 +18,10 @@ const Index = () => {
       <h1 className="mb-8 text-3xl font-bold">Users</h1>
       <div className="flex items-center justify-between mb-6">
         <SearchFilter />
-        <Link className="btn-indigo focus:outline-none" href={route('users.create')}>
+        <Link
+          className="btn-primary focus:outline-none"
+          href={route('users.create')}
+        >
           <span>Create</span>
           <span className="hidden md:inline"> User</span>
         </Link>

@@ -8,7 +8,6 @@ const SidebarDropdownLink = ({ link, text }) => {
     'block py-2 px-4 hover:bg-gray-800 hover:text-white rounded',
     {
       ' bg-gray-800 text-white': isActive,
-      '': !isActive,
     }
   );
 

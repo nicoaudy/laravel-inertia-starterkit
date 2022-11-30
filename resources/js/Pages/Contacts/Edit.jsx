@@ -176,7 +176,7 @@ const Edit = () => {
             <LoadingButton
               loading={processing}
               type="submit"
-              className="ml-auto btn-indigo"
+              className="ml-auto btn-primary"
             >
               Update Contact
             </LoadingButton>

@@ -29,10 +29,10 @@ const Dashboard = () => {
         .
       </p>
       <div>
-        <Link className="mr-1 btn-indigo" href="/500">
+        <Link className="mr-1 btn-primary" href="/500">
           500 error
         </Link>
-        <Link className="btn-indigo" href="/404">
+        <Link className="btn-primary" href="/404">
           404 error
         </Link>
       </div>
