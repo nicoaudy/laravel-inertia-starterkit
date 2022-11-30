@@ -17,9 +17,9 @@ export default function SelectInput({
           className
         }
         required={required}
-    >
-      {children}
-    </select>
+      >
+        {children}
+      </select>
     </div>
   );
 }

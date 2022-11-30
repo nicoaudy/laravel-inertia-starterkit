@@ -9,7 +9,7 @@ const Index = () => {
   const { users } = usePage().props;
   const {
     data,
-    meta: { links }
+    meta: { links },
   } = users;
   return (
     <AuthenticatedLayout>
@@ -37,10 +37,7 @@ const Index = () => {
           <tbody>
             {data.map(({ id, name, photo, email, owner, deleted_at }) => {
               return (
-                <tr
-                  key={id}
-                  className="hover:bg-gray-100 focus-within:bg-gray-100"
-                >
+                <tr key={id} className="hover:bg-gray-100 focus-within:bg-gray-100">
                   <td className="border-t">
                     <Link
                       href={route('users.edit', id)}

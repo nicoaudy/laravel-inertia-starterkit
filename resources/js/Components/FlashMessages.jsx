@@ -25,7 +25,7 @@ const IconDanger = () => (
 const ButtonClose = ({ color, onClick }) => {
   const className = classNames('block  w-2 h-2 fill-current', {
     'text-red-700 group-hover:text-red-800': color === 'red',
-    'text-green-700 group-hover:text-green-800': color === 'green'
+    'text-green-700 group-hover:text-green-800': color === 'green',
   });
   return (
     <button
@@ -46,7 +46,7 @@ const ButtonClose = ({ color, onClick }) => {
   );
 };
 
-export default () => {
+export default function FlashMessages() {
   const [visible, setVisible] = useState(true);
   const { flash, errors } = usePage().props;
   const numOfErrors = Object.keys(errors).length;
@@ -83,4 +83,4 @@ export default () => {
       )}
     </div>
   );
-};
+}

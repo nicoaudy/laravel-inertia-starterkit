@@ -5,14 +5,14 @@ import { usePrevious } from 'react-use';
 import SelectInputFilter from '@/Components/SelectInputFilter';
 import pickBy from 'lodash/pickBy';
 
-export default () => {
+export default function SearchFilter() {
   const { filters } = usePage().props;
   const [opened, setOpened] = useState(false);
 
   const [values, setValues] = useState({
     role: filters.role || '', // role is used only on users page
     search: filters.search || '',
-    trashed: filters.trashed || ''
+    trashed: filters.trashed || '',
   });
 
   const prevValues = usePrevious(values);
@@ -21,7 +21,7 @@ export default () => {
     setValues({
       role: '',
       search: '',
-      trashed: ''
+      trashed: '',
     });
   }
 
@@ -31,7 +31,7 @@ export default () => {
       let query = pickBy(values);
       Inertia.get(route(route().current()), Object.keys(query).length ? query : {}, {
         replace: true,
-        preserveState: true
+        preserveState: true,
       });
     }
   }, [values]);
@@ -42,7 +42,7 @@ export default () => {
 
     setValues(values => ({
       ...values,
-      [key]: value
+      [key]: value,
     }));
 
     if (opened) setOpened(false);
@@ -119,4 +119,4 @@ export default () => {
       </button>
     </div>
   );
-};
+}

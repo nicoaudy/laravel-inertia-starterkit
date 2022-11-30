@@ -16,7 +16,7 @@ const Create = () => {
     city: '',
     region: '',
     country: '',
-    postal_code: ''
+    postal_code: '',
   });
 
   function handleSubmit(e) {
@@ -29,7 +29,10 @@ const Create = () => {
       <Head title="Create Contact" />
 
       <h1 className="mb-8 text-3xl font-bold">
-        <Link href={route('contacts.index')} className="text-indigo-600 hover:text-indigo-700">
+        <Link
+          href={route('contacts.index')}
+          className="text-indigo-600 hover:text-indigo-700"
+        >
           Contact
         </Link>
         <span className="font-medium text-indigo-600"> /</span> Create
@@ -38,7 +41,6 @@ const Create = () => {
       <div className="max-w-3xl overflow-hidden bg-white rounded shadow">
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col p-8 my-2 mb-4">
-
             <div className="-mx-3 md:flex mb-6">
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
                 <InputLabel forInput="name" value="Name" />
@@ -146,7 +148,9 @@ const Create = () => {
             </div>
           </div>
           <div className="flex items-center justify-end px-8 py-4 bg-gray-100 border-t border-gray-200">
-            <LoadingButton loading={processing} type="submit" className="btn-indigo">Submit</LoadingButton>
+            <LoadingButton loading={processing} type="submit" className="btn-indigo">
+              Submit
+            </LoadingButton>
           </div>
         </form>
       </div>

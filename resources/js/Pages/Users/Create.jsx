@@ -14,13 +14,13 @@ const Create = () => {
     email: '',
     password: '',
     owner: '0',
-    photo: ''
+    photo: '',
   });
 
   function handleSubmit(e) {
     e.preventDefault();
     post(route('users.store'), {
-      forceFormData: true
+      forceFormData: true,
     });
   }
 
@@ -29,7 +29,10 @@ const Create = () => {
       <Head title="Create User" />
       <div>
         <h1 className="mb-8 text-3xl font-bold">
-          <Link href={route('users.index')} className="text-indigo-600 hover:text-indigo-700">
+          <Link
+            href={route('users.index')}
+            className="text-indigo-600 hover:text-indigo-700"
+          >
             Users
           </Link>
           <span className="font-medium text-indigo-600"> /</span> Create

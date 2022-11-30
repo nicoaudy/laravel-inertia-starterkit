@@ -22,7 +22,7 @@ const Edit = () => {
     city: contact.city || '',
     region: contact.region || '',
     country: contact.country || '',
-    postal_code: contact.postal_code || ''
+    postal_code: contact.postal_code || '',
   });
 
   function handleSubmit(e) {
@@ -171,11 +171,13 @@ const Edit = () => {
           </div>
           <div className="flex items-center px-8 py-4 bg-gray-100 border-t border-gray-200">
             {!contact.deleted_at && (
-              <DeleteButton onDelete={destroy}>
-                Delete Contact
-              </DeleteButton>
+              <DeleteButton onDelete={destroy}>Delete Contact</DeleteButton>
             )}
-            <LoadingButton loading={processing} type="submit" className="ml-auto btn-indigo">
+            <LoadingButton
+              loading={processing}
+              type="submit"
+              className="ml-auto btn-indigo"
+            >
               Update Contact
             </LoadingButton>
           </div>

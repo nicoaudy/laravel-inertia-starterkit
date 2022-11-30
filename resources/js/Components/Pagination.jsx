@@ -10,10 +10,10 @@ const PageLink = ({ active, label, url }) => {
       'border border-solid border-gray-300 rounded',
       'text-sm',
       'hover:bg-white',
-      'focus:outline-none focus:border-indigo-700 focus:text-indigo-700'
+      'focus:outline-none focus:border-indigo-700 focus:text-indigo-700',
     ],
     {
-      'bg-white': active
+      'bg-white': active,
     }
   );
   return (
@@ -30,12 +30,10 @@ const PageInactive = ({ label }) => {
   const className = classNames(
     'mr-1 mb-1 px-4 py-3 text-sm border rounded border-solid border-gray-300 text-gray'
   );
-  return (
-    <div className={className} dangerouslySetInnerHTML={{ __html: label }} />
-  );
+  return <div className={className} dangerouslySetInnerHTML={{ __html: label }} />;
 };
 
-export default ({ links = [] }) => {
+export default function Pagination({ links = [] }) {
   // dont render, if there's only 1 page (previous, 1, next)
   if (links.length === 3) return null;
   return (
@@ -49,4 +47,4 @@ export default ({ links = [] }) => {
       })}
     </div>
   );
-};
+}

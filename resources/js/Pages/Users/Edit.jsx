@@ -24,7 +24,7 @@ const Edit = () => {
 
     // NOTE: When working with Laravel PUT/PATCH requests and FormData
     // you SHOULD send POST request and fake the PUT request like this.
-    _method: 'PUT'
+    _method: 'PUT',
   });
 
   function handleSubmit(e) {
@@ -32,7 +32,7 @@ const Edit = () => {
 
     // NOTE: We are using POST method here, not PUT/PACH. See comment above.
     post(route('users.update', user.id), {
-      forceFormData: true
+      forceFormData: true,
     });
   }
 
@@ -53,7 +53,10 @@ const Edit = () => {
       <Head title={data.name} />
       <div className="flex justify-start max-w-lg mb-8">
         <h1 className="text-3xl font-bold">
-          <Link href={route('users.index')} className="text-indigo-600 hover:text-indigo-700">
+          <Link
+            href={route('users.index')}
+            className="text-indigo-600 hover:text-indigo-700"
+          >
             Users
           </Link>
           <span className="mx-2 font-medium text-indigo-600">/</span>
@@ -141,7 +144,11 @@ const Edit = () => {
             {!user.deleted_at && (
               <DeleteButton onDelete={destroy}>Delete User</DeleteButton>
             )}
-            <LoadingButton loading={processing} type="submit" className="ml-auto btn-indigo">
+            <LoadingButton
+              loading={processing}
+              type="submit"
+              className="ml-auto btn-indigo"
+            >
               Update User
             </LoadingButton>
           </div>

@@ -9,7 +9,7 @@ const Index = () => {
   const { contacts } = usePage().props;
   const {
     data,
-    meta: { links }
+    meta: { links },
   } = contacts;
 
   return (
@@ -19,7 +19,10 @@ const Index = () => {
       <h1 className="mb-8 text-3xl font-bold">Contacts</h1>
       <div className="flex items-center justify-between mb-6">
         <SearchFilter />
-        <Link className="btn-indigo focus:outline-none" href={route('contacts.create')}>
+        <Link
+          className="btn-indigo focus:outline-none"
+          href={route('contacts.create')}
+        >
           <span>Create</span>
           <span className="hidden md:inline"> Contact</span>
         </Link>
@@ -40,26 +43,47 @@ const Index = () => {
               return (
                 <tr key={id} className="hover:bg-gray-100 focus-within:bg-gray-100">
                   <td className="border-t">
-                    <Link href={route('contacts.edit', id)} className="flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none">
+                    <Link
+                      href={route('contacts.edit', id)}
+                      className="flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none"
+                    >
                       {name}
                       {deleted_at && (
-                        <Icon name="trash" className="flex-shrink-0 w-3 h-3 ml-2 text-gray-400 fill-current" />
+                        <Icon
+                          name="trash"
+                          className="flex-shrink-0 w-3 h-3 ml-2 text-gray-400 fill-current"
+                        />
                       )}
                     </Link>
                   </td>
                   <td className="border-t">
-                    <Link tabIndex="-1" href={route('contacts.edit', id)} className="flex items-center px-6 py-4 focus:text-indigo focus:outline-none">
+                    <Link
+                      tabIndex="-1"
+                      href={route('contacts.edit', id)}
+                      className="flex items-center px-6 py-4 focus:text-indigo focus:outline-none"
+                    >
                       {city}
                     </Link>
                   </td>
                   <td className="border-t">
-                    <Link tabIndex="-1" href={route('contacts.edit', id)} className="flex items-center px-6 py-4 focus:text-indigo focus:outline-none">
+                    <Link
+                      tabIndex="-1"
+                      href={route('contacts.edit', id)}
+                      className="flex items-center px-6 py-4 focus:text-indigo focus:outline-none"
+                    >
                       {phone}
                     </Link>
                   </td>
                   <td className="w-px border-t">
-                    <Link tabIndex="-1" href={route('contacts.edit', id)} className="flex items-center px-4 focus:outline-none">
-                      <Icon name="cheveron-right" className="block w-6 h-6 text-gray-400 fill-current" />
+                    <Link
+                      tabIndex="-1"
+                      href={route('contacts.edit', id)}
+                      className="flex items-center px-4 focus:outline-none"
+                    >
+                      <Icon
+                        name="cheveron-right"
+                        className="block w-6 h-6 text-gray-400 fill-current"
+                      />
                     </Link>
                   </td>
                 </tr>
