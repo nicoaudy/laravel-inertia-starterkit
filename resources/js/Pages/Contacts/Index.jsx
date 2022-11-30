@@ -78,7 +78,7 @@ const Index = () => {
       <div className="flex flex-col md:flex-row justify-between my-6">
         <div className="flex md:justify-start items-center mb-2 md:mb-0">
           <label className="mr-2">Showing</label>
-          <div className="relative">
+          <div>
             <select
               className="form-select form-select-sm"
               name="perPage"
