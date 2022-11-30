@@ -72,7 +72,7 @@ const Index = () => {
       </div>
 
       <div className="flex flex-col md:flex-row justify-between my-6">
-        <div className="flex items-center mb-2 md:mb-0">
+        <div className="flex md:justify-start items-center mb-2 md:mb-0">
           <label className="mr-2">Showing</label>
           <div className="relative">
             <select
@@ -99,64 +99,47 @@ const Index = () => {
         />
       </div>
 
-      <div className="overflow-x-auto bg-white rounded shadow">
-        <table className="w-full whitespace-nowrap">
+      <div class="bg-white shadow rounded-sm my-2.5 overflow-x-auto">
+        <table class="min-w-max w-full table-auto">
           <thead>
-            <tr className="font-bold text-left">
-              <th className="px-6 pt-5 pb-4">Name</th>
-              <th className="px-6 pt-5 pb-4">City</th>
-              <th className="px-6 pt-5 pb-4" colSpan="2">
-                Phone
-              </th>
+            <tr class="bg-gray-200 text-gray-800 uppercase text-sm leading-normal">
+              <th class="py-3 px-6 text-left">#</th>
+              <th class="py-3 px-6 text-left">Name</th>
+              <th class="py-3 px-6 text-left">City</th>
+              <th class="py-3 px-6 text-left">Phone</th>
+              <th class="py-3 px-6 text-center" colSpan="2"></th>
             </tr>
           </thead>
-          <tbody>
-            {data.map(({ id, name, city, phone, deleted_at }) => {
+          <tbody class="text-gray-800 text-sm">
+            {data.map(({ id, name, city, phone }, index) => {
               return (
-                <tr key={id} className="hover:bg-gray-100 focus-within:bg-gray-100">
-                  <td className="border-t">
+                <tr class="border-b border-gray-200 hover:bg-gray-100">
+                  <td class="py-3 px-6 text-left whitespace-nowrap">{index + 1}</td>
+                  <td class="py-3 px-6 text-left">
                     <Link
                       href={route('contacts.edit', id)}
-                      className="flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none"
+                      class="hover:text-indigo-600 hover:underline"
                     >
                       {name}
-                      {deleted_at && (
-                        <Icon
-                          name="trash"
-                          className="flex-shrink-0 w-3 h-3 ml-2 text-gray-400 fill-current"
-                        />
-                      )}
                     </Link>
                   </td>
-                  <td className="border-t">
-                    <Link
-                      tabIndex="-1"
-                      href={route('contacts.edit', id)}
-                      className="flex items-center px-6 py-4 focus:text-indigo focus:outline-none"
-                    >
-                      {city}
-                    </Link>
-                  </td>
-                  <td className="border-t">
-                    <Link
-                      tabIndex="-1"
-                      href={route('contacts.edit', id)}
-                      className="flex items-center px-6 py-4 focus:text-indigo focus:outline-none"
-                    >
-                      {phone}
-                    </Link>
-                  </td>
-                  <td className="w-px border-t">
-                    <Link
-                      tabIndex="-1"
-                      href={route('contacts.edit', id)}
-                      className="flex items-center px-4 focus:outline-none"
-                    >
-                      <Icon
-                        name="cheveron-right"
-                        className="block w-6 h-6 text-gray-400 fill-current"
-                      />
-                    </Link>
+                  <td class="py-3 px-6 text-left">{city}</td>
+                  <td class="py-3 px-6 text-left">{phone}</td>
+                  <td class="py-3 px-6 text-center">
+                    <div class="flex item-center justify-center">
+                      <div class="transform hover:text-purple-500 hover:scale-110 cursor-pointer">
+                        <Link
+                          tabIndex="-1"
+                          href={route('contacts.edit', id)}
+                          className="flex items-center px-4 focus:outline-none"
+                        >
+                          <Icon
+                            name="cheveron-right"
+                            className="block w-6 h-6 text-gray-400 fill-current"
+                          />
+                        </Link>
+                      </div>
+                    </div>
                   </td>
                 </tr>
               );
@@ -171,6 +154,8 @@ const Index = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Pagination */}
       <ResponsivePagination
         source={meta}
         paginate={(p) =>
