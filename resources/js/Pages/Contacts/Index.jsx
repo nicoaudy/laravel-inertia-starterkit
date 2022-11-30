@@ -3,10 +3,14 @@ import { Inertia } from '@inertiajs/inertia';
 import { Head, Link, usePage } from '@inertiajs/inertia-react';
 import { debounce, pickBy } from 'lodash';
 import { usePrevious } from 'react-use';
-import Icon from '@/Components/Icon';
-import ResponsivePagination from '@/Components/ResponsivePagination';
-import TextInput from '@/Components/TextInput';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import Icon from '@/Components/Icon';
+import TextInput from '@/Components/TextInput';
+import TableWrapper from '@/Components/TableWrapper';
+import TableHeader from '@/Components/TableHeader';
+import TableHeaderRow from '@/Components/TableHeaderRow';
+import TableDataRow from '@/Components/TableDataRow';
+import ResponsivePagination from '@/Components/ResponsivePagination';
 
 const Index = () => {
   const { contacts, filters } = usePage().props;
@@ -99,61 +103,59 @@ const Index = () => {
         />
       </div>
 
-      <div class="bg-white shadow rounded-sm my-2.5 overflow-x-auto">
-        <table class="min-w-max w-full table-auto">
-          <thead>
-            <tr class="bg-gray-200 text-gray-800 uppercase text-sm leading-normal">
-              <th class="py-3 px-6 text-left">#</th>
-              <th class="py-3 px-6 text-left">Name</th>
-              <th class="py-3 px-6 text-left">City</th>
-              <th class="py-3 px-6 text-left">Phone</th>
-              <th class="py-3 px-6 text-center" colSpan="2"></th>
-            </tr>
-          </thead>
-          <tbody class="text-gray-800 text-sm">
-            {data.map(({ id, name, city, phone }, index) => {
-              return (
-                <tr class="border-b border-gray-200 hover:bg-gray-100">
-                  <td class="py-3 px-6 text-left whitespace-nowrap">{index + 1}</td>
-                  <td class="py-3 px-6 text-left">
-                    <Link
-                      href={route('contacts.edit', id)}
-                      class="hover:text-indigo-600 hover:underline"
-                    >
-                      {name}
-                    </Link>
-                  </td>
-                  <td class="py-3 px-6 text-left">{city}</td>
-                  <td class="py-3 px-6 text-left">{phone}</td>
-                  <td class="py-3 px-6 text-center">
-                    <div class="flex item-center justify-center">
-                      <div class="transform hover:text-purple-500 hover:scale-110 cursor-pointer">
-                        <Link
-                          tabIndex="-1"
-                          href={route('contacts.edit', id)}
-                          className="flex items-center px-4 focus:outline-none"
-                        >
-                          <Icon
-                            name="cheveron-right"
-                            className="block w-6 h-6 text-gray-400 fill-current"
-                          />
-                        </Link>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
-            {data.length === 0 && (
-              <tr>
-                <td className="px-6 py-4 border-t" colSpan="4">
-                  No contacts found.
+      <TableWrapper>
+        <TableHeader>
+          <TableHeaderRow>
+            <th className="py-3 px-6 text-left">#</th>
+            <th className="py-3 px-6 text-left">Name</th>
+            <th className="py-3 px-6 text-left">City</th>
+            <th className="py-3 px-6 text-left">Phone</th>
+            <th className="py-3 px-6 text-center" colSpan="2"></th>
+          </TableHeaderRow>
+        </TableHeader>
+        <tbody className="text-gray-800 text-sm">
+          {data.map(({ id, name, city, phone }, index) => {
+            return (
+              <TableDataRow key={index}>
+                <td className="py-3 px-6 text-left">{meta.from + index}</td>
+                <td className="py-3 px-6 text-left">
+                  <Link
+                    href={route('contacts.edit', id)}
+                    className="hover:text-indigo-600 hover:underline"
+                  >
+                    {name}
+                  </Link>
                 </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+                <td className="py-3 px-6 text-left">{city}</td>
+                <td className="py-3 px-6 text-left">{phone}</td>
+                <td className="py-3 px-6 text-center">
+                  <div className="flex item-center justify-center">
+                    <div className="transform hover:text-purple-500 hover:scale-110 cursor-pointer">
+                      <Link
+                        tabIndex="-1"
+                        href={route('contacts.edit', id)}
+                        className="flex items-center px-4 focus:outline-none"
+                      >
+                        <Icon
+                          name="cheveron-right"
+                          className="block w-6 h-6 text-gray-400 fill-current"
+                        />
+                      </Link>
+                    </div>
+                  </div>
+                </td>
+              </TableDataRow>
+            );
+          })}
+          {data.length === 0 && (
+            <TableDataRow>
+              <td className="px-6 py-4 border-t" colSpan="5">
+                No contacts found.
+              </td>
+            </TableDataRow>
+          )}
+        </tbody>
+      </TableWrapper>
 
       {/* Pagination */}
       <ResponsivePagination
