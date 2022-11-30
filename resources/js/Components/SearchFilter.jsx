@@ -40,7 +40,7 @@ export default function SearchFilter() {
     const key = e.target.name;
     const value = e.target.value;
 
-    setValues(values => ({
+    setValues((values) => ({
       ...values,
       [key]: value,
     }));

@@ -17,11 +17,11 @@ export default function ConfirmPassword() {
     };
   }, []);
 
-  const onHandleChange = event => {
+  const onHandleChange = (event) => {
     setData(event.target.name, event.target.value);
   };
 
-  const submit = e => {
+  const submit = (e) => {
     e.preventDefault();
 
     post(route('password.confirm'));

@@ -20,14 +20,14 @@ export default function Login({ status, canResetPassword }) {
     };
   }, []);
 
-  const onHandleChange = event => {
+  const onHandleChange = (event) => {
     setData(
       event.target.name,
       event.target.type === 'checkbox' ? event.target.checked : event.target.value
     );
   };
 
-  const submit = e => {
+  const submit = (e) => {
     e.preventDefault();
 
     post(route('login'));

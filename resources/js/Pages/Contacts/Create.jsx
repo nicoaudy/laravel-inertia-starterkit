@@ -49,7 +49,7 @@ const Create = () => {
                   name="name"
                   value={data.name}
                   className="w-full"
-                  handleChange={e => setData('name', e.target.value)}
+                  handleChange={(e) => setData('name', e.target.value)}
                 />
                 <InputError message={errors.name} className="mt-2" />
               </div>
@@ -60,7 +60,7 @@ const Create = () => {
                   name="email"
                   value={data.email}
                   className="w-full"
-                  handleChange={e => setData('email', e.target.value)}
+                  handleChange={(e) => setData('email', e.target.value)}
                 />
                 <InputError message={errors.email} className="mt-2" />
               </div>
@@ -74,7 +74,7 @@ const Create = () => {
                   name="phone"
                   value={data.phone}
                   className="w-full"
-                  handleChange={e => setData('phone', e.target.value)}
+                  handleChange={(e) => setData('phone', e.target.value)}
                 />
                 <InputError message={errors.phone} className="mt-2" />
               </div>
@@ -86,7 +86,7 @@ const Create = () => {
                   name="address"
                   value={data.address}
                   className="w-full"
-                  handleChange={e => setData('address', e.target.value)}
+                  handleChange={(e) => setData('address', e.target.value)}
                 />
                 <InputError message={errors.address} className="mt-2" />
               </div>
@@ -100,7 +100,7 @@ const Create = () => {
                   name="city"
                   value={data.city}
                   className="w-full"
-                  handleChange={e => setData('city', e.target.value)}
+                  handleChange={(e) => setData('city', e.target.value)}
                 />
                 <InputError message={errors.city} className="mt-2" />
               </div>
@@ -111,7 +111,7 @@ const Create = () => {
                   name="region"
                   value={data.region}
                   className="w-full"
-                  handleChange={e => setData('region', e.target.value)}
+                  handleChange={(e) => setData('region', e.target.value)}
                 />
                 <InputError message={errors.region} className="mt-2" />
               </div>
@@ -125,7 +125,7 @@ const Create = () => {
                   errors={errors.country}
                   value={data.country}
                   className="w-full"
-                  onChange={e => setData('country', e.target.value)}
+                  onChange={(e) => setData('country', e.target.value)}
                 >
                   <option value=""></option>
                   <option value="CA">Canada</option>
@@ -141,7 +141,7 @@ const Create = () => {
                   name="postal_code"
                   value={data.postal_code}
                   className="w-full"
-                  handleChange={e => setData('postal_code', e.target.value)}
+                  handleChange={(e) => setData('postal_code', e.target.value)}
                 />
                 <InputError message={errors.postal_code} className="mt-2" />
               </div>

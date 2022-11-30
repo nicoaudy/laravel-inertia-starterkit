@@ -50,7 +50,7 @@ const Create = () => {
                   name="name"
                   value={data.name}
                   className="w-full"
-                  handleChange={e => setData('name', e.target.value)}
+                  handleChange={(e) => setData('name', e.target.value)}
                 />
                 <InputError message={errors.name} className="mt-2" />
               </div>
@@ -61,7 +61,7 @@ const Create = () => {
                   name="email"
                   value={data.email}
                   className="w-full"
-                  handleChange={e => setData('email', e.target.value)}
+                  handleChange={(e) => setData('email', e.target.value)}
                 />
                 <InputError message={errors.email} className="mt-2" />
               </div>
@@ -75,7 +75,7 @@ const Create = () => {
                   name="password"
                   value={data.password}
                   className="w-full"
-                  handleChange={e => setData('password', e.target.value)}
+                  handleChange={(e) => setData('password', e.target.value)}
                 />
                 <InputError message={errors.password} className="mt-2" />
               </div>
@@ -86,7 +86,7 @@ const Create = () => {
                   errors={errors.owner}
                   value={data.owner}
                   className="w-full"
-                  onChange={e => setData('owner', e.target.value)}
+                  onChange={(e) => setData('owner', e.target.value)}
                 >
                   <option value=""></option>
                   <option value="1">Yes</option>
@@ -105,7 +105,7 @@ const Create = () => {
                   accept="image/*"
                   errors={errors.photo}
                   value={data.photo}
-                  onChange={photo => setData('photo', photo)}
+                  onChange={(photo) => setData('photo', photo)}
                 />
               </div>
             </div>

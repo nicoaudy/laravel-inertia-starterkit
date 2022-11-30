@@ -8,7 +8,7 @@ const Dropdown = ({ children }) => {
   const [open, setOpen] = useState(false);
 
   const toggleOpen = () => {
-    setOpen(previousState => !previousState);
+    setOpen((previousState) => !previousState);
   };
 
   return (
