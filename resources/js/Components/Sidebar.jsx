@@ -48,13 +48,9 @@ const Sidebar = ({ navOpen, appName }) => {
 
             <SidebarDropdown
               text="Management"
-              prefixLink="dummy"
+              prefixLink="management."
               icon="book"
-              items={[
-                { link: 'dummy-users', text: 'Users' },
-                { link: 'dummy-roles', text: 'Roles' },
-                { link: 'dummy-permissions', text: 'Permissions' },
-              ]}
+              items={[{ link: 'management.permissions.index', text: 'Permissions' }]}
             />
           </div>
         </div>

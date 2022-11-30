@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Management\PermissionController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('reports', ReportsController::class)->name('reports');
 
+    Route::prefix('management')->name('management.')->group(function () {
+        Route::resource('permissions', PermissionController::class);
+    });
+
     Route::get('dummy-users', DashboardController::class)->name('dummy-users');
     Route::get('dummy-permissions', DashboardController::class)->name('dummy-permissions');
     Route::get('dummy-roles', DashboardController::class)->name('dummy-roles');
@@ -27,4 +32,4 @@ Route::get('500', function () {
     abort(500);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
