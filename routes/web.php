@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Management\PermissionController;
+use App\Http\Controllers\Management\RoleController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('management')->name('management.')->group(function () {
         Route::resource('permissions', PermissionController::class);
+        Route::resource('roles', RoleController::class);
     });
 
     Route::get('dummy-users', DashboardController::class)->name('dummy-users');

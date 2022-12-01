@@ -61,17 +61,17 @@ const Index = () => {
 
   return (
     <AuthenticatedLayout>
-      <Head title="Permissions" />
+      <Head title="Roles" />
 
       <div className="flex justify-between items-center border-b border-gray-300">
-        <h1 className="text-2xl font-semibold pt-2 pb-6">Permissions</h1>
+        <h1 className="text-2xl font-semibold pt-2 pb-6">Roles</h1>
 
         <Link
           className="btn-primary focus:outline-none"
-          href={route('management.permissions.create')}
+          href={route('management.roles.create')}
         >
           <span>Create</span>
-          <span className="hidden md:inline"> Permission</span>
+          <span className="hidden md:inline"> Role</span>
         </Link>
       </div>
 
@@ -120,7 +120,7 @@ const Index = () => {
                 <td className="py-3 px-6 text-left">{guard_name}</td>
                 <td className="py-3 px-6 text-left">
                   <Link
-                    href={route('management.permissions.edit', id)}
+                    href={route('management.roles.edit', id)}
                     className="hover:text-indigo-600 hover:underline"
                   >
                     {name}
@@ -131,7 +131,7 @@ const Index = () => {
                     <div className="transform hover:text-purple-500 hover:scale-110 cursor-pointer">
                       <Link
                         tabIndex="-1"
-                        href={route('management.permissions.edit', id)}
+                        href={route('management.roles.edit', id)}
                         className="flex items-center px-4 focus:outline-none"
                       >
                         <Icon

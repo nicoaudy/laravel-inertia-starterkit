@@ -11,44 +11,44 @@ import TrashedMessage from '@/Components/TrashedMessage';
 
 const Edit = () => {
   const pageProps = usePage().props;
-  const permission = pageProps.permission;
+  const role = pageProps.role;
 
   const { data, setData, errors, put, processing } = useForm({
-    name: permission.name || '',
+    name: role.name || '',
   });
 
   function handleSubmit(e) {
     e.preventDefault();
-    put(route('management.permissions.update', permission.id));
+    put(route('management.roles.update', role.id));
   }
 
   function destroy() {
-    if (confirm('Are you sure you want to delete this permission?')) {
-      Inertia.delete(route('management.permissions.destroy', permission.id));
+    if (confirm('Are you sure you want to delete this role?')) {
+      Inertia.delete(route('management.roles.destroy', role.id));
     }
   }
 
   function restore() {
-    if (confirm('Are you sure you want to restore this permission?')) {
-      Inertia.put(route('management.permissions.restore', permission.id));
+    if (confirm('Are you sure you want to restore this role?')) {
+      Inertia.put(route('management.roles.restore', role.id));
     }
   }
 
   return (
     <AuthenticatedLayout>
-      <Head title={permission.name} />
+      <Head title={role.name} />
 
       <h1 className="mb-8 text-3xl font-bold">
         <Link
-          href={route('management.permissions.index')}
+          href={route('management.roles.index')}
           className="text-indigo-600 hover:text-indigo-700"
         >
-          Permissions
+          Role
         </Link>
         <span className="mx-2 font-medium text-indigo-600">/</span>
-        {permission.name}
+        {role.name}
       </h1>
-      {permission.deleted_at && (
+      {role.deleted_at && (
         <TrashedMessage onRestore={restore}>
           This contact has been deleted.
         </TrashedMessage>
@@ -71,15 +71,15 @@ const Edit = () => {
             </div>
           </div>
           <div className="flex items-center px-8 py-4 bg-gray-100 border-t border-gray-200">
-            {!permission.deleted_at && (
-              <DeleteButton onDelete={destroy}>Delete Permission</DeleteButton>
+            {!role.deleted_at && (
+              <DeleteButton onDelete={destroy}>Delete Role</DeleteButton>
             )}
             <LoadingButton
               loading={processing}
               type="submit"
               className="ml-auto btn-primary"
             >
-              Update Permission
+              Update Role
             </LoadingButton>
           </div>
         </form>

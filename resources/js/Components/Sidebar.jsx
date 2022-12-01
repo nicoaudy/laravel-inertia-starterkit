@@ -50,7 +50,10 @@ const Sidebar = ({ navOpen, appName }) => {
               text="Management"
               prefixLink="management."
               icon="book"
-              items={[{ link: 'management.permissions.index', text: 'Permissions' }]}
+              items={[
+                  { link: 'management.permissions.index', text: 'Permissions' },
+                  { link: 'management.roles.index', text: 'Roles' }
+              ]}
             />
           </div>
         </div>
