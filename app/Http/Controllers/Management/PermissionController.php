@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PermissionRequest;
 use App\Http\Resources\PermissionCollection;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -25,69 +26,45 @@ class PermissionController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return Inertia::render('Management/Permissions/Create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(PermissionRequest $request)
     {
-        //
+        $permission = new Permission();
+        $permission->name = $request->name;
+        $permission->save();
+
+        return redirect()->route('management.permissions.index')->with('success', 'Permission created.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $permission = Permission::findOrFail($id);
+        return Inertia::render('Management/Permissions/Edit', compact('permission'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(PermissionRequest $request, $id)
     {
-        //
+        $permission = Permission::findOrFail($id);
+        $permission->name = $request->name;
+        $permission->save();
+
+        return redirect()->back()->with('success', 'Permission updated.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $permission = Permission::findOrFail($id);
+        $permission->delete();
+
+        return redirect()->route('management.permissions.index')->with('success', 'Permission deleted.');
     }
 }
