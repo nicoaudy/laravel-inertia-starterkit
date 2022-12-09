@@ -1,4 +1,3 @@
-import React from 'react';
 import { router } from '@inertiajs/react';
 import { Link, Head, usePage, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
@@ -38,17 +37,20 @@ const Edit = () => {
     <AuthenticatedLayout>
       <Head title={data.name} />
 
-      <h1 className="mb-8 text-3xl font-bold">
-        <Link
-          href={route('contacts.index')}
-          className="text-indigo-600 hover:text-indigo-700"
-        >
-          Contacts
-        </Link>
-        <span className="mx-2 font-medium text-indigo-600">/</span>
-        {data.name}
-      </h1>
-      <div className="max-w-3xl overflow-hidden bg-white rounded shadow">
+      <div className="flex justify-between items-center border-b border-gray-300">
+        <h1 className="mt-2 mb-6 text-2xl font-semibold">
+          <Link
+            href={route('contacts.index')}
+            className="text-indigo-600 hover:text-indigo-700"
+          >
+            Contacts
+          </Link>
+          <span className="font-medium text-indigo-600"> / </span>
+          {data.name}
+        </h1>
+      </div>
+
+      <div className="my-6 max-w-3xl overflow-hidden bg-white rounded shadow">
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col p-8 my-2 mb-4">
             <div className="-mx-3 md:flex mb-6">

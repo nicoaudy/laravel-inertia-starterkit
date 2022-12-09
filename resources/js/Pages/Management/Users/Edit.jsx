@@ -1,4 +1,3 @@
-import React from 'react';
 import { router } from '@inertiajs/react';
 import { Head, Link, usePage, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
@@ -41,22 +40,21 @@ const Edit = () => {
   return (
     <AuthenticatedLayout>
       <Head title={data.name} />
-      <div className="flex justify-start max-w-lg mb-8">
-        <h1 className="text-3xl font-bold">
+
+      <div className="flex justify-between items-center border-b border-gray-300">
+        <h1 className="mt-2 mb-6 text-2xl font-semibold">
           <Link
             href={route('management.users.index')}
             className="text-indigo-600 hover:text-indigo-700"
           >
             Users
           </Link>
-          <span className="mx-2 font-medium text-indigo-600">/</span>
+          <span className="font-medium text-indigo-600"> / </span>
           {data.name}
         </h1>
-        {user.photo && (
-          <img className="block w-8 h-8 ml-4 rounded-full" src={`/${user.photo}`} />
-        )}
       </div>
-      <div className="max-w-3xl overflow-hidden bg-white rounded shadow">
+
+      <div className="my-6 max-w-3xl overflow-hidden bg-white rounded shadow">
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col p-8 my-2 mb-4">
             <div className="-mx-3 md:flex mb-6">

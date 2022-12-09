@@ -1,4 +1,3 @@
-import React from 'react';
 import Logo from '@/Components/Logo';
 import { Link } from '@inertiajs/react';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import LoadingButton from '@/Components/LoadingButton';
@@ -25,8 +24,9 @@ const Create = () => {
   return (
     <AuthenticatedLayout>
       <Head title="Create User" />
-      <div>
-        <h1 className="mb-8 text-3xl font-bold">
+
+      <div className="flex justify-between items-center border-b border-gray-300">
+        <h1 className="mt-2 mb-6 text-2xl font-semibold">
           <Link
             href={route('management.users.index')}
             className="text-indigo-600 hover:text-indigo-700"
@@ -37,7 +37,7 @@ const Create = () => {
         </h1>
       </div>
 
-      <div className="max-w-3xl overflow-hidden bg-white rounded shadow">
+      <div className="my-6 max-w-3xl overflow-hidden bg-white rounded shadow">
         <form name="createForm" onSubmit={handleSubmit}>
           <div className="flex flex-col p-8 my-2 mb-4">
             <div className="-mx-3 md:flex mb-6">
