@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function Icon({ name, className }) {
   if (name === 'apple') {
     return (

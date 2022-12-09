@@ -1,5 +1,4 @@
-import React from 'react';
-import { Head, Link, useForm, usePage } from '@inertiajs/inertia-react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
@@ -46,17 +45,19 @@ const Create = () => {
     <AuthenticatedLayout>
       <Head title="Create Contact" />
 
-      <h1 className="mb-8 text-3xl font-bold">
-        <Link
-          href={route('management.roles.index')}
-          className="text-indigo-600 hover:text-indigo-700"
-        >
-          Roles
-        </Link>
-        <span className="font-medium text-indigo-600"> /</span> Create
-      </h1>
+      <div className="flex justify-between items-center border-b border-gray-300">
+        <h1 className="mt-2 mb-6 text-2xl font-semibold">
+          <Link
+            href={route('management.roles.index')}
+            className="text-indigo-600 hover:text-indigo-700"
+          >
+            Roles
+          </Link>
+          <span className="font-medium text-indigo-600"> /</span> Create
+        </h1>
+      </div>
 
-      <div className="max-w-3xl overflow-hidden bg-white rounded shadow">
+      <div className="my-6 max-w-3xl overflow-hidden bg-white rounded shadow">
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col p-8 my-2 mb-4">
             <div className="-mx-3 md:flex mb-6">

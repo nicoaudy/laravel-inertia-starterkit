@@ -13,7 +13,7 @@
     <!-- Scripts -->
     @routes
     @viteReactRefresh
-    @vite('resources/js/App.jsx')
+    @vite('resources/js/app.jsx')
     @inertiaHead
 </head>
 

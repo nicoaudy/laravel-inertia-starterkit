@@ -1,5 +1,4 @@
-import React from 'react';
-import { Head, Link } from '@inertiajs/inertia-react';
+import { Head, Link } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 const Dashboard = () => {

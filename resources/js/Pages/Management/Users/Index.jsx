@@ -1,4 +1,4 @@
-import { Head, Link, usePage } from '@inertiajs/inertia-react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import Icon from '@/Components/Icon';
 import TableWrapper from '@/Components/TableWrapper';
 import TableHeader from '@/Components/TableHeader';
