@@ -12,7 +12,6 @@ export default function SearchFilter() {
   const [values, setValues] = useState({
     role: filters.role || '', // role is used only on users page
     search: filters.search || '',
-    trashed: filters.trashed || '',
   });
 
   const prevValues = usePrevious(values);
@@ -21,7 +20,6 @@ export default function SearchFilter() {
     setValues({
       role: '',
       search: '',
-      trashed: '',
     });
   }
 
@@ -73,16 +71,6 @@ export default function SearchFilter() {
                 <option value="owner">Owner</option>
               </SelectInputFilter>
             )}
-            <SelectInputFilter
-              label="Trashed"
-              name="trashed"
-              value={values.trashed}
-              onChange={handleChange}
-            >
-              <option value=""></option>
-              <option value="with">With Trashed</option>
-              <option value="only">Only Trashed</option>
-            </SelectInputFilter>
           </div>
         </div>
         <button

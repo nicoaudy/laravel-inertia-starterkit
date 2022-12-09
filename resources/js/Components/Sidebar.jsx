@@ -44,15 +44,13 @@ const Sidebar = ({ navOpen, appName }) => {
           <div className="py-4 text-gray-400 space-y-1">
             <SidebarLink text="Dashboard" link="dashboard" icon="dashboard" />
             <SidebarLink text="Contacts" link="contacts.index" icon="office" />
-            <SidebarLink text="Reports" link="reports" icon="printer" />
-
             <SidebarDropdown
               text="Management"
               prefixLink="management."
               icon="book"
               items={[
-                  { link: 'management.permissions.index', text: 'Permissions' },
-                  { link: 'management.roles.index', text: 'Roles' }
+                { link: 'management.permissions.index', text: 'Permissions' },
+                { link: 'management.roles.index', text: 'Roles' },
               ]}
             />
           </div>

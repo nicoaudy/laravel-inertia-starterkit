@@ -16,10 +16,10 @@ class UsersController extends Controller
     public function index()
     {
         return Inertia::render('Users/Index', [
-            'filters' => Request::all('search', 'role', 'trashed'),
+            'filters' => Request::all('search', 'role'),
             'users' => new UserCollection(
                 User::orderByName()
-                    ->filter(Request::only('search', 'role', 'trashed'))
+                    ->filter(Request::only('search', 'role'))
                     ->paginate()
                     ->appends(Request::all())
             ),
@@ -75,12 +75,5 @@ class UsersController extends Controller
         $user->delete();
 
         return Redirect::back()->with('success', 'User deleted.');
-    }
-
-    public function restore(User $user)
-    {
-        $user->restore();
-
-        return Redirect::back()->with('success', 'User restored.');
     }
 }

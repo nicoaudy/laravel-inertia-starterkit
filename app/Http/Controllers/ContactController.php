@@ -57,11 +57,4 @@ class ContactController extends Controller
 
         return redirect()->route('contacts.index')->with('error', 'Contact has been deleted successfully.');
     }
-
-    public function restore(Contact $contact)
-    {
-        $contact->restore();
-
-        return redirect()->route('contacts.index')->with('info', 'Contact has been restored successfully.');
-    }
 }

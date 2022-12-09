@@ -9,7 +9,6 @@ import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import SelectInput from '@/Components/SelectInput';
 import FileInput from '@/Components/FileInput';
-import TrashedMessage from '@/Components/TrashedMessage';
 
 const Edit = () => {
   const pageProps = usePage().props;
@@ -42,12 +41,6 @@ const Edit = () => {
     }
   }
 
-  function restore() {
-    if (confirm('Are you sure you want to restore this user?')) {
-      Inertia.put(route('users.restore', user.id));
-    }
-  }
-
   return (
     <AuthenticatedLayout>
       <Head title={data.name} />
@@ -66,11 +59,6 @@ const Edit = () => {
           <img className="block w-8 h-8 ml-4 rounded-full" src={`/${user.photo}`} />
         )}
       </div>
-      {user.deleted_at && (
-        <TrashedMessage onRestore={restore}>
-          This user has been deleted.
-        </TrashedMessage>
-      )}
       <div className="max-w-3xl overflow-hidden bg-white rounded shadow">
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col p-8 my-2 mb-4">

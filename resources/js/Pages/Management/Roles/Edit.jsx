@@ -7,7 +7,6 @@ import LoadingButton from '@/Components/LoadingButton';
 import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
-import TrashedMessage from '@/Components/TrashedMessage';
 
 const Edit = () => {
   const pageProps = usePage().props;
@@ -28,12 +27,6 @@ const Edit = () => {
     }
   }
 
-  function restore() {
-    if (confirm('Are you sure you want to restore this role?')) {
-      Inertia.put(route('management.roles.restore', role.id));
-    }
-  }
-
   return (
     <AuthenticatedLayout>
       <Head title={role.name} />
@@ -48,11 +41,6 @@ const Edit = () => {
         <span className="mx-2 font-medium text-indigo-600">/</span>
         {role.name}
       </h1>
-      {role.deleted_at && (
-        <TrashedMessage onRestore={restore}>
-          This contact has been deleted.
-        </TrashedMessage>
-      )}
       <div className="max-w-3xl overflow-hidden bg-white rounded shadow">
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col p-8 my-2 mb-4">

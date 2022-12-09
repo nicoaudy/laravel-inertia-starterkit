@@ -38,7 +38,7 @@ const Index = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map(({ id, name, photo, email, owner, deleted_at }) => {
+            {data.map(({ id, name, photo, email, owner }) => {
               return (
                 <tr key={id} className="hover:bg-gray-100 focus-within:bg-gray-100">
                   <td className="border-t">
@@ -53,12 +53,6 @@ const Index = () => {
                         />
                       )}
                       {name}
-                      {deleted_at && (
-                        <Icon
-                          name="trash"
-                          className="flex-shrink-0 w-3 h-3 ml-2 text-gray-400 fill-current"
-                        />
-                      )}
                     </Link>
                   </td>
                   <td className="border-t">
