@@ -34,7 +34,7 @@ class RoleController extends Controller
     public function store(RoleRequest $request)
     {
         $role = Role::create([
-            'name' => $request->name
+            'name' => $request->name,
         ]);
 
         if ($request->has('permissions') && count($request->get('permissions')) > 0) {
@@ -67,6 +67,7 @@ class RoleController extends Controller
         $role->update(['name' => $request->get('name')]);
         $role->users()->sync($request->get('users'));
         $role->syncPermissions($request->get('permissions'));
+
         return redirect()->back()->with('success', 'Role updated.');
     }
 

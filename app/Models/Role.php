@@ -8,7 +8,7 @@ class Role extends \Spatie\Permission\Models\Role
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->where(function ($query) use ($search) {
-                $query->where('name', 'like', '%' . $search . '%');
+                $query->where('name', 'like', '%'.$search.'%');
             });
         });
     }
