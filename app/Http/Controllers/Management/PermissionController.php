@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Management;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PermissionRequest;
 use App\Http\Resources\PermissionCollection;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
@@ -16,12 +16,7 @@ class PermissionController extends Controller
         return Inertia::render('Management/Permissions/Index', [
             'filters' => $request->all('search', 'perPage'),
             'contacts' => new PermissionCollection(
-                Permission::orderBy('name')
-                    ->when($request->search, function ($query) use ($request) {
-                        $query->where('name', 'like', '%'.$request->search.'%');
-                    })
-                    ->paginate($request->input('perPage', 10))
-                    ->appends($request->all())
+                Permission::filter($request->only('search', 'perPage'))->paginate($request->input('perPage', 10))->appends($request->all())
             ),
         ]);
     }

@@ -1,20 +1,45 @@
 import React from 'react';
-import { Head, Link, useForm } from '@inertiajs/inertia-react';
+import { Head, Link, useForm, usePage } from '@inertiajs/inertia-react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
+import Checkbox from '@/Components/CustomCheckbox';
 import LoadingButton from '@/Components/LoadingButton';
-import SelectInput from '@/Components/SelectInput';
 
 const Create = () => {
+  const { permissions } = usePage().props;
+
   const { data, setData, errors, post, processing } = useForm({
     name: '',
+    permissions: [],
   });
 
   function handleSubmit(e) {
     e.preventDefault();
     post(route('management.roles.store'));
+  }
+
+  function selectAll() {
+    if (data.permissions.length) {
+      setData('permissions', []);
+    } else {
+      setData(
+        'permissions',
+        permissions.map((permission) => permission.id)
+      );
+    }
+  }
+
+  function onSelect(id) {
+    if (data.permissions.includes(id)) {
+      setData(
+        'permissions',
+        data.permissions.filter((row) => row != id)
+      );
+    } else {
+      setData('permissions', [...data.permissions, id]);
+    }
   }
 
   return (
@@ -35,7 +60,7 @@ const Create = () => {
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col p-8 my-2 mb-4">
             <div className="-mx-3 md:flex mb-6">
-              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+              <div className="w-1/2 px-3 mb-6 md:mb-0">
                 <InputLabel forInput="name" value="Name" />
                 <TextInput
                   type="text"
@@ -45,6 +70,30 @@ const Create = () => {
                   handleChange={(e) => setData('name', e.target.value)}
                 />
                 <InputError message={errors.name} className="mt-2" />
+              </div>
+            </div>
+
+            <div className="-mx-3 md:flex mb-6">
+              <div className="w-full px-3 mb-6 md:mb-0">
+                <InputLabel for="permission" value="Permissions" className="mb-4" />
+                <label className="flex items-center">
+                  <Checkbox type="checkbox" handleChange={selectAll} />
+                  <span className="ml-2 text-sm text-gray-600">Select All</span>
+                </label>
+                <div className="grid grid-cols-2 space-y-2">
+                  {permissions.map(({ id, name }) => (
+                    <label className="flex items-center" key={id}>
+                      <Checkbox
+                        type="checkbox"
+                        name="permissions"
+                        value={id}
+                        handleChange={() => onSelect(id)}
+                        checked={data.permissions.includes(id)}
+                      />
+                      <span className="ml-2 text-sm text-gray-600">{name}</span>
+                    </label>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

@@ -7,13 +7,15 @@ import LoadingButton from '@/Components/LoadingButton';
 import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
+import Checkbox from '@/Components/CustomCheckbox';
 
 const Edit = () => {
-  const pageProps = usePage().props;
-  const role = pageProps.role;
+  const { role, permissions, rolePermissions, users } = usePage().props;
 
   const { data, setData, errors, put, processing } = useForm({
     name: role.name || '',
+    users: role.users || [],
+    permissions: rolePermissions || [],
   });
 
   function handleSubmit(e) {
@@ -24,6 +26,50 @@ const Edit = () => {
   function destroy() {
     if (confirm('Are you sure you want to delete this role?')) {
       Inertia.delete(route('management.roles.destroy', role.id));
+    }
+  }
+
+  function selectAll() {
+    if (data.permissions.length) {
+      setData('permissions', []);
+    } else {
+      setData(
+        'permissions',
+        permissions.map((permission) => permission.id)
+      );
+    }
+  }
+
+  function onSelect(id) {
+    if (data.permissions.includes(id)) {
+      setData(
+        'permissions',
+        data.permissions.filter((row) => row != id)
+      );
+    } else {
+      setData('permissions', [...data.permissions, id]);
+    }
+  }
+
+  function selectAllUser() {
+    if (data.users.length) {
+      setData('users', []);
+    } else {
+      setData(
+        'users',
+        users.map((user) => user.id)
+      );
+    }
+  }
+
+  function onUserSelect(id) {
+    if (data.users.includes(id)) {
+      setData(
+        'users',
+        data.users.filter((row) => row != id)
+      );
+    } else {
+      setData('users', [...data.users, id]);
     }
   }
 
@@ -55,6 +101,62 @@ const Edit = () => {
                   handleChange={(e) => setData('name', e.target.value)}
                 />
                 <InputError message={errors.name} className="mt-2" />
+              </div>
+            </div>
+            <div className="-mx-3 md:flex mb-6">
+              <div className="w-full px-3 mb-6 md:mb-0">
+                <InputLabel for="permission" value="Permissions" className="mb-4" />
+                <label className="flex items-center">
+                  <Checkbox
+                    type="checkbox"
+                    name="selectAll"
+                    checked={data.permissions.length == permissions.length}
+                    handleChange={selectAll}
+                  />
+                  <span className="ml-2 text-sm text-gray-600">Select All</span>
+                </label>
+                <div className="grid grid-cols-2 space-y-2">
+                  {permissions.map(({ id, name }) => (
+                    <label className="flex items-center" key={id}>
+                      <Checkbox
+                        type="checkbox"
+                        name="permissions"
+                        value={id}
+                        handleChange={() => onSelect(id)}
+                        checked={data.permissions.includes(id)}
+                      />
+                      <span className="ml-2 text-sm text-gray-600">{name}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="-mx-3 md:flex mb-6">
+              <div className="w-full px-3 mb-6 md:mb-0">
+                <InputLabel for="user" value="Users" className="mb-4" />
+                <label className="flex items-center">
+                  <Checkbox
+                    type="checkbox"
+                    name="selectAllUser"
+                    checked={data.users.length == users.length}
+                    handleChange={selectAllUser}
+                  />
+                  <span className="ml-2 text-sm text-gray-600">Select All</span>
+                </label>
+                <div className="grid grid-cols-2 space-y-2">
+                  {users.map(({ id, name }) => (
+                    <label className="flex items-center" key={id}>
+                      <Checkbox
+                        type="checkbox"
+                        name="users"
+                        value={id}
+                        handleChange={() => onUserSelect(id)}
+                        checked={data.users.includes(id)}
+                      />
+                      <span className="ml-2 text-sm text-gray-600">{name}</span>
+                    </label>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
