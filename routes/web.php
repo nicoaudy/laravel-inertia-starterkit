@@ -24,4 +24,4 @@ Route::get('500', function () {
     abort(500);
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
