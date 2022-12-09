@@ -5,7 +5,6 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import LoadingButton from '@/Components/LoadingButton';
-import SelectInput from '@/Components/SelectInput';
 
 const Create = () => {
   const { data, setData, errors, post, processing } = useForm({

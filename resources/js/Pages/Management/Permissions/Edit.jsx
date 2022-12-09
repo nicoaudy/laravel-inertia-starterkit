@@ -7,13 +7,14 @@ import LoadingButton from '@/Components/LoadingButton';
 import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
+import Checkbox from '@/Components/CustomCheckbox';
 
 const Edit = () => {
-  const pageProps = usePage().props;
-  const permission = pageProps.permission;
+  const { permission, users } = usePage().props;
 
   const { data, setData, errors, put, processing } = useForm({
     name: permission.name || '',
+    users: permission.users || '',
   });
 
   function handleSubmit(e) {
@@ -24,6 +25,28 @@ const Edit = () => {
   function destroy() {
     if (confirm('Are you sure you want to delete this permission?')) {
       Inertia.delete(route('management.permissions.destroy', permission.id));
+    }
+  }
+
+  function selectAll() {
+    if (data.users.length) {
+      setData('users', []);
+    } else {
+      setData(
+        'users',
+        users.map((user) => user.id)
+      );
+    }
+  }
+
+  function onSelect(id) {
+    if (data.users.includes(id)) {
+      setData(
+        'users',
+        data.users.filter((row) => row != id)
+      );
+    } else {
+      setData('users', [...data.users, id]);
     }
   }
 
@@ -56,6 +79,34 @@ const Edit = () => {
                   handleChange={(e) => setData('name', e.target.value)}
                 />
                 <InputError message={errors.name} className="mt-2" />
+              </div>
+            </div>
+            <div className="-mx-3 md:flex mb-6">
+              <div className="w-full px-3 mb-6 md:mb-0">
+                <InputLabel for="user" value="Users" className="mb-4" />
+                <label className="flex items-center">
+                  <Checkbox
+                    type="checkbox"
+                    name="selectAll"
+                    checked={data.users.length == users.length}
+                    handleChange={selectAll}
+                  />
+                  <span className="ml-2 text-sm text-gray-600">Select All</span>
+                </label>
+                <div className="grid grid-cols-2 space-y-2">
+                  {users.map(({ id, name }) => (
+                    <label className="flex items-center" key={id}>
+                      <Checkbox
+                        type="checkbox"
+                        name="users"
+                        value={id}
+                        handleChange={() => onSelect(id)}
+                        checked={data.users.includes(id)}
+                      />
+                      <span className="ml-2 text-sm text-gray-600">{name}</span>
+                    </label>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
