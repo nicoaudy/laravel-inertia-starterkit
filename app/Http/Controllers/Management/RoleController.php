@@ -18,11 +18,11 @@ class RoleController extends Controller
             'contacts' => new RoleCollection(
                 Role::orderBy('name')
                     ->when($request->search, function ($query) use ($request) {
-                        $query->where('name', 'like', '%' . $request->search . '%');
+                        $query->where('name', 'like', '%'.$request->search.'%');
                     })
                     ->paginate($request->input('perPage', 10))
                     ->appends($request->all())
-            )
+            ),
         ]);
     }
 
@@ -48,6 +48,7 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::findOrFail($id);
+
         return Inertia::render('Management/Roles/Edit', compact('role'));
     }
 
