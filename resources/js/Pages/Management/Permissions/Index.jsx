@@ -1,71 +1,22 @@
-import { useEffect, useState } from 'react';
-import { Inertia } from '@inertiajs/inertia';
 import { Head, Link, usePage } from '@inertiajs/inertia-react';
-import { debounce, pickBy } from 'lodash';
-import { usePrevious } from 'react-use';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Icon from '@/Components/Icon';
-import TextInput from '@/Components/TextInput';
 import TableWrapper from '@/Components/TableWrapper';
 import TableHeader from '@/Components/TableHeader';
 import TableHeaderRow from '@/Components/TableHeaderRow';
 import TableDataRow from '@/Components/TableDataRow';
 import ResponsivePagination from '@/Components/ResponsivePagination';
+import Filter from '@/Components/Filter';
 
 const Index = () => {
-  const { contacts, filters } = usePage().props;
-  const { data, meta } = contacts;
-
-  const [form, setForm] = useState({
-    search: filters.search || '',
-    perPage: filters.perPage || '',
-    page: filters.page || '',
-  });
-
-  const prevForm = usePrevious(form);
-
-  function handleChange(e) {
-    const key = e.target.name;
-    const value = e.target.value;
-
-    // Reset if page to null when perPage was changed
-    if (key === 'perPage') {
-      setForm((values) => ({
-        ...values,
-        page: '',
-      }));
-    }
-
-    setForm((values) => ({
-      ...values,
-      [key]: value,
-    }));
-  }
-
-  useEffect(() => {
-    if (prevForm) {
-      const watch = debounce(() => {
-        let query = pickBy(form);
-        Inertia.get(
-          route(route().current()),
-          Object.keys(query).length ? query : {},
-          {
-            replace: true,
-            preserveState: true,
-          }
-        );
-      }, 150);
-      watch();
-    }
-  }, [form]);
+  const { permissions } = usePage().props;
+  const { data } = permissions;
 
   return (
     <AuthenticatedLayout>
       <Head title="Permissions" />
-
       <div className="flex justify-between items-center border-b border-gray-300">
         <h1 className="text-2xl font-semibold pt-2 pb-6">Permissions</h1>
-
         <Link
           className="btn-primary focus:outline-none"
           href={route('management.permissions.create')}
@@ -74,35 +25,7 @@ const Index = () => {
           <span className="hidden md:inline"> Permission</span>
         </Link>
       </div>
-
-      <div className="flex flex-col md:flex-row justify-between my-6">
-        <div className="flex md:justify-start items-center mb-2 md:mb-0">
-          <label className="mr-2">Showing</label>
-          <div>
-            <select
-              className="form-select form-select-sm"
-              name="perPage"
-              onChange={handleChange}
-            >
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select>
-          </div>
-          <label className="ml-2">Entries</label>
-        </div>
-        <TextInput
-          className="w-full md:w-1/3"
-          autoComplete="off"
-          type="text"
-          name="search"
-          value={form.search}
-          onChange={handleChange}
-          placeholder="Search…"
-        />
-      </div>
-
+      <Filter />
       <TableWrapper>
         <TableHeader>
           <TableHeaderRow>
@@ -116,7 +39,7 @@ const Index = () => {
           {data.map(({ id, name, guard_name }, index) => {
             return (
               <TableDataRow key={index}>
-                <td className="py-3 px-6 text-left">{meta.from + index}</td>
+                <td className="py-3 px-6 text-left">{permissions.from + index}</td>
                 <td className="py-3 px-6 text-left">{guard_name}</td>
                 <td className="py-3 px-6 text-left">
                   <Link
@@ -154,17 +77,7 @@ const Index = () => {
           )}
         </tbody>
       </TableWrapper>
-
-      {/* Pagination */}
-      <ResponsivePagination
-        source={meta}
-        paginate={(p) =>
-          setForm((values) => ({
-            ...values,
-            page: p,
-          }))
-        }
-      />
+      <ResponsivePagination source={permissions} />
     </AuthenticatedLayout>
   );
 };

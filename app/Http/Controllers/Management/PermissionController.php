@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PermissionRequest;
-use App\Http\Resources\PermissionCollection;
 use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,9 +16,7 @@ class PermissionController extends Controller
     {
         return Inertia::render('Management/Permissions/Index', [
             'filters' => $request->all('search', 'perPage'),
-            'contacts' => new PermissionCollection(
-                Permission::filter($request->only('search', 'perPage'))->paginate($request->input('perPage', 10))->appends($request->all())
-            ),
+            'permissions' => Permission::filter($request->only('search', 'perPage'))->paginate($request->input('perPage', 10))->appends($request->all())
         ]);
     }
 
@@ -30,10 +27,7 @@ class PermissionController extends Controller
 
     public function store(PermissionRequest $request)
     {
-        $permission = new Permission();
-        $permission->name = $request->name;
-        $permission->save();
-
+        Permission::create($request->all());
         return redirect()->route('management.permissions.index')->with('success', 'Permission created.');
     }
 

@@ -51,6 +51,7 @@ const Sidebar = ({ navOpen, appName }) => {
               items={[
                 { link: 'management.permissions.index', text: 'Permissions' },
                 { link: 'management.roles.index', text: 'Roles' },
+                { link: 'management.users.index', text: 'Users' },
               ]}
             />
           </div>
@@ -59,15 +60,15 @@ const Sidebar = ({ navOpen, appName }) => {
         {/* PROFILE */}
         <div className="text-gray-200 border-gray-800 rounded flex items-center justify-between p-2">
           <Link
-            href={route('users.edit', auth.user.data.id)}
+            href={route('management.users.edit', auth.user.id)}
             className="flex items-center space-x-2"
           >
             <img
-              src={`https://ui-avatars.com/api/?name=${auth.user.data.name}&size=128&background=ff4433&color=fff`}
+              src={`https://ui-avatars.com/api/?name=${auth.user.name}&size=128&background=ff4433&color=fff`}
               className="w-7 rounded-full"
               alt="Profile"
             />
-            <h1>{auth.user.data.name}</h1>
+            <h1>{auth.user.name}</h1>
           </Link>
           <Link
             as="button"

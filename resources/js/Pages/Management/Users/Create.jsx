@@ -5,7 +5,6 @@ import LoadingButton from '@/Components/LoadingButton';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
-import SelectInput from '@/Components/SelectInput';
 import FileInput from '@/Components/FileInput';
 
 const Create = () => {
@@ -13,13 +12,12 @@ const Create = () => {
     name: '',
     email: '',
     password: '',
-    owner: '0',
     photo: '',
   });
 
   function handleSubmit(e) {
     e.preventDefault();
-    post(route('users.store'), {
+    post(route('management.users.store'), {
       forceFormData: true,
     });
   }
@@ -30,7 +28,7 @@ const Create = () => {
       <div>
         <h1 className="mb-8 text-3xl font-bold">
           <Link
-            href={route('users.index')}
+            href={route('management.users.index')}
             className="text-indigo-600 hover:text-indigo-700"
           >
             Users
@@ -78,21 +76,6 @@ const Create = () => {
                   handleChange={(e) => setData('password', e.target.value)}
                 />
                 <InputError message={errors.password} className="mt-2" />
-              </div>
-              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                <InputLabel forInput="owner" value="Owner" />
-                <SelectInput
-                  name="owner"
-                  errors={errors.owner}
-                  value={data.owner}
-                  className="w-full"
-                  onChange={(e) => setData('owner', e.target.value)}
-                >
-                  <option value=""></option>
-                  <option value="1">Yes</option>
-                  <option value="0">No</option>
-                </SelectInput>
-                <InputError message={errors.owner} className="mt-2" />
               </div>
             </div>
 

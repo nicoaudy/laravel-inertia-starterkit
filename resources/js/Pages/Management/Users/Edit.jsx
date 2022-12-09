@@ -7,18 +7,15 @@ import LoadingButton from '@/Components/LoadingButton';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
-import SelectInput from '@/Components/SelectInput';
 import FileInput from '@/Components/FileInput';
 
 const Edit = () => {
-  const pageProps = usePage().props;
-  const user = pageProps.user.data;
+  const { user } = usePage().props;
 
   const { data, setData, errors, post, processing } = useForm({
     name: user.name || '',
     email: user.email || '',
     password: user.password || '',
-    owner: user.owner ? '1' : '0' || '0',
     photo: '',
 
     // NOTE: When working with Laravel PUT/PATCH requests and FormData
@@ -30,14 +27,14 @@ const Edit = () => {
     e.preventDefault();
 
     // NOTE: We are using POST method here, not PUT/PACH. See comment above.
-    post(route('users.update', user.id), {
+    post(route('management.users.update', user.id), {
       forceFormData: true,
     });
   }
 
   function destroy() {
     if (confirm('Are you sure you want to delete this user?')) {
-      Inertia.delete(route('users.destroy', user.id));
+      Inertia.delete(route('management.users.destroy', user.id));
     }
   }
 
@@ -47,7 +44,7 @@ const Edit = () => {
       <div className="flex justify-start max-w-lg mb-8">
         <h1 className="text-3xl font-bold">
           <Link
-            href={route('users.index')}
+            href={route('management.users.index')}
             className="text-indigo-600 hover:text-indigo-700"
           >
             Users
@@ -97,21 +94,6 @@ const Edit = () => {
                   handleChange={(e) => setData('password', e.target.value)}
                 />
                 <InputError message={errors.password} className="mt-2" />
-              </div>
-              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                <InputLabel forInput="owner" value="Owner" />
-                <SelectInput
-                  name="owner"
-                  errors={errors.owner}
-                  value={data.owner}
-                  className="w-full"
-                  onChange={(e) => setData('owner', e.target.value)}
-                >
-                  <option value=""></option>
-                  <option value="1">Yes</option>
-                  <option value="0">No</option>
-                </SelectInput>
-                <InputError message={errors.owner} className="mt-2" />
               </div>
             </div>
             <div className="-mx-3 md:flex mb-6">

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Management;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoleRequest;
-use App\Http\Resources\RoleCollection;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
@@ -18,9 +17,7 @@ class RoleController extends Controller
     {
         return Inertia::render('Management/Roles/Index', [
             'filters' => $request->all('search', 'perPage'),
-            'contacts' => new RoleCollection(
-                Role::filter($request->only('search', 'perPage'))->paginate($request->input('perPage', 10))->appends($request->all())
-            ),
+            'roles' => Role::filter($request->only('search', 'perPage'))->paginate($request->input('perPage', 10))->appends($request->all())
         ]);
     }
 

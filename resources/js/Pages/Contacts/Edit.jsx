@@ -10,8 +10,7 @@ import InputLabel from '@/Components/InputLabel';
 import SelectInput from '@/Components/SelectInput';
 
 const Edit = () => {
-  const pageProps = usePage().props;
-  const contact = pageProps.contact.data;
+  const { contact } = usePage().props;
 
   const { data, setData, errors, put, processing } = useForm({
     name: contact.name || '',

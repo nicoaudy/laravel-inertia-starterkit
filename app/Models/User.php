@@ -14,11 +14,12 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRoles;
 
+    public $appends = ['photo'];
+
     protected $fillable = [
         'name',
         'email',
         'password',
-        'owner',
         'photo_path',
     ];
 
@@ -39,7 +40,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'owner' => 'boolean',
     ];
 
     public function getPhotoAttribute()
@@ -47,35 +47,18 @@ class User extends Authenticatable
         return $this->photo_path;
     }
 
-    public function isDemoUser()
-    {
-        return $this->email === 'johndoe@example.com';
-    }
-
     public function scopeOrderByName($query)
     {
         $query->orderBy('name');
-    }
-
-    public function scopeWhereRole($query, $role)
-    {
-        switch ($role) {
-            case 'user':
-                return $query->where('owner', false);
-            case 'owner':
-                return $query->where('owner', true);
-        }
     }
 
     public function scopeFilter($query, array $filters)
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->where(function ($query) use ($search) {
-                $query->where('name', 'like', '%'.$search.'%')
-                    ->orWhere('email', 'like', '%'.$search.'%');
+                $query->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%');
             });
-        })->when($filters['role'] ?? null, function ($query, $role) {
-            $query->whereRole($role);
         });
     }
 
