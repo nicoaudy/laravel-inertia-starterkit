@@ -1,6 +1,6 @@
 import React from 'react';
-import { Head } from '@inertiajs/inertia-react';
-// import { usePage } from '@inertiajs/inertia-react';
+import { Head } from '@inertiajs/react';
+// import { usePage } from '@inertiajs/react';
 
 export default ({ status }) => {
   // const { status } = usePage().props;

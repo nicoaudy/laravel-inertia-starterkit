@@ -1,6 +1,6 @@
 import React from 'react';
-import { Inertia } from '@inertiajs/inertia';
-import { Head, Link, usePage, useForm } from '@inertiajs/inertia-react';
+import { router } from '@inertiajs/react';
+import { Head, Link, usePage, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteButton from '@/Components/DeleteButton';
 import LoadingButton from '@/Components/LoadingButton';
@@ -34,7 +34,7 @@ const Edit = () => {
 
   function destroy() {
     if (confirm('Are you sure you want to delete this user?')) {
-      Inertia.delete(route('management.users.destroy', user.id));
+      router.delete(route('management.users.destroy', user.id));
     }
   }
 

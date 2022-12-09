@@ -1,6 +1,6 @@
 import React from 'react';
-import { Inertia } from '@inertiajs/inertia';
-import { Link, Head, usePage, useForm } from '@inertiajs/inertia-react';
+import { router } from '@inertiajs/react';
+import { Link, Head, usePage, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteButton from '@/Components/DeleteButton';
 import LoadingButton from '@/Components/LoadingButton';
@@ -30,7 +30,7 @@ const Edit = () => {
 
   function destroy() {
     if (confirm('Are you sure you want to delete this contact?')) {
-      Inertia.delete(route('contacts.destroy', contact.id));
+      router.delete(route('contacts.destroy', contact.id));
     }
   }
 

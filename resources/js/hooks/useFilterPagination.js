@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Inertia } from '@inertiajs/inertia';
+import { router } from '@inertiajs/react';
 import { usePrevious } from 'react-use';
-import { usePage } from '@inertiajs/inertia-react';
+import { usePage } from '@inertiajs/react';
 import { debounce, pickBy } from 'lodash';
 
 const useFilterPagination = () => {
@@ -37,7 +37,7 @@ const useFilterPagination = () => {
     if (prevValues) {
       const search = debounce(() => {
         let query = pickBy(values);
-        Inertia.get(
+        router.get(
           route(route().current()),
           Object.keys(query).length ? query : {},
           {

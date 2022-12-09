@@ -1,4 +1,4 @@
-import { usePage, Link } from '@inertiajs/inertia-react';
+import { usePage, Link } from '@inertiajs/react';
 import classNames from 'classnames';
 import Icon from '@/Components/Icon';
 import SidebarDropdown from './SidebarDropdown';

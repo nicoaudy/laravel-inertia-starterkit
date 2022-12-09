@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/inertia-react';
+import { Link } from '@inertiajs/react';
 import classNames from 'classnames';
 import Icon from '@/Components/Icon';
 

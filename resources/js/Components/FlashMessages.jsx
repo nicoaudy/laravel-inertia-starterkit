@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { usePage } from '@inertiajs/inertia-react';
+import { usePage } from '@inertiajs/react';
 
 const FlashMessages = () => {
   const [visible, setVisible] = useState(true);
