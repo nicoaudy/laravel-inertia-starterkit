@@ -16,11 +16,11 @@ class UserUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'max:50'],
-            'email' => ['required', 'max:50', 'email',
+            'email' => [
+                'required', 'max:50', 'email',
                 Rule::unique('users')->ignore($this->route('user')->id),
             ],
             'password' => ['nullable'],
-            'owner' => ['required', 'boolean'],
             'photo' => ['nullable', 'image'],
         ];
     }

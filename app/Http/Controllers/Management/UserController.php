@@ -1,34 +1,31 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Management;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
-use App\Http\Resources\UserCollection;
-use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
-class UsersController extends Controller
+class UserController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Users/Index', [
-            'filters' => Request::all('search', 'role', 'trashed'),
-            'users' => new UserCollection(
-                User::orderByName()
-                    ->filter(Request::only('search', 'role', 'trashed'))
-                    ->paginate()
-                    ->appends(Request::all())
-            ),
+        return Inertia::render('Management/Users/Index', [
+            'filters' => Request::all('search', 'perPage'),
+            'users' => User::orderByName()
+                ->filter(Request::only('search', 'perPage'))
+                ->paginate()
+                ->appends(Request::all()),
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Users/Create');
+        return Inertia::render('Management/Users/Create');
     }
 
     public function store(UserStoreRequest $request)
@@ -37,17 +34,16 @@ class UsersController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
-            'owner' => $request->owner,
             'photo_path' => $request->file('photo') ? $request->file('photo')->store('avatar') : null,
         ]);
 
-        return Redirect::route('users.index')->with('success', 'User created.');
+        return Redirect::route('management.users.index')->with('success', 'User created.');
     }
 
     public function edit(User $user)
     {
-        return Inertia::render('Users/Edit', [
-            'user' => new UserResource($user),
+        return Inertia::render('Management/Users/Edit', [
+            'user' => $user,
         ]);
     }
 
@@ -56,7 +52,6 @@ class UsersController extends Controller
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            'owner' => $request->owner,
         ]);
 
         if ($request->file('photo')) {
@@ -67,20 +62,13 @@ class UsersController extends Controller
             $user->update(['password' => bcrypt($request->password)]);
         }
 
-        return Redirect::back()->with('success', 'User updated.');
+        return Redirect::route('management.users.index')->with('success', 'User updated.');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
 
-        return Redirect::back()->with('success', 'User deleted.');
-    }
-
-    public function restore(User $user)
-    {
-        $user->restore();
-
-        return Redirect::back()->with('success', 'User restored.');
+        return Redirect::route('management.users.index')->with('success', 'User deleted.');
     }
 }

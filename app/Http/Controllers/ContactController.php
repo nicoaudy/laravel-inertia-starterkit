@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactStoreRequest;
 use App\Http\Requests\ContactUpdateRequest;
-use App\Http\Resources\ContactCollection;
-use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -16,12 +14,11 @@ class ContactController extends Controller
     {
         return Inertia::render('Contacts/Index', [
             'filters' => $request->all('search', 'perPage'),
-            'contacts' => new ContactCollection(
-                Contact::orderBy('name')
-                    ->filter($request->only('search', 'perPage'))
-                    ->paginate($request->input('perPage', 10))
-                    ->appends($request->all())
-            ),
+            'contacts' => Contact::orderBy('name')
+                ->filter($request->only('search', 'perPage'))
+                ->paginate($request->input('perPage', 10))
+                ->appends($request->all()),
+
         ]);
     }
 
@@ -40,7 +37,7 @@ class ContactController extends Controller
     public function edit(Contact $contact)
     {
         return Inertia::render('Contacts/Edit', [
-            'contact' => new ContactResource($contact),
+            'contact' => $contact,
         ]);
     }
 
@@ -56,12 +53,5 @@ class ContactController extends Controller
         $contact->delete();
 
         return redirect()->route('contacts.index')->with('error', 'Contact has been deleted successfully.');
-    }
-
-    public function restore(Contact $contact)
-    {
-        $contact->restore();
-
-        return redirect()->route('contacts.index')->with('info', 'Contact has been restored successfully.');
     }
 }

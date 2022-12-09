@@ -8,11 +8,9 @@ import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import SelectInput from '@/Components/SelectInput';
-import TrashedMessage from '@/Components/TrashedMessage';
 
 const Edit = () => {
-  const pageProps = usePage().props;
-  const contact = pageProps.contact.data;
+  const { contact } = usePage().props;
 
   const { data, setData, errors, put, processing } = useForm({
     name: contact.name || '',
@@ -36,12 +34,6 @@ const Edit = () => {
     }
   }
 
-  function restore() {
-    if (confirm('Are you sure you want to restore this contact?')) {
-      Inertia.put(route('contacts.restore', contact.id));
-    }
-  }
-
   return (
     <AuthenticatedLayout>
       <Head title={data.name} />
@@ -56,11 +48,6 @@ const Edit = () => {
         <span className="mx-2 font-medium text-indigo-600">/</span>
         {data.name}
       </h1>
-      {contact.deleted_at && (
-        <TrashedMessage onRestore={restore}>
-          This contact has been deleted.
-        </TrashedMessage>
-      )}
       <div className="max-w-3xl overflow-hidden bg-white rounded shadow">
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col p-8 my-2 mb-4">

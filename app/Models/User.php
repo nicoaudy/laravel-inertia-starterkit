@@ -2,22 +2,24 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRoles;
+
+    public $appends = ['photo'];
 
     protected $fillable = [
         'name',
         'email',
         'password',
-        'owner',
         'photo_path',
     ];
 
@@ -38,7 +40,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'owner' => 'boolean',
     ];
 
     public function getPhotoAttribute()
@@ -46,22 +47,9 @@ class User extends Authenticatable
         return $this->photo_path;
     }
 
-    public function isDemoUser()
-    {
-        return $this->email === 'johndoe@example.com';
-    }
-
     public function scopeOrderByName($query)
     {
         $query->orderBy('name');
-    }
-
-    public function scopeWhereRole($query, $role)
-    {
-        switch ($role) {
-            case 'user': return $query->where('owner', false);
-            case 'owner': return $query->where('owner', true);
-        }
     }
 
     public function scopeFilter($query, array $filters)
@@ -71,14 +59,17 @@ class User extends Authenticatable
                 $query->where('name', 'like', '%'.$search.'%')
                     ->orWhere('email', 'like', '%'.$search.'%');
             });
-        })->when($filters['role'] ?? null, function ($query, $role) {
-            $query->whereRole($role);
-        })->when($filters['trashed'] ?? null, function ($query, $trashed) {
-            if ($trashed === 'with') {
-                $query->withTrashed();
-            } elseif ($trashed === 'only') {
-                $query->onlyTrashed();
-            }
         });
+    }
+
+    /**
+     * Return all the roles the model has, both directly and via roles.
+     */
+    public function getAllRoles(): Collection
+    {
+        /** @var Collection $roles */
+        $roles = $this->roles;
+
+        return $roles->sort()->values();
     }
 }

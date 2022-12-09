@@ -2,24 +2,21 @@
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ReportsController;
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\Management\PermissionController;
+use App\Http\Controllers\Management\RoleController;
+use App\Http\Controllers\Management\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', DashboardController::class)->name('dashboard');
 
     Route::resource('contacts', ContactController::class);
-    Route::put('contacts/{contact}/restore', [ContactController::class, 'restore'])->name('contacts.restore');
 
-    Route::resource('users', UsersController::class);
-    Route::put('users/{user}/restore', [UsersController::class, 'restore'])->name('users.restore');
-
-    Route::get('reports', ReportsController::class)->name('reports');
-
-    Route::get('dummy-users', DashboardController::class)->name('dummy-users');
-    Route::get('dummy-permissions', DashboardController::class)->name('dummy-permissions');
-    Route::get('dummy-roles', DashboardController::class)->name('dummy-roles');
+    Route::prefix('management')->name('management.')->group(function () {
+        Route::resource('permissions', PermissionController::class);
+        Route::resource('roles', RoleController::class);
+        Route::resource('users', UserController::class);
+    });
 });
 
 // 500 error
