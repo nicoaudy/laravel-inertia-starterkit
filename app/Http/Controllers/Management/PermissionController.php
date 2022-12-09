@@ -16,7 +16,7 @@ class PermissionController extends Controller
     {
         return Inertia::render('Management/Permissions/Index', [
             'filters' => $request->all('search', 'perPage'),
-            'permissions' => Permission::filter($request->only('search', 'perPage'))->paginate($request->input('perPage', 10))->appends($request->all())
+            'permissions' => Permission::filter($request->only('search', 'perPage'))->paginate($request->input('perPage', 10))->appends($request->all()),
         ]);
     }
 
@@ -28,6 +28,7 @@ class PermissionController extends Controller
     public function store(PermissionRequest $request)
     {
         Permission::create($request->all());
+
         return redirect()->route('management.permissions.index')->with('success', 'Permission created.');
     }
 

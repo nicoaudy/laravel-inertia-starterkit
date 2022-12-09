@@ -17,7 +17,7 @@ class ContactController extends Controller
             'contacts' => Contact::orderBy('name')
                 ->filter($request->only('search', 'perPage'))
                 ->paginate($request->input('perPage', 10))
-                ->appends($request->all())
+                ->appends($request->all()),
 
         ]);
     }
