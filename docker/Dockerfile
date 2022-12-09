@@ -8,7 +8,6 @@ COPY composer.lock composer.json /var/www/
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
-    cron \
     build-essential \
     libpng-dev \
     libzip-dev \
@@ -47,7 +46,7 @@ RUN docker-php-ext-enable redis
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Install Node
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
   && apt-get install -y nodejs \
   && curl -L https://www.npmjs.com/install.sh | sh
 
