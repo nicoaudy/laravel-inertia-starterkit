@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { usePage } from '@inertiajs/inertia-react';
+import FlashErrors from '@/Components/FlashErrors';
+import Sidebar from '@/Components/Sidebar';
 import FlashMessages from '@/Components/FlashMessages';
-import Sidebar from '../Components/Sidebar';
 
 export default function AuthenticatedLayout({ children }) {
   const { app_name } = usePage().props;
@@ -35,6 +36,7 @@ export default function AuthenticatedLayout({ children }) {
         </div>
         <section className="max-w-7xl mx-auto py-4 px-5">
           <FlashMessages />
+          <FlashErrors />
           {children}
         </section>
       </main>

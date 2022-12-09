@@ -1,6 +1,9 @@
+import useFilterPagination from '@/hooks/useFilterPagination';
 import Pagination from '@/Components/Pagination';
 
-const ResponsivePagination = ({ source, paginate }) => {
+const ResponsivePagination = ({ source }) => {
+  const [, setForm] = useFilterPagination();
+
   return (
     <>
       <div className="mt-2 px-2 py-3 flex items-center justify-between border-t border-gray-200">
@@ -8,14 +11,18 @@ const ResponsivePagination = ({ source, paginate }) => {
           <button
             className="btn-pagination"
             disabled={source.current_page <= 1}
-            onClick={() => paginate(source.current_page - 1)}
+            onClick={() =>
+              setForm((values) => ({ ...values, page: source.current_page - 1 }))
+            }
           >
             Previous
           </button>
           <button
             className="btn-pagination"
             disabled={source.current_page >= source.last_page}
-            onClick={() => paginate(source.current_page + 1)}
+            onClick={() =>
+              setForm((values) => ({ ...values, page: source.current_page + 1 }))
+            }
           >
             Next
           </button>

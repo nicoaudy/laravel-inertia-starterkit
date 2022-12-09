@@ -34,7 +34,7 @@ class ContactController extends Controller
     {
         Contact::create($request->validated());
 
-        return redirect()->route('contacts.index')->with('success', 'Contact created.');
+        return redirect()->route('contacts.index')->with('success', 'Contact has been created successfully.');
     }
 
     public function edit(Contact $contact)
@@ -48,20 +48,20 @@ class ContactController extends Controller
     {
         $contact->update($request->validated());
 
-        return redirect()->back()->with('success', 'Contact updated.');
+        return redirect()->route('contacts.index')->with('success', 'Contact has been updated successfully.');
     }
 
     public function destroy(Contact $contact)
     {
         $contact->delete();
 
-        return redirect()->back()->with('success', 'Contact deleted.');
+        return redirect()->route('contacts.index')->with('error', 'Contact has been deleted successfully.');
     }
 
     public function restore(Contact $contact)
     {
         $contact->restore();
 
-        return redirect()->back()->with('success', 'Contact restored.');
+        return redirect()->route('contacts.index')->with('info', 'Contact has been restored successfully.');
     }
 }
