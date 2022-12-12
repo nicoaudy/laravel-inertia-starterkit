@@ -14,6 +14,8 @@ class PermissionController extends Controller
 {
     public function index(Request $request)
     {
+        $this->can('view permission');
+
         return Inertia::render('Management/Permissions/Index', [
             'filters' => $request->all('search', 'perPage'),
             'permissions' => Permission::filter($request->only('search', 'perPage'))->paginate($request->input('perPage', 10))->appends($request->all()),
@@ -27,8 +29,9 @@ class PermissionController extends Controller
 
     public function store(PermissionRequest $request)
     {
-        Permission::create($request->all());
+        $this->can('add permission');
 
+        Permission::create($request->all());
         return redirect()->route('management.permissions.index')->with('success', 'Permission created.');
     }
 
@@ -47,17 +50,19 @@ class PermissionController extends Controller
 
     public function update(PermissionRequest $request, Permission $permission)
     {
+        $this->can('edit permission');
+
         $permission->update(['name' => strtolower($request->get('name'))]);
         $permission->users()->sync($request->get('users'));
-
         return redirect()->back()->with('success', 'Permission updated.');
     }
 
     public function destroy($id)
     {
+        $this->can('delete permission');
+
         $permission = Permission::findOrFail($id);
         $permission->delete();
-
         return redirect()->route('management.permissions.index')->with('success', 'Permission deleted.');
     }
 

@@ -14,6 +14,8 @@ class UserController extends Controller
 {
     public function index()
     {
+        $this->can('view user');
+
         return Inertia::render('Management/Users/Index', [
             'filters' => Request::all('search', 'perPage'),
             'users' => User::orderByName()
@@ -30,6 +32,8 @@ class UserController extends Controller
 
     public function store(UserStoreRequest $request)
     {
+        $this->can('add user');
+
         User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -49,6 +53,8 @@ class UserController extends Controller
 
     public function update(User $user, UserUpdateRequest $request)
     {
+        $this->can('edit user');
+
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
@@ -67,8 +73,9 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $user->delete();
+        $this->can('delete user');
 
+        $user->delete();
         return Redirect::route('management.users.index')->with('success', 'User deleted.');
     }
 }

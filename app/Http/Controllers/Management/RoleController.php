@@ -15,6 +15,8 @@ class RoleController extends Controller
 {
     public function index(Request $request)
     {
+        $this->can('view role');
+
         return Inertia::render('Management/Roles/Index', [
             'filters' => $request->all('search', 'perPage'),
             'roles' => Role::filter($request->only('search', 'perPage'))->paginate($request->input('perPage', 10))->appends($request->all()),
@@ -30,6 +32,8 @@ class RoleController extends Controller
 
     public function store(RoleRequest $request)
     {
+        $this->can('add role');
+
         $role = Role::create([
             'name' => $request->name,
         ]);
@@ -61,6 +65,8 @@ class RoleController extends Controller
 
     public function update(RoleRequest $request, Role $role)
     {
+        $this->can('edit role');
+
         $role->update(['name' => $request->get('name')]);
         $role->users()->sync($request->get('users'));
         $role->syncPermissions($request->get('permissions'));
@@ -70,6 +76,8 @@ class RoleController extends Controller
 
     public function destroy($id)
     {
+        $this->can('delete role');
+
         $role = Role::findOrFail($id);
         $role->delete();
 

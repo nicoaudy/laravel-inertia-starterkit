@@ -42,7 +42,12 @@ const Sidebar = ({ navOpen, appName }) => {
           <div className="border-gray-700 py-5 text-white border-b rounded"></div>
 
           <div className="py-4 text-gray-400 space-y-1">
-            <SidebarLink text="Dashboard" link="dashboard" icon="dashboard" />
+            <SidebarLink
+              text="Dashboard"
+              link="dashboard"
+              icon="dashboard"
+              can={true} // Force to show without permission
+            />
             <SidebarLink
               text="Contacts"
               link="contacts.index"

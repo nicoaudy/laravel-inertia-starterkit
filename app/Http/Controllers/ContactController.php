@@ -12,6 +12,8 @@ class ContactController extends Controller
 {
     public function index(Request $request)
     {
+        $this->can('view contact');
+
         return Inertia::render('Contacts/Index', [
             'filters' => $request->all('search', 'perPage'),
             'contacts' => Contact::orderBy('name')
@@ -29,8 +31,9 @@ class ContactController extends Controller
 
     public function store(ContactStoreRequest $request)
     {
-        Contact::create($request->validated());
+        $this->can('add contact');
 
+        Contact::create($request->validated());
         return redirect()->route('contacts.index')->with('success', 'Contact has been created successfully.');
     }
 
@@ -43,15 +46,17 @@ class ContactController extends Controller
 
     public function update(Contact $contact, ContactUpdateRequest $request)
     {
-        $contact->update($request->validated());
+        $this->can('edit contact');
 
+        $contact->update($request->validated());
         return redirect()->route('contacts.index')->with('success', 'Contact has been updated successfully.');
     }
 
     public function destroy(Contact $contact)
     {
-        $contact->delete();
+        $this->can('delete contact');
 
+        $contact->delete();
         return redirect()->route('contacts.index')->with('error', 'Contact has been deleted successfully.');
     }
 }
