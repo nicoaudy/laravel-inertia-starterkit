@@ -76,6 +76,7 @@ class UserController extends Controller
         $this->can('delete user');
 
         $user->delete();
+
         return Redirect::route('management.users.index')->with('success', 'User deleted.');
     }
 }

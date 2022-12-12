@@ -34,6 +34,7 @@ class ContactController extends Controller
         $this->can('add contact');
 
         Contact::create($request->validated());
+
         return redirect()->route('contacts.index')->with('success', 'Contact has been created successfully.');
     }
 
@@ -49,6 +50,7 @@ class ContactController extends Controller
         $this->can('edit contact');
 
         $contact->update($request->validated());
+
         return redirect()->route('contacts.index')->with('success', 'Contact has been updated successfully.');
     }
 
@@ -57,6 +59,7 @@ class ContactController extends Controller
         $this->can('delete contact');
 
         $contact->delete();
+
         return redirect()->route('contacts.index')->with('error', 'Contact has been deleted successfully.');
     }
 }

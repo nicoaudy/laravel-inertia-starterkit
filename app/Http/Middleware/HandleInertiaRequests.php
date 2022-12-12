@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
 
@@ -40,7 +39,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => function () use ($request) {
                 return [
                     'user' => $request->user() ? $request->user() : null,
-                    'can' => $request->user() ? $request->user()->getPermissionArray() : []
+                    'can' => $request->user() ? $request->user()->getPermissionArray() : [],
                 ];
             },
             'flash' => function () use ($request) {

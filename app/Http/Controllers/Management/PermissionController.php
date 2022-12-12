@@ -32,6 +32,7 @@ class PermissionController extends Controller
         $this->can('add permission');
 
         Permission::create($request->all());
+
         return redirect()->route('management.permissions.index')->with('success', 'Permission created.');
     }
 
@@ -54,6 +55,7 @@ class PermissionController extends Controller
 
         $permission->update(['name' => strtolower($request->get('name'))]);
         $permission->users()->sync($request->get('users'));
+
         return redirect()->back()->with('success', 'Permission updated.');
     }
 
@@ -63,6 +65,7 @@ class PermissionController extends Controller
 
         $permission = Permission::findOrFail($id);
         $permission->delete();
+
         return redirect()->route('management.permissions.index')->with('success', 'Permission deleted.');
     }
 
