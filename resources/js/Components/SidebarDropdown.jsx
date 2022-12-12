@@ -41,9 +41,17 @@ const SidebarDropdown = ({ items, icon, text, prefixLink }) => {
       </div>
       {open && (
         <div className="text-sm border-l-2 border-gray-800 mx-6 my-2.5 px-2.5 flex flex-col gap-y-1">
-          {items.map(({ link, text }, index) => (
-            <SidebarDropdownLink link={link} text={text} key={`${text}-${index}`} />
-          ))}
+          {items.map(({ link, text, can }, index) => {
+            if (!can) return null;
+
+            return (
+              <SidebarDropdownLink
+                link={link}
+                text={text}
+                key={`${text}-${index}`}
+              />
+            );
+          })}
         </div>
       )}
     </div>

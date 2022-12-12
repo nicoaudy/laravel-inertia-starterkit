@@ -41,14 +41,7 @@ const Index = () => {
               <TableDataRow key={index}>
                 <td className="py-3 px-6 text-left">{permissions.from + index}</td>
                 <td className="py-3 px-6 text-left">{guard_name}</td>
-                <td className="py-3 px-6 text-left">
-                  <Link
-                    href={route('management.permissions.edit', id)}
-                    className="hover:text-indigo-600 hover:underline"
-                  >
-                    {name}
-                  </Link>
-                </td>
+                <td className="py-3 px-6 text-left">{name}</td>
                 <td className="py-3 px-6 text-center">
                   <div className="flex item-center justify-center">
                     <div className="transform hover:text-purple-500 hover:scale-110 cursor-pointer">

@@ -18,6 +18,11 @@ class DatabaseSeeder extends Seeder
         Permission::insert([
             ['guard_name' => 'web', 'name' => 'impersonate', 'created_at' => now()],
 
+            ['guard_name' => 'web', 'name' => 'add contact', 'created_at' => now()],
+            ['guard_name' => 'web', 'name' => 'edit contact', 'created_at' => now()],
+            ['guard_name' => 'web', 'name' => 'delete contact', 'created_at' => now()],
+            ['guard_name' => 'web', 'name' => 'view contact', 'created_at' => now()],
+
             ['guard_name' => 'web', 'name' => 'add user', 'created_at' => now()],
             ['guard_name' => 'web', 'name' => 'edit user', 'created_at' => now()],
             ['guard_name' => 'web', 'name' => 'delete user', 'created_at' => now()],

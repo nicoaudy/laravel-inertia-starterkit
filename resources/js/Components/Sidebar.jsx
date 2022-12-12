@@ -43,15 +43,32 @@ const Sidebar = ({ navOpen, appName }) => {
 
           <div className="py-4 text-gray-400 space-y-1">
             <SidebarLink text="Dashboard" link="dashboard" icon="dashboard" />
-            <SidebarLink text="Contacts" link="contacts.index" icon="office" />
+            <SidebarLink
+              text="Contacts"
+              link="contacts.index"
+              icon="office"
+              can={auth.can['view contact']}
+            />
             <SidebarDropdown
               text="Management"
               prefixLink="management."
               icon="book"
               items={[
-                { link: 'management.permissions.index', text: 'Permissions' },
-                { link: 'management.roles.index', text: 'Roles' },
-                { link: 'management.users.index', text: 'Users' },
+                {
+                  link: 'management.permissions.index',
+                  text: 'Permissions',
+                  can: auth.can['view permission'],
+                },
+                {
+                  link: 'management.roles.index',
+                  text: 'Roles',
+                  can: auth.can['view role'],
+                },
+                {
+                  link: 'management.users.index',
+                  text: 'Users',
+                  can: auth.can['view user'],
+                },
               ]}
             />
           </div>

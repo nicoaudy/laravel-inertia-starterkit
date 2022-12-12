@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react';
 import classNames from 'classnames';
 import Icon from '@/Components/Icon';
 
-const SidebarLink = ({ icon, link, text }) => {
+const SidebarLink = ({ icon, link, text, can }) => {
   const isActive = route().current(link + '*');
 
   const navClass = classNames(
@@ -16,6 +16,8 @@ const SidebarLink = ({ icon, link, text }) => {
     'text-white fill-current': isActive,
     'fill-current': !isActive,
   });
+
+  if (!can) return;
 
   return (
     <Link href={route(link)} className={navClass}>

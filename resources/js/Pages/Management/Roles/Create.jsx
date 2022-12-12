@@ -43,7 +43,7 @@ const Create = () => {
 
   return (
     <AuthenticatedLayout>
-      <Head title="Create Contact" />
+      <Head title="Create Role" />
 
       <div className="flex justify-between items-center border-b border-gray-300">
         <h1 className="mt-2 mb-6 text-2xl font-semibold">

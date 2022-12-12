@@ -45,14 +45,7 @@ const Index = () => {
             return (
               <TableDataRow key={index}>
                 <td className="py-3 px-6 text-left">{contacts.from + index}</td>
-                <td className="py-3 px-6 text-left">
-                  <Link
-                    href={route('contacts.edit', id)}
-                    className="hover:text-indigo-600 hover:underline"
-                  >
-                    {name}
-                  </Link>
-                </td>
+                <td className="py-3 px-6 text-left">{name}</td>
                 <td className="py-3 px-6 text-left">{city}</td>
                 <td className="py-3 px-6 text-left">{phone}</td>
                 <td className="py-3 px-6 text-center">
