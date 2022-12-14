@@ -1,15 +1,15 @@
+import { useState } from 'react';
 import { router } from '@inertiajs/react';
 import { Head, Link, usePage, useForm } from '@inertiajs/react';
+import { TextInput, Modal, Button, Group, Text } from '@mantine/core';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteButton from '@/Components/DeleteButton';
-import LoadingButton from '@/Components/LoadingButton';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
 import FileInput from '@/Components/FileInput';
+import PrimaryButton from '@/Components/PrimaryButton';
 
 const Edit = () => {
   const { user } = usePage().props;
+  const [open, setOpen] = useState(false);
 
   const { data, setData, errors, post, processing } = useForm({
     name: user.name || '',
@@ -32,13 +32,11 @@ const Edit = () => {
   }
 
   function destroy() {
-    if (confirm('Are you sure you want to delete this user?')) {
-      router.delete(route('management.users.destroy', user.id));
-    }
+    router.delete(route('management.users.destroy', user.id));
   }
 
   return (
-    <AuthenticatedLayout>
+    <>
       <Head title={data.name} />
 
       <div className="flex justify-between items-center border-b border-gray-300">
@@ -59,39 +57,36 @@ const Edit = () => {
           <div className="flex flex-col p-8 my-2 mb-4">
             <div className="-mx-3 md:flex mb-6">
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                <InputLabel forInput="name" value="Name" />
                 <TextInput
+                  label="Name"
                   type="text"
                   name="name"
                   value={data.name}
-                  className="w-full"
-                  handleChange={(e) => setData('name', e.target.value)}
+                  onChange={(e) => setData('name', e.target.value)}
+                  error={errors.name}
                 />
-                <InputError message={errors.name} className="mt-2" />
               </div>
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                <InputLabel forInput="email" value="Email" />
                 <TextInput
+                  label="Email"
                   type="email"
                   name="email"
                   value={data.email}
-                  className="w-full"
-                  handleChange={(e) => setData('email', e.target.value)}
+                  onChange={(e) => setData('email', e.target.value)}
+                  error={errors.email}
                 />
-                <InputError message={errors.email} className="mt-2" />
               </div>
             </div>
             <div className="-mx-3 md:flex mb-6">
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                <InputLabel forInput="password" value="Password" />
                 <TextInput
+                  label="Password"
                   type="password"
                   name="password"
                   value={data.password}
-                  className="w-full"
-                  handleChange={(e) => setData('password', e.target.value)}
+                  onChange={(e) => setData('password', e.target.value)}
+                  error={errors.password}
                 />
-                <InputError message={errors.password} className="mt-2" />
               </div>
             </div>
             <div className="-mx-3 md:flex mb-6">
@@ -109,21 +104,35 @@ const Edit = () => {
             </div>
           </div>
           <div className="flex items-center px-8 py-4 bg-gray-100 border-t border-gray-200">
-            {!user.deleted_at && (
-              <DeleteButton onDelete={destroy}>Delete User</DeleteButton>
-            )}
-            <LoadingButton
-              loading={processing}
-              type="submit"
-              className="ml-auto btn-primary"
-            >
+            <DeleteButton onDelete={() => setOpen(true)}>Delete User</DeleteButton>
+            <PrimaryButton processing={processing} type="submit" className="ml-auto">
               Update User
-            </LoadingButton>
+            </PrimaryButton>
           </div>
         </form>
+
+        <Modal
+          opened={open}
+          withCloseButton
+          onClose={() => setOpen(false)}
+          title="Are you sure want to delete this data?"
+        >
+          <Text size="md" color="dimmed">
+            Once confirmed, you cannot redo this action
+          </Text>
+          <Group className="mt-4" position="right">
+            <Button variant="outline" color="gray" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant="outline" color="red" onClick={destroy}>
+              Confirm
+            </Button>
+          </Group>
+        </Modal>
       </div>
-    </AuthenticatedLayout>
+    </>
   );
 };
 
+Edit.layout = (page) => <AuthenticatedLayout children={page} />;
 export default Edit;

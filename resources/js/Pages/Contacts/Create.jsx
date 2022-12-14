@@ -1,10 +1,7 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { TextInput } from '@mantine/core';
-import LoadingButton from '@/Components/LoadingButton';
-import SelectInput from '@/Components/SelectInput';
-import InputLabel from '@/Components/InputLabel';
-import InputError from '@/Components/InputError';
+import { TextInput, Select } from '@mantine/core';
+import PrimaryButton from '@/Components/PrimaryButton';
 
 const Create = () => {
   const { data, setData, errors, post, processing } = useForm({
@@ -115,20 +112,17 @@ const Create = () => {
 
             <div className="-mx-3 md:flex mb-6">
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                <InputLabel forInput="country" value="Country" />
-                <SelectInput
+                <Select
                   label="Country"
                   name="country"
                   errors={errors.country}
                   value={data.country}
-                  className="w-full"
-                  onChange={(e) => setData('country', e.target.value)}
-                >
-                  <option value=""></option>
-                  <option value="CA">Canada</option>
-                  <option value="US">United States</option>
-                </SelectInput>
-                <InputError message={errors.country} className="mt-2" />
+                  onChange={(e) => setData('country', e)}
+                  data={[
+                    { value: 'CA', label: 'Canada' },
+                    { value: 'US', label: 'United States' },
+                  ]}
+                />
               </div>
 
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
@@ -144,13 +138,9 @@ const Create = () => {
             </div>
           </div>
           <div className="flex items-center justify-end px-8 py-4 bg-gray-100 border-t border-gray-200">
-            <LoadingButton
-              loading={processing}
-              type="submit"
-              className="btn-primary"
-            >
+            <PrimaryButton processing={processing} type="submit">
               Submit
-            </LoadingButton>
+            </PrimaryButton>
           </div>
         </form>
       </div>

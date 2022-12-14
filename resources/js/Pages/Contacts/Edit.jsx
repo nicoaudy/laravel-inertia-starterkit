@@ -1,13 +1,10 @@
 import { useState } from 'react';
 import { router } from '@inertiajs/react';
 import { Link, Head, usePage, useForm } from '@inertiajs/react';
-import { TextInput, Modal, Button, Group, Text } from '@mantine/core';
+import { TextInput, Select, Modal, Button, Group, Text } from '@mantine/core';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteButton from '@/Components/DeleteButton';
-import LoadingButton from '@/Components/LoadingButton';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import SelectInput from '@/Components/SelectInput';
+import PrimaryButton from '@/Components/PrimaryButton';
 
 const Edit = () => {
   const { contact } = usePage().props;
@@ -126,20 +123,17 @@ const Edit = () => {
 
             <div className="-mx-3 md:flex mb-6">
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                <InputLabel forInput="country" value="Country" />
-                <SelectInput
+                <Select
                   label="Country"
                   name="country"
                   errors={errors.country}
                   value={data.country}
-                  className="w-full"
-                  onChange={(e) => setData('country', e.target.value)}
-                >
-                  <option value=""></option>
-                  <option value="CA">Canada</option>
-                  <option value="US">United States</option>
-                </SelectInput>
-                <InputError message={errors.country} className="mt-2" />
+                  onChange={(e) => setData('country', e)}
+                  data={[
+                    { value: 'CA', label: 'Canada' },
+                    { value: 'US', label: 'United States' },
+                  ]}
+                />
               </div>
 
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
@@ -158,13 +152,9 @@ const Edit = () => {
             <DeleteButton onDelete={() => setOpen(true)}>
               Delete Contact
             </DeleteButton>
-            <LoadingButton
-              loading={processing}
-              type="submit"
-              className="ml-auto btn-primary"
-            >
-              Update Contact
-            </LoadingButton>
+            <PrimaryButton processing={processing} type="submit" className="ml-auto">
+              Delete Contact
+            </PrimaryButton>
           </div>
         </form>
       </div>

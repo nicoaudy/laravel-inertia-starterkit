@@ -13,7 +13,7 @@ const Index = () => {
   const { data } = users;
 
   return (
-    <AuthenticatedLayout>
+    <>
       <Head title="Users" />
 
       <div className="flex justify-between items-center border-b border-gray-300">
@@ -96,8 +96,9 @@ const Index = () => {
         </tbody>
       </TableWrapper>
       <ResponsivePagination source={users} />
-    </AuthenticatedLayout>
+    </>
   );
 };
 
+Index.layout = (page) => <AuthenticatedLayout children={page} />;
 export default Index;
