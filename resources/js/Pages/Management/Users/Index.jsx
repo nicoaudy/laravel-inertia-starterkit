@@ -1,16 +1,64 @@
 import { Head, Link, usePage } from '@inertiajs/react';
-import Icon from '@/Components/Icon';
-import TableWrapper from '@/Components/TableWrapper';
-import TableHeader from '@/Components/TableHeader';
-import TableHeaderRow from '@/Components/TableHeaderRow';
-import TableDataRow from '@/Components/TableDataRow';
+import { ScrollArea, Table } from '@mantine/core';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import ResponsivePagination from '@/Components/ResponsivePagination';
 import Filter from '@/Components/Filter';
+import Icon from '@/Components/Icon';
+import ResponsivePagination from '@/Components/ResponsivePagination';
 
 const Index = () => {
   const { users } = usePage().props;
   const { data } = users;
+
+  const ths = (
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th colSpan="2"></th>
+    </tr>
+  );
+
+  const rows = data.map(({ id, name, photo, email }, index) => (
+    <tr key={index}>
+      <td>{users.from + index}</td>
+      <td>
+        <Link href={route('management.users.edit', id)}>
+          {photo && (
+            <img
+              src={`/${photo}`}
+              className="block w-5 h-5 mr-2 -my-2 rounded-full"
+            />
+          )}
+          {name}
+        </Link>
+      </td>
+      <td>
+        <Link
+          tabIndex="-1"
+          href={route('management.users.edit', id)}
+          className="flex items-center px-6 py-4 focus:text-indigo focus:outline-none"
+        >
+          {email}
+        </Link>
+      </td>
+      <td>
+        <div className="flex item-center justify-center">
+          <div className="transform hover:text-purple-500 hover:scale-110 cursor-pointer">
+            <Link
+              tabIndex="-1"
+              href={route('management.users.edit', id)}
+              className="flex items-center px-4 focus:outline-none"
+            >
+              <Icon
+                name="cheveron-right"
+                className="block w-6 h-6 text-gray-400 fill-current"
+              />
+            </Link>
+          </div>
+        </div>
+      </td>
+    </tr>
+  ));
 
   return (
     <>
@@ -30,71 +78,12 @@ const Index = () => {
 
       <Filter />
 
-      <TableWrapper>
-        <TableHeader>
-          <TableHeaderRow>
-            <th className="py-3 px-6 text-left">#</th>
-            <th className="py-3 px-6 text-left">Name</th>
-            <th className="py-3 px-6 text-left">Email</th>
-            <th className="py-3 px-6 text-center" colSpan="2"></th>
-          </TableHeaderRow>
-        </TableHeader>
-        <tbody className="text-gray-800 text-sm">
-          {data.map(({ id, name, photo, email }, index) => {
-            return (
-              <TableDataRow key={index}>
-                <td className="py-3 px-6 text-left">{users.from + index}</td>
-                <td className="py-3 px-6 text-left">
-                  <Link
-                    href={route('management.users.edit', id)}
-                    className="flex items-center px-6 py-4 focus:text-indigo-700 focus:outline-none"
-                  >
-                    {photo && (
-                      <img
-                        src={`/${photo}`}
-                        className="block w-5 h-5 mr-2 -my-2 rounded-full"
-                      />
-                    )}
-                    {name}
-                  </Link>
-                </td>
-                <td className="py-3 px-6 text-left">
-                  <Link
-                    tabIndex="-1"
-                    href={route('management.users.edit', id)}
-                    className="flex items-center px-6 py-4 focus:text-indigo focus:outline-none"
-                  >
-                    {email}
-                  </Link>
-                </td>
-                <td className="py-3 px-6 text-center">
-                  <div className="flex item-center justify-center">
-                    <div className="transform hover:text-purple-500 hover:scale-110 cursor-pointer">
-                      <Link
-                        tabIndex="-1"
-                        href={route('management.users.edit', id)}
-                        className="flex items-center px-4 focus:outline-none"
-                      >
-                        <Icon
-                          name="cheveron-right"
-                          className="block w-6 h-6 text-gray-400 fill-current"
-                        />
-                      </Link>
-                    </div>
-                  </div>
-                </td>
-              </TableDataRow>
-            );
-          })}
-          {data.length === 0 && (
-            <TableDataRow>
-              <td className="px-6 py-4 border-t" colSpan="5">
-                No users found.
-              </td>
-            </TableDataRow>
-          )}
-        </tbody>
-      </TableWrapper>
+      <ScrollArea>
+        <Table highlightOnHover>
+          <thead>{ths}</thead>
+          <tbody>{rows}</tbody>
+        </Table>
+      </ScrollArea>
       <ResponsivePagination source={users} />
     </>
   );

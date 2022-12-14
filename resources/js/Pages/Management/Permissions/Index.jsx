@@ -1,16 +1,46 @@
 import { Head, Link, usePage } from '@inertiajs/react';
+import { ScrollArea, Table } from '@mantine/core';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import Icon from '@/Components/Icon';
-import TableWrapper from '@/Components/TableWrapper';
-import TableHeader from '@/Components/TableHeader';
-import TableHeaderRow from '@/Components/TableHeaderRow';
-import TableDataRow from '@/Components/TableDataRow';
-import ResponsivePagination from '@/Components/ResponsivePagination';
 import Filter from '@/Components/Filter';
+import Icon from '@/Components/Icon';
+import ResponsivePagination from '@/Components/ResponsivePagination';
 
 const Index = () => {
   const { permissions } = usePage().props;
   const { data } = permissions;
+
+  const ths = (
+    <tr>
+      <th>#</th>
+      <th>Guard</th>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  );
+
+  const rows = data.map(({ id, guard_name, name }, index) => (
+    <tr key={index}>
+      <td className="py-3 px-6 text-left">{permissions.from + index}</td>
+      <td className="py-3 px-6 text-left">{guard_name}</td>
+      <td className="py-3 px-6 text-left">{name}</td>
+      <td className="py-3 px-6 text-center">
+        <div className="flex item-center justify-center">
+          <div className="transform hover:text-purple-500 hover:scale-110 cursor-pointer">
+            <Link
+              tabIndex="-1"
+              href={route('management.permissions.edit', id)}
+              className="flex items-center px-4 focus:outline-none"
+            >
+              <Icon
+                name="cheveron-right"
+                className="block w-6 h-6 text-gray-400 fill-current"
+              />
+            </Link>
+          </div>
+        </div>
+      </td>
+    </tr>
+  ));
 
   return (
     <>
@@ -25,51 +55,14 @@ const Index = () => {
           <span className="hidden md:inline"> Permission</span>
         </Link>
       </div>
+
       <Filter />
-      <TableWrapper>
-        <TableHeader>
-          <TableHeaderRow>
-            <th className="py-3 px-6 text-left">#</th>
-            <th className="py-3 px-6 text-left">Guard</th>
-            <th className="py-3 px-6 text-left">Name</th>
-            <th className="py-3 px-6 text-center" colSpan="2"></th>
-          </TableHeaderRow>
-        </TableHeader>
-        <tbody className="text-gray-800 text-sm">
-          {data.map(({ id, name, guard_name }, index) => {
-            return (
-              <TableDataRow key={index}>
-                <td className="py-3 px-6 text-left">{permissions.from + index}</td>
-                <td className="py-3 px-6 text-left">{guard_name}</td>
-                <td className="py-3 px-6 text-left">{name}</td>
-                <td className="py-3 px-6 text-center">
-                  <div className="flex item-center justify-center">
-                    <div className="transform hover:text-purple-500 hover:scale-110 cursor-pointer">
-                      <Link
-                        tabIndex="-1"
-                        href={route('management.permissions.edit', id)}
-                        className="flex items-center px-4 focus:outline-none"
-                      >
-                        <Icon
-                          name="cheveron-right"
-                          className="block w-6 h-6 text-gray-400 fill-current"
-                        />
-                      </Link>
-                    </div>
-                  </div>
-                </td>
-              </TableDataRow>
-            );
-          })}
-          {data.length === 0 && (
-            <TableDataRow>
-              <td className="px-6 py-4 border-t" colSpan="4">
-                No permissions found.
-              </td>
-            </TableDataRow>
-          )}
-        </tbody>
-      </TableWrapper>
+      <ScrollArea>
+        <Table highlightOnHover>
+          <thead>{ths}</thead>
+          <tbody>{rows}</tbody>
+        </Table>
+      </ScrollArea>
       <ResponsivePagination source={permissions} />
     </>
   );
