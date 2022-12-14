@@ -1,5 +1,5 @@
 import useFilterPagination from '@/hooks/useFilterPagination';
-import TextInput from '@/Components/TextInput';
+import { TextInput } from '@mantine/core';
 
 const Filter = () => {
   const [form, , handleChange] = useFilterPagination();
@@ -25,7 +25,6 @@ const Filter = () => {
       </div>
       <TextInput
         className="w-full md:w-1/3"
-        autoComplete="off"
         type="text"
         name="search"
         value={form.search}

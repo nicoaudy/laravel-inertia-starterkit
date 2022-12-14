@@ -3,6 +3,7 @@ import '../css/app.css';
 
 import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';
+import { MantineProvider } from '@mantine/core';
 
 const appName =
   window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
@@ -18,6 +19,14 @@ createInertiaApp({
   },
   setup({ el, App, props }) {
     const root = createRoot(el);
-    root.render(<App {...props} />);
+    root.render(
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        emotionOptions={{ key: 'mantine', prepend: false }}
+      >
+        <App {...props} />
+      </MantineProvider>
+    );
   },
 });

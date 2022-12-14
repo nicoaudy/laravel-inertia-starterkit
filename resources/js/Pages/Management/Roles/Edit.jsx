@@ -1,15 +1,15 @@
+import { useState } from 'react';
 import { router } from '@inertiajs/react';
 import { Link, Head, usePage, useForm } from '@inertiajs/react';
+import { TextInput, Checkbox, Modal, Button, Group, Text } from '@mantine/core';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteButton from '@/Components/DeleteButton';
-import LoadingButton from '@/Components/LoadingButton';
-import TextInput from '@/Components/TextInput';
-import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
-import Checkbox from '@/Components/CustomCheckbox';
+import PrimaryButton from '@/Components/PrimaryButton';
 
 const Edit = () => {
   const { role, permissions, rolePermissions, users } = usePage().props;
+  const [open, setOpen] = useState(false);
 
   const { data, setData, errors, put, processing } = useForm({
     name: role.name || '',
@@ -23,9 +23,7 @@ const Edit = () => {
   }
 
   function destroy() {
-    if (confirm('Are you sure you want to delete this role?')) {
-      router.delete(route('management.roles.destroy', role.id));
-    }
+    router.delete(route('management.roles.destroy', role.id));
   }
 
   function selectAll() {
@@ -73,7 +71,7 @@ const Edit = () => {
   }
 
   return (
-    <AuthenticatedLayout>
+    <>
       <Head title={role.name} />
 
       <div className="flex justify-between items-center border-b border-gray-300">
@@ -94,15 +92,15 @@ const Edit = () => {
           <div className="flex flex-col p-8 my-2 mb-4">
             <div className="-mx-3 md:flex mb-6">
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                <InputLabel forInput="name" value="Name" />
                 <TextInput
+                  label="Name"
                   type="text"
                   name="name"
                   value={data.name}
                   className="w-full"
-                  handleChange={(e) => setData('name', e.target.value)}
+                  onChange={(e) => setData('name', e.target.value)}
+                  error={errors.name}
                 />
-                <InputError message={errors.name} className="mt-2" />
               </div>
             </div>
             <div className="-mx-3 md:flex mb-6">
@@ -110,25 +108,23 @@ const Edit = () => {
                 <InputLabel for="permission" value="Permissions" className="mb-4" />
                 <label className="flex items-center">
                   <Checkbox
-                    type="checkbox"
+                    label="Select All"
                     name="selectAll"
                     checked={data.permissions.length == permissions.length}
-                    handleChange={selectAll}
+                    onChange={selectAll}
                   />
-                  <span className="ml-2 text-sm text-gray-600">Select All</span>
                 </label>
                 <div className="grid grid-cols-2 space-y-2">
                   {permissions.map(({ id, name }) => (
-                    <label className="flex items-center" key={id}>
-                      <Checkbox
-                        type="checkbox"
-                        name="permissions"
-                        value={id}
-                        handleChange={() => onSelect(id)}
-                        checked={data.permissions.includes(id)}
-                      />
-                      <span className="ml-2 text-sm text-gray-600">{name}</span>
-                    </label>
+                    <Checkbox
+                      key={id}
+                      label={name}
+                      type="checkbox"
+                      name="permissions"
+                      value={id}
+                      onChange={() => onSelect(id)}
+                      checked={data.permissions.includes(id)}
+                    />
                   ))}
                 </div>
               </div>
@@ -138,46 +134,58 @@ const Edit = () => {
                 <InputLabel for="user" value="Users" className="mb-4" />
                 <label className="flex items-center">
                   <Checkbox
-                    type="checkbox"
+                    label="Select All"
                     name="selectAllUser"
                     checked={data.users.length == users.length}
-                    handleChange={selectAllUser}
+                    onChange={selectAllUser}
                   />
-                  <span className="ml-2 text-sm text-gray-600">Select All</span>
                 </label>
                 <div className="grid grid-cols-2 space-y-2">
                   {users.map(({ id, name }) => (
-                    <label className="flex items-center" key={id}>
-                      <Checkbox
-                        type="checkbox"
-                        name="users"
-                        value={id}
-                        handleChange={() => onUserSelect(id)}
-                        checked={data.users.includes(id)}
-                      />
-                      <span className="ml-2 text-sm text-gray-600">{name}</span>
-                    </label>
+                    <Checkbox
+                      key={id}
+                      label={name}
+                      type="checkbox"
+                      name="users"
+                      value={id}
+                      onChange={() => onUserSelect(id)}
+                      checked={data.users.includes(id)}
+                    />
                   ))}
                 </div>
               </div>
             </div>
           </div>
           <div className="flex items-center px-8 py-4 bg-gray-100 border-t border-gray-200">
-            {!role.deleted_at && (
-              <DeleteButton onDelete={destroy}>Delete Role</DeleteButton>
-            )}
-            <LoadingButton
-              loading={processing}
-              type="submit"
-              className="ml-auto btn-primary"
-            >
+            <DeleteButton onDelete={() => setOpen(true)}>Delete Role</DeleteButton>
+            <PrimaryButton processing={processing} type="submit" className="ml-auto">
               Update Role
-            </LoadingButton>
+            </PrimaryButton>
           </div>
         </form>
       </div>
-    </AuthenticatedLayout>
+
+      <Modal
+        opened={open}
+        withCloseButton
+        onClose={() => setOpen(false)}
+        title="Are you sure want to delete this data?"
+      >
+        <Text size="md" color="dimmed">
+          Once confirmed, you cannot redo this action
+        </Text>
+        <Group className="mt-4" position="right">
+          <Button variant="outline" color="gray" onClick={() => setOpen(false)}>
+            Cancel
+          </Button>
+          <Button variant="outline" color="red" onClick={destroy}>
+            Confirm
+          </Button>
+        </Group>
+      </Modal>
+    </>
   );
 };
 
+Edit.layout = (page) => <AuthenticatedLayout children={page} />;
 export default Edit;

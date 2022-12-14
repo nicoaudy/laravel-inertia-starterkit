@@ -80,7 +80,7 @@ const Sidebar = ({ navOpen, appName }) => {
         </div>
 
         {/* PROFILE */}
-        <div className="text-gray-200 border-gray-800 rounded flex items-center justify-between p-2">
+        <div className="text-gray-200 border-gray-800 rounded flex items-center justify-between p-2 mb-2">
           <Link
             href={route('management.users.edit', auth.user.id)}
             className="flex items-center space-x-2"
@@ -90,15 +90,15 @@ const Sidebar = ({ navOpen, appName }) => {
               className="w-7 rounded-full"
               alt="Profile"
             />
-            <h1>{auth.user.name}</h1>
+            <p>{auth.user.name}</p>
           </Link>
           <Link
             as="button"
             href={route('logout')}
-            className="hover:bg-gray-800 hover:text-white p-2 rounded"
+            className="hover:bg-gray-800 hover:text-white rounded mr-4"
             method="post"
           >
-            <Icon name="logout" className="w-6 h-6" />
+            <Icon name="logout" className="w-5 h-5" />
           </Link>
         </div>
       </div>

@@ -1,10 +1,8 @@
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import InputError from '@/Components/InputError';
+import { TextInput, Checkbox } from '@mantine/core';
 import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
-import Checkbox from '@/Components/CustomCheckbox';
-import LoadingButton from '@/Components/LoadingButton';
+import PrimaryButton from '@/Components/PrimaryButton';
 
 const Create = () => {
   const { permissions } = usePage().props;
@@ -42,7 +40,7 @@ const Create = () => {
   }
 
   return (
-    <AuthenticatedLayout>
+    <>
       <Head title="Create Role" />
 
       <div className="flex justify-between items-center border-b border-gray-300">
@@ -62,15 +60,14 @@ const Create = () => {
           <div className="flex flex-col p-8 my-2 mb-4">
             <div className="-mx-3 md:flex mb-6">
               <div className="w-1/2 px-3 mb-6 md:mb-0">
-                <InputLabel forInput="name" value="Name" />
                 <TextInput
+                  label="Email"
                   type="text"
                   name="name"
                   value={data.name}
-                  className="w-full"
-                  handleChange={(e) => setData('name', e.target.value)}
+                  onChange={(e) => setData('name', e.target.value)}
+                  error={errors.name}
                 />
-                <InputError message={errors.name} className="mt-2" />
               </div>
             </div>
 
@@ -78,39 +75,37 @@ const Create = () => {
               <div className="w-full px-3 mb-6 md:mb-0">
                 <InputLabel for="permission" value="Permissions" className="mb-4" />
                 <label className="flex items-center">
-                  <Checkbox type="checkbox" handleChange={selectAll} />
-                  <span className="ml-2 text-sm text-gray-600">Select All</span>
+                  <Checkbox
+                    label="Select All"
+                    type="checkbox"
+                    onChange={selectAll}
+                  />
                 </label>
                 <div className="grid grid-cols-2 space-y-2">
                   {permissions.map(({ id, name }) => (
-                    <label className="flex items-center" key={id}>
-                      <Checkbox
-                        type="checkbox"
-                        name="permissions"
-                        value={id}
-                        handleChange={() => onSelect(id)}
-                        checked={data.permissions.includes(id)}
-                      />
-                      <span className="ml-2 text-sm text-gray-600">{name}</span>
-                    </label>
+                    <Checkbox
+                      key={id}
+                      label={name}
+                      name="permissions"
+                      value={id}
+                      onChange={() => onSelect(id)}
+                      checked={data.permissions.includes(id)}
+                    />
                   ))}
                 </div>
               </div>
             </div>
           </div>
           <div className="flex items-center justify-end px-8 py-4 bg-gray-100 border-t border-gray-200">
-            <LoadingButton
-              loading={processing}
-              type="submit"
-              className="btn-primary"
-            >
+            <PrimaryButton processing={processing} type="submit">
               Submit
-            </LoadingButton>
+            </PrimaryButton>
           </div>
         </form>
       </div>
-    </AuthenticatedLayout>
+    </>
   );
 };
 
+Create.layout = (page) => <AuthenticatedLayout children={page} />;
 export default Create;

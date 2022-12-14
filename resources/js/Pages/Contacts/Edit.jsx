@@ -1,15 +1,14 @@
+import { useState } from 'react';
 import { router } from '@inertiajs/react';
 import { Link, Head, usePage, useForm } from '@inertiajs/react';
+import { TextInput, Select, Modal, Button, Group, Text } from '@mantine/core';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteButton from '@/Components/DeleteButton';
-import LoadingButton from '@/Components/LoadingButton';
-import TextInput from '@/Components/TextInput';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import SelectInput from '@/Components/SelectInput';
+import PrimaryButton from '@/Components/PrimaryButton';
 
 const Edit = () => {
   const { contact } = usePage().props;
+  const [open, setOpen] = useState(false);
 
   const { data, setData, errors, put, processing } = useForm({
     name: contact.name || '',
@@ -28,13 +27,11 @@ const Edit = () => {
   }
 
   function destroy() {
-    if (confirm('Are you sure you want to delete this contact?')) {
-      router.delete(route('contacts.destroy', contact.id));
-    }
+    router.delete(route('contacts.destroy', contact.id));
   }
 
   return (
-    <AuthenticatedLayout>
+    <>
       <Head title={data.name} />
 
       <div className="flex justify-between items-center border-b border-gray-300">
@@ -55,125 +52,134 @@ const Edit = () => {
           <div className="flex flex-col p-8 my-2 mb-4">
             <div className="-mx-3 md:flex mb-6">
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                <InputLabel forInput="name" value="Name" />
                 <TextInput
+                  label="Name"
                   type="text"
                   name="name"
                   value={data.name}
-                  className="w-full"
-                  handleChange={(e) => setData('name', e.target.value)}
+                  onChange={(e) => setData('name', e.target.value)}
+                  error={errors.name}
                 />
-                <InputError message={errors.name} className="mt-2" />
               </div>
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                <InputLabel forInput="email" value="Email" />
                 <TextInput
+                  label="Email"
                   type="email"
                   name="email"
                   value={data.email}
-                  className="w-full"
-                  handleChange={(e) => setData('email', e.target.value)}
+                  onChange={(e) => setData('email', e.target.value)}
+                  error={errors.email}
                 />
-                <InputError message={errors.email} className="mt-2" />
               </div>
             </div>
 
             <div className="-mx-3 md:flex mb-6">
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                <InputLabel forInput="phone" value="Phone" />
                 <TextInput
-                  type="number"
+                  label="Phone"
+                  type="text"
                   name="phone"
                   value={data.phone}
                   className="w-full"
-                  handleChange={(e) => setData('phone', e.target.value)}
+                  onChange={(e) => setData('phone', e.target.value)}
+                  error={errors.phone}
                 />
-                <InputError message={errors.phone} className="mt-2" />
               </div>
 
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                <InputLabel forInput="address" value="Address" />
                 <TextInput
+                  label="Address"
                   type="text"
                   name="address"
                   value={data.address}
-                  className="w-full"
-                  handleChange={(e) => setData('address', e.target.value)}
+                  onChange={(e) => setData('address', e.target.value)}
+                  error={errors.address}
                 />
-                <InputError message={errors.address} className="mt-2" />
               </div>
             </div>
 
             <div className="-mx-3 md:flex mb-6">
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                <InputLabel forInput="city" value="City" />
                 <TextInput
+                  label="City"
                   type="text"
                   name="city"
                   value={data.city}
-                  className="w-full"
-                  handleChange={(e) => setData('city', e.target.value)}
+                  onChange={(e) => setData('city', e.target.value)}
+                  error={errors.city}
                 />
-                <InputError message={errors.city} className="mt-2" />
               </div>
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                <InputLabel forInput="region" value="Province/State" />
                 <TextInput
+                  label="Region"
                   type="text"
                   name="region"
                   value={data.region}
-                  className="w-full"
-                  handleChange={(e) => setData('region', e.target.value)}
+                  onChange={(e) => setData('region', e.target.value)}
+                  error={errors.region}
                 />
-                <InputError message={errors.region} className="mt-2" />
               </div>
             </div>
 
             <div className="-mx-3 md:flex mb-6">
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                <InputLabel forInput="country" value="Country" />
-                <SelectInput
+                <Select
+                  label="Country"
                   name="country"
                   errors={errors.country}
                   value={data.country}
-                  className="w-full"
-                  onChange={(e) => setData('country', e.target.value)}
-                >
-                  <option value=""></option>
-                  <option value="CA">Canada</option>
-                  <option value="US">United States</option>
-                </SelectInput>
+                  onChange={(e) => setData('country', e)}
+                  data={[
+                    { value: 'CA', label: 'Canada' },
+                    { value: 'US', label: 'United States' },
+                  ]}
+                />
               </div>
 
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                <InputLabel forInput="postal_code" value="Postal Code" />
                 <TextInput
+                  label="Postal Code"
                   type="text"
                   name="postal_code"
                   value={data.postal_code}
-                  className="w-full"
-                  handleChange={(e) => setData('postal_code', e.target.value)}
+                  onChange={(e) => setData('postal_code', e.target.value)}
+                  error={errors.postal_code}
                 />
-                <InputError message={errors.postal_code} className="mt-2" />
               </div>
             </div>
           </div>
           <div className="flex items-center px-8 py-4 bg-gray-100 border-t border-gray-200">
-            {!contact.deleted_at && (
-              <DeleteButton onDelete={destroy}>Delete Contact</DeleteButton>
-            )}
-            <LoadingButton
-              loading={processing}
-              type="submit"
-              className="ml-auto btn-primary"
-            >
-              Update Contact
-            </LoadingButton>
+            <DeleteButton onDelete={() => setOpen(true)}>
+              Delete Contact
+            </DeleteButton>
+            <PrimaryButton processing={processing} type="submit" className="ml-auto">
+              Delete Contact
+            </PrimaryButton>
           </div>
         </form>
       </div>
-    </AuthenticatedLayout>
+
+      <Modal
+        opened={open}
+        withCloseButton
+        onClose={() => setOpen(false)}
+        title="Are you sure want to delete this data?"
+      >
+        <Text size="md" color="dimmed">
+          Once confirmed, you cannot redo this action
+        </Text>
+        <Group className="mt-4" position="right">
+          <Button variant="outline" color="gray" onClick={() => setOpen(false)}>
+            Cancel
+          </Button>
+          <Button variant="outline" color="red" onClick={destroy}>
+            Confirm
+          </Button>
+        </Group>
+      </Modal>
+    </>
   );
 };
 
+Edit.layout = (page) => <AuthenticatedLayout children={page} />;
 export default Edit;

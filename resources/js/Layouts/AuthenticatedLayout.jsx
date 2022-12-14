@@ -36,7 +36,6 @@ export default function AuthenticatedLayout({ children }) {
         </div>
         <section className="max-w-7xl mx-auto py-4 px-5">
           <FlashMessages />
-          <FlashErrors />
           {children}
         </section>
       </main>

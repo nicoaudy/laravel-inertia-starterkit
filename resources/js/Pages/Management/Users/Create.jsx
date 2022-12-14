@@ -1,10 +1,8 @@
 import { Head, Link, useForm } from '@inertiajs/react';
+import { TextInput } from '@mantine/core';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import LoadingButton from '@/Components/LoadingButton';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import TextInput from '@/Components/TextInput';
 import FileInput from '@/Components/FileInput';
+import PrimaryButton from '@/Components/PrimaryButton';
 
 const Create = () => {
   const { data, setData, errors, post, processing } = useForm({
@@ -22,7 +20,7 @@ const Create = () => {
   }
 
   return (
-    <AuthenticatedLayout>
+    <>
       <Head title="Create User" />
 
       <div className="flex justify-between items-center border-b border-gray-300">
@@ -42,40 +40,37 @@ const Create = () => {
           <div className="flex flex-col p-8 my-2 mb-4">
             <div className="-mx-3 md:flex mb-6">
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                <InputLabel forInput="name" value="Name" />
                 <TextInput
+                  label="Name"
                   type="text"
                   name="name"
                   value={data.name}
-                  className="w-full"
-                  handleChange={(e) => setData('name', e.target.value)}
+                  onChange={(e) => setData('name', e.target.value)}
+                  error={errors.name}
                 />
-                <InputError message={errors.name} className="mt-2" />
               </div>
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                <InputLabel forInput="email" value="Email" />
                 <TextInput
+                  label="Email"
                   type="email"
                   name="email"
                   value={data.email}
-                  className="w-full"
-                  handleChange={(e) => setData('email', e.target.value)}
+                  onChange={(e) => setData('email', e.target.value)}
+                  error={errors.email}
                 />
-                <InputError message={errors.email} className="mt-2" />
               </div>
             </div>
 
             <div className="-mx-3 md:flex mb-6">
               <div className="md:w-1/2 px-3 mb-6 md:mb-0">
-                <InputLabel forInput="password" value="Password" />
                 <TextInput
+                  label="Password"
                   type="password"
                   name="password"
                   value={data.password}
-                  className="w-full"
-                  handleChange={(e) => setData('password', e.target.value)}
+                  onChange={(e) => setData('password', e.target.value)}
+                  error={errors.password}
                 />
-                <InputError message={errors.password} className="mt-2" />
               </div>
             </div>
 
@@ -94,18 +89,15 @@ const Create = () => {
             </div>
           </div>
           <div className="flex items-center justify-end px-8 py-4 bg-gray-100 border-t border-gray-200">
-            <LoadingButton
-              loading={processing}
-              type="submit"
-              className="btn-primary"
-            >
+            <PrimaryButton processing={processing} type="submit">
               Create User
-            </LoadingButton>
+            </PrimaryButton>
           </div>
         </form>
       </div>
-    </AuthenticatedLayout>
+    </>
   );
 };
 
+Create.layout = (page) => <AuthenticatedLayout children={page} />;
 export default Create;

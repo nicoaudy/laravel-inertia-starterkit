@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import { useEffect } from 'react';
 import { Head, useForm } from '@inertiajs/react';
+import { TextInput } from '@mantine/core';
+import GuestLayout from '@/Layouts/GuestLayout';
+import PrimaryButton from '@/Components/PrimaryButton';
 
-export default function ResetPassword({ token, email }) {
+const ResetPassword = ({ token, email }) => {
   const { data, setData, post, processing, errors, reset } = useForm({
     token: token,
     email: email,
@@ -31,54 +29,45 @@ export default function ResetPassword({ token, email }) {
   };
 
   return (
-    <GuestLayout>
+    <>
       <Head title="Reset Password" />
 
       <form onSubmit={submit}>
         <div>
-          <InputLabel forInput="email" value="Email" />
-
           <TextInput
+            label="Email"
             type="email"
             name="email"
             value={data.email}
-            className="mt-1 block w-full"
             autoComplete="username"
-            handleChange={onHandleChange}
+            onChange={onHandleChange}
+            error={errors.email}
           />
-
-          <InputError message={errors.email} className="mt-2" />
         </div>
 
         <div className="mt-4">
-          <InputLabel forInput="password" value="Password" />
-
           <TextInput
+            label="Password"
             type="password"
             name="password"
             value={data.password}
-            className="mt-1 block w-full"
             autoComplete="new-password"
-            isFocused={true}
-            handleChange={onHandleChange}
+            autoFocus
+            onChange={onHandleChange}
+            error={errors.password}
           />
-
-          <InputError message={errors.password} className="mt-2" />
         </div>
 
         <div className="mt-4">
-          <InputLabel forInput="password_confirmation" value="Confirm Password" />
-
           <TextInput
+            label="Password Confirmation"
             type="password"
             name="password_confirmation"
             value={data.password_confirmation}
-            className="mt-1 block w-full"
             autoComplete="new-password"
-            handleChange={onHandleChange}
+            onChange={onHandleChange}
+            error={errors.password_confirmation}
           />
-
-          <InputError message={errors.password_confirmation} className="mt-2" />
         </div>
 
         <div className="flex items-center justify-end mt-4">
@@ -87,6 +76,9 @@ export default function ResetPassword({ token, email }) {
           </PrimaryButton>
         </div>
       </form>
-    </GuestLayout>
+    </>
   );
-}
+};
+
+ResetPassword.layout = (page) => <GuestLayout children={page} />;
+export default ResetPassword;

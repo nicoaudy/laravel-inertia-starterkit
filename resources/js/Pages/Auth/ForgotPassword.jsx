@@ -1,10 +1,9 @@
 import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import { TextInput } from '@mantine/core';
 import { Head, useForm } from '@inertiajs/react';
 
-export default function ForgotPassword({ status }) {
+const ForgotPassword = ({ status }) => {
   const { data, setData, post, processing, errors } = useForm({
     email: '',
   });
@@ -20,7 +19,7 @@ export default function ForgotPassword({ status }) {
   };
 
   return (
-    <GuestLayout>
+    <>
       <Head title="Forgot Password" />
 
       <div className="mb-4 text-sm text-gray-500 leading-normal">
@@ -34,15 +33,14 @@ export default function ForgotPassword({ status }) {
 
       <form onSubmit={submit}>
         <TextInput
+          label="Email"
           type="text"
           name="email"
           value={data.email}
-          className="mt-1 block w-full"
-          isFocused={true}
-          handleChange={onHandleChange}
+          onChange={onHandleChange}
+          autoFocus
+          error={errors.email}
         />
-
-        <InputError message={errors.email} className="mt-2" />
 
         <div className="flex items-center justify-end mt-4">
           <PrimaryButton className="ml-4" processing={processing}>
@@ -50,6 +48,9 @@ export default function ForgotPassword({ status }) {
           </PrimaryButton>
         </div>
       </form>
-    </GuestLayout>
+    </>
   );
-}
+};
+
+ForgotPassword.layout = (page) => <GuestLayout children={page} />;
+export default ForgotPassword;
