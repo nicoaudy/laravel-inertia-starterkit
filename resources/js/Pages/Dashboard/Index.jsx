@@ -3,7 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 const Dashboard = () => {
   return (
-    <AuthenticatedLayout>
+    <>
       <Head title="Dashboard" />
 
       <div className="flex justify-between items-center border-b border-gray-300">
@@ -35,8 +35,9 @@ const Dashboard = () => {
           404 error
         </Link>
       </div>
-    </AuthenticatedLayout>
+    </>
   );
 };
 
+Dashboard.layout = (page) => <AuthenticatedLayout children={page} />;
 export default Dashboard;

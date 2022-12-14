@@ -13,7 +13,7 @@ const Index = () => {
   const { data } = contacts;
 
   return (
-    <AuthenticatedLayout>
+    <>
       <Head title="Contacts" />
 
       <div className="flex justify-between items-center border-b border-gray-300">
@@ -77,8 +77,10 @@ const Index = () => {
         </tbody>
       </TableWrapper>
       <ResponsivePagination source={contacts} />
-    </AuthenticatedLayout>
+    </>
   );
 };
+
+Index.layout = (page) => <AuthenticatedLayout children={page} />;
 
 export default Index;
