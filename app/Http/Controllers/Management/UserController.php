@@ -68,7 +68,7 @@ class UserController extends Controller
             $user->update(['password' => bcrypt($request->password)]);
         }
 
-        return Redirect::route('management.users.index')->with('success', 'User updated.');
+        return back()->with('success', 'User updated.');
     }
 
     public function destroy(User $user)

@@ -4,6 +4,7 @@ import '../css/app.css';
 import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';
 import { MantineProvider } from '@mantine/core';
+import { ModalsProvider } from '@mantine/modals';
 
 const appName =
   window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
@@ -25,7 +26,9 @@ createInertiaApp({
         withNormalizeCSS
         emotionOptions={{ key: 'mantine', prepend: false }}
       >
-        <App {...props} />
+        <ModalsProvider>
+          <App {...props} />
+        </ModalsProvider>
       </MantineProvider>
     );
   },

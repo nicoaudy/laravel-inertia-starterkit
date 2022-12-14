@@ -1,14 +1,13 @@
-import { useState } from 'react';
 import { router } from '@inertiajs/react';
 import { Link, Head, usePage, useForm } from '@inertiajs/react';
-import { TextInput, Select, Modal, Button, Group, Text } from '@mantine/core';
+import { TextInput, Select, Button, Group, Text } from '@mantine/core';
+import { openModal, closeAllModals } from '@mantine/modals';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteButton from '@/Components/DeleteButton';
 import PrimaryButton from '@/Components/PrimaryButton';
 
 const Edit = () => {
   const { contact } = usePage().props;
-  const [open, setOpen] = useState(false);
 
   const { data, setData, errors, put, processing } = useForm({
     name: contact.name || '',
@@ -27,8 +26,32 @@ const Edit = () => {
   }
 
   function destroy() {
+    closeAllModals();
     router.delete(route('contacts.destroy', contact.id));
   }
+
+  const openDeleteModal = () => {
+    return openModal({
+      title: 'Please confirm your action',
+      centered: true,
+      children: (
+        <>
+          <Text size="sm">
+            Are you sure you want to delete this data? Once confirmed, you cannot
+            redo this action.
+          </Text>
+          <Group className="mt-4" position="right">
+            <Button variant="outline" color="dark" onClick={closeAllModals}>
+              Cancel
+            </Button>
+            <Button variant="outline" color="red" onClick={destroy}>
+              Confirm
+            </Button>
+          </Group>
+        </>
+      ),
+    });
+  };
 
   return (
     <>
@@ -149,34 +172,13 @@ const Edit = () => {
             </div>
           </div>
           <div className="flex items-center px-8 py-4 bg-gray-100 border-t border-gray-200">
-            <DeleteButton onDelete={() => setOpen(true)}>
-              Delete Contact
-            </DeleteButton>
+            <DeleteButton onDelete={openDeleteModal}>Delete Contact</DeleteButton>
             <PrimaryButton processing={processing} type="submit" className="ml-auto">
               Delete Contact
             </PrimaryButton>
           </div>
         </form>
       </div>
-
-      <Modal
-        opened={open}
-        withCloseButton
-        onClose={() => setOpen(false)}
-        title="Are you sure want to delete this data?"
-      >
-        <Text size="md" color="dimmed">
-          Once confirmed, you cannot redo this action
-        </Text>
-        <Group className="mt-4" position="right">
-          <Button variant="outline" color="gray" onClick={() => setOpen(false)}>
-            Cancel
-          </Button>
-          <Button variant="outline" color="red" onClick={destroy}>
-            Confirm
-          </Button>
-        </Group>
-      </Modal>
     </>
   );
 };
