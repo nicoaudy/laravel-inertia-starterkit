@@ -573,6 +573,11 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
 
+"@tabler/icons@^1.117.0":
+  "integrity" "sha512-4UGF8fMcROiy++CCNlzTz6p22rxFQD/fAMfaw/8Uanopl41X2SCZTmpnotS3C6Qdrk99m8eMZySa5w1y99gFqQ=="
+  "resolved" "https://registry.npmjs.org/@tabler/icons/-/icons-1.117.0.tgz"
+  "version" "1.117.0"
+
 "@tailwindcss/forms@^0.5.2":
   "integrity" "sha512-y5mb86JUoiUgBjY/o6FJSFZSEttfb3Q5gllE4xoKjAAD+vBrnIhE4dViwUuow3va8mpH4s9jyUbUbrRGoRdc2Q=="
   "resolved" "https://registry.npmjs.org/@tailwindcss/forms/-/forms-0.5.3.tgz"
@@ -1683,7 +1688,7 @@
   "resolved" "https://registry.npmjs.org/quick-lru/-/quick-lru-5.1.1.tgz"
   "version" "5.1.1"
 
-"react-dom@*", "react-dom@^16.8 || ^17.0 || ^18.0", "react-dom@^16.8.0  || ^17.0.0 || ^18.0.0", "react-dom@^18.2.0", "react-dom@>=16.8.0":
+"react-dom@*", "react-dom@^16.8 || ^17.0 || ^18.0", "react-dom@^16.8.0  || ^17.0.0 || ^18.0.0", "react-dom@^16.x || 17.x || 18.x", "react-dom@^18.2.0", "react-dom@>=16.8.0":
   "integrity" "sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
   "version" "18.2.0"
@@ -1735,7 +1740,7 @@
     "ts-easing" "^0.2.0"
     "tslib" "^2.1.0"
 
-"react@*", "react@^16.8 || ^17.0 || ^18.0", "react@^16.8.0  || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.9.0 || ^17.0.0 || ^18.0.0", "react@^18.2.0", "react@>=16.8.0":
+"react@*", "react@^16.8 || ^17.0 || ^18.0", "react@^16.8.0  || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.9.0 || ^17.0.0 || ^18.0.0", "react@^16.x || 17.x || 18.x", "react@^18.2.0", "react@>=16.8.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"
