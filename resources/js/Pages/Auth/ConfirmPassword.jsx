@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import { useEffect } from 'react';
 import { Head, useForm } from '@inertiajs/react';
+import { TextInput } from '@mantine/core';
+import GuestLayout from '@/Layouts/GuestLayout';
+import PrimaryButton from '@/Components/PrimaryButton';
 
-export default function ConfirmPassword() {
+const ConfirmPassword = () => {
   const { data, setData, post, processing, errors, reset } = useForm({
     password: '',
   });
@@ -28,7 +26,7 @@ export default function ConfirmPassword() {
   };
 
   return (
-    <GuestLayout>
+    <>
       <Head title="Confirm Password" />
 
       <div className="mb-4 text-sm text-gray-600">
@@ -38,18 +36,16 @@ export default function ConfirmPassword() {
 
       <form onSubmit={submit}>
         <div className="mt-4">
-          <InputLabel forInput="password" value="Password" />
-
           <TextInput
+            label="Password"
             type="password"
             name="password"
             value={data.password}
             className="mt-1 block w-full"
-            isFocused={true}
-            handleChange={onHandleChange}
+            autoFocus
+            onChange={onHandleChange}
+            error={errors.password}
           />
-
-          <InputError message={errors.password} className="mt-2" />
         </div>
 
         <div className="flex items-center justify-end mt-4">
@@ -58,6 +54,9 @@ export default function ConfirmPassword() {
           </PrimaryButton>
         </div>
       </form>
-    </GuestLayout>
+    </>
   );
-}
+};
+
+ConfirmPassword.layout = (page) => <GuestLayout children={page} />;
+export default ConfirmPassword;
