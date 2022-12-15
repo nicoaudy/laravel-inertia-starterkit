@@ -8,7 +8,7 @@ services:
         uid: 1000
       context: .
       dockerfile: ./docker/Dockerfile
-    image: pingcrm/php:8.1
+    image: starterkit/php:8.1
     container_name: '${APP_CONTAINER:-app}_APP'
     restart: unless-stopped
     tty: true
