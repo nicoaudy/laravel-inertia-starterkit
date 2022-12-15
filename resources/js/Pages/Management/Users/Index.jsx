@@ -1,10 +1,9 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import { ScrollArea, Table } from '@mantine/core';
 import { Button } from '@mantine/core';
-import { IconPlus } from '@tabler/icons';
+import { IconPlus, IconChevronRight } from '@tabler/icons';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Filter from '@/Components/Filter';
-import Icon from '@/Components/Icon';
 import ResponsivePagination from '@/Components/ResponsivePagination';
 
 const Index = () => {
@@ -51,10 +50,7 @@ const Index = () => {
               href={route('management.users.edit', id)}
               className="flex items-center px-4 focus:outline-none"
             >
-              <Icon
-                name="cheveron-right"
-                className="block w-6 h-6 text-gray-400 fill-current"
-              />
+              <IconChevronRight size={18} />
             </Link>
           </div>
         </div>

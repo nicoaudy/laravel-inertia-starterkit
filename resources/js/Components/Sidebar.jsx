@@ -1,8 +1,8 @@
 import { usePage, Link } from '@inertiajs/react';
 import classNames from 'classnames';
-import Icon from '@/Components/Icon';
 import SidebarDropdown from './SidebarDropdown';
 import SidebarLink from './SidebarLink';
+import { IconBook, IconHome, IconLogout, IconSettings } from '@tabler/icons';
 
 const Sidebar = ({ navOpen, appName }) => {
   const { auth } = usePage().props;
@@ -45,19 +45,19 @@ const Sidebar = ({ navOpen, appName }) => {
             <SidebarLink
               text="Dashboard"
               link="dashboard"
-              icon="dashboard"
+              icon={<IconHome size={18} />}
               can={true} // Force to show without permission
             />
             <SidebarLink
               text="Contacts"
               link="contacts.index"
-              icon="office"
+              icon={<IconBook size={18} />}
               can={auth.can['view contact']}
             />
             <SidebarDropdown
               text="Management"
               prefixLink="management."
-              icon="book"
+              icon={<IconSettings size={18} />}
               items={[
                 {
                   link: 'management.permissions.index',
@@ -98,7 +98,7 @@ const Sidebar = ({ navOpen, appName }) => {
             className="hover:bg-gray-800 hover:text-white rounded mr-4"
             method="post"
           >
-            <Icon name="logout" className="w-5 h-5" />
+            <IconLogout size={18} />
           </Link>
         </div>
       </div>
