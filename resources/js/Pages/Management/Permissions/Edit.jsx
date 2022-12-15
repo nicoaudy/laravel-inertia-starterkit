@@ -1,11 +1,10 @@
 import { router } from '@inertiajs/react';
 import { Link, Head, usePage, useForm } from '@inertiajs/react';
-import { TextInput, Checkbox, Button, Group, Text } from '@mantine/core';
+import { TextInput, Checkbox, Button, Group, Text, Flex } from '@mantine/core';
 import { openModal, closeAllModals } from '@mantine/modals';
 import { IconSend } from '@tabler/icons';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteButton from '@/Components/DeleteButton';
-import InputLabel from '@/Components/InputLabel';
 
 const Edit = () => {
   const { permission, users } = usePage().props;
@@ -104,13 +103,15 @@ const Edit = () => {
             </div>
             <div className="-mx-3 md:flex mb-6">
               <div className="w-full px-3 mb-6 md:mb-0">
-                <InputLabel for="user" value="Users" className="mb-4" />
-                <Checkbox
-                  label="Select All"
-                  name="selectAll"
-                  checked={data.users.length == users.length}
-                  onChange={selectAll}
-                />
+                <Flex justify="space-between" className="mb-4">
+                  <Text fz="sm">Users</Text>
+                  <Checkbox
+                    label="Select All"
+                    name="selectAll"
+                    checked={data.users.length == users.length}
+                    onChange={selectAll}
+                  />
+                </Flex>
                 <div className="grid grid-cols-2 space-y-2">
                   {users.map(({ id, name }) => (
                     <Checkbox

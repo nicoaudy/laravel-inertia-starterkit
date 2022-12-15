@@ -1,8 +1,7 @@
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { TextInput, Checkbox, Button } from '@mantine/core';
+import { TextInput, Checkbox, Button, Flex, Text } from '@mantine/core';
 import { IconSend } from '@tabler/icons';
-import InputLabel from '@/Components/InputLabel';
 
 const Create = () => {
   const { permissions } = usePage().props;
@@ -73,14 +72,14 @@ const Create = () => {
 
             <div className="-mx-3 md:flex mb-6">
               <div className="w-full px-3 mb-6 md:mb-0">
-                <InputLabel for="permission" value="Permissions" className="mb-4" />
-                <label className="flex items-center">
+                <Flex justify="space-between" className="mb-4">
+                  <Text fz="sm">Permissions</Text>
                   <Checkbox
                     label="Select All"
                     type="checkbox"
                     onChange={selectAll}
                   />
-                </label>
+                </Flex>
                 <div className="grid grid-cols-2 space-y-2">
                   {permissions.map(({ id, name }) => (
                     <Checkbox

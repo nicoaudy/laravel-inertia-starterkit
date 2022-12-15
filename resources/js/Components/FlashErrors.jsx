@@ -2,16 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { usePage } from '@inertiajs/react';
 import classNames from 'classnames';
 
-const IconSuccess = () => (
-  <svg
-    className="ml-4 mr-2 flex-shrink-0 w-4 h-4 text-white fill-current"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 20 20"
-  >
-    <polygon points="0 11 2 9 7 14 18 3 20 5 7 18" />
-  </svg>
-);
-
 const IconDanger = () => (
   <svg
     className="ml-4 mr-2 flex-shrink-0 w-4 h-4 text-white fill-current"
