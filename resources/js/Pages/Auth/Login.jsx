@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { TextInput, Checkbox } from '@mantine/core';
+import { TextInput, Checkbox, Button } from '@mantine/core';
 import GuestLayout from '@/Layouts/GuestLayout';
-import PrimaryButton from '@/Components/PrimaryButton';
 
 const Login = ({ status, canResetPassword }) => {
   const { data, setData, post, processing, errors, reset } = useForm({
@@ -83,9 +82,9 @@ const Login = ({ status, canResetPassword }) => {
             </Link>
           )}
 
-          <PrimaryButton className="ml-4" processing={processing}>
-            Log in
-          </PrimaryButton>
+          <Button type="submit" className="ml-4" loading={processing}>
+            Login
+          </Button>
         </div>
       </form>
     </>

@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { TextInput } from '@mantine/core';
+import { Button, TextInput } from '@mantine/core';
 import GuestLayout from '@/Layouts/GuestLayout';
-import PrimaryButton from '@/Components/PrimaryButton';
 
 const Register = () => {
   const { data, setData, post, processing, errors, reset } = useForm({
@@ -92,9 +91,9 @@ const Register = () => {
             Already registered?
           </Link>
 
-          <PrimaryButton className="ml-4" processing={processing}>
+          <Button type="submit" className="ml-4" loading={processing}>
             Register
-          </PrimaryButton>
+          </Button>
         </div>
       </form>
     </>

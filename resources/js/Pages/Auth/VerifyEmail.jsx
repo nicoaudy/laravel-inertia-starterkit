@@ -1,6 +1,6 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import GuestLayout from '@/Layouts/GuestLayout';
-import PrimaryButton from '@/Components/PrimaryButton';
+import { Button } from '@mantine/core';
 
 const VerifyEmail = ({ status }) => {
   const { post, processing } = useForm();
@@ -30,9 +30,9 @@ const VerifyEmail = ({ status }) => {
 
       <form onSubmit={submit}>
         <div className="mt-4 flex items-center justify-between">
-          <PrimaryButton processing={processing}>
+          <Button type="submit" className="ml-4" loading={processing}>
             Resend Verification Email
-          </PrimaryButton>
+          </Button>
 
           <Link
             href={route('logout')}

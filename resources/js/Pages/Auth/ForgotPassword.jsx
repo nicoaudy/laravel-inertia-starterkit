@@ -1,6 +1,5 @@
 import GuestLayout from '@/Layouts/GuestLayout';
-import PrimaryButton from '@/Components/PrimaryButton';
-import { TextInput } from '@mantine/core';
+import { Button, TextInput } from '@mantine/core';
 import { Head, useForm } from '@inertiajs/react';
 
 const ForgotPassword = ({ status }) => {
@@ -43,9 +42,9 @@ const ForgotPassword = ({ status }) => {
         />
 
         <div className="flex items-center justify-end mt-4">
-          <PrimaryButton className="ml-4" processing={processing}>
+          <Button type="submit" className="ml-4" loading={processing}>
             Email Password Reset Link
-          </PrimaryButton>
+          </Button>
         </div>
       </form>
     </>
