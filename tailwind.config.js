@@ -10,14 +10,6 @@ module.exports = {
   ],
 
   theme: {
-    /* Mantineと一致させる: https://mantine.dev/theming/responsive */
-    screens: {
-      xs: '576px',
-      sm: '768px',
-      md: '992px',
-      lg: '1200px',
-      xl: '1400px',
-    },
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
@@ -94,7 +86,5 @@ module.exports = {
     },
   },
 
-  plugins: [
-    // require('@tailwindcss/forms')
-  ],
+  plugins: [],
 };
