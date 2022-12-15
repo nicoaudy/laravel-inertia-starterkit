@@ -1,5 +1,7 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import { ScrollArea, Table } from '@mantine/core';
+import { Button } from '@mantine/core';
+import { IconPlus } from '@tabler/icons';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Filter from '@/Components/Filter';
 import Icon from '@/Components/Icon';
@@ -66,13 +68,10 @@ const Index = () => {
 
       <div className="flex justify-between items-center border-b border-gray-300">
         <h1 className="text-2xl font-semibold pt-2 pb-6">Users</h1>
-
-        <Link
-          className="btn-primary focus:outline-none"
-          href={route('management.users.create')}
-        >
-          <span>Create</span>
-          <span className="hidden md:inline"> User</span>
+        <Link href={route('management.users.create')}>
+          <Button color="dark" size="xs" leftIcon={<IconPlus size={14} />}>
+            User
+          </Button>
         </Link>
       </div>
 

@@ -1,8 +1,8 @@
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { TextInput, Checkbox } from '@mantine/core';
+import { TextInput, Checkbox, Button } from '@mantine/core';
+import { IconSend } from '@tabler/icons';
 import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
 
 const Create = () => {
   const { permissions } = usePage().props;
@@ -61,7 +61,7 @@ const Create = () => {
             <div className="-mx-3 md:flex mb-6">
               <div className="w-1/2 px-3 mb-6 md:mb-0">
                 <TextInput
-                  label="Email"
+                  label="Name"
                   type="text"
                   name="name"
                   value={data.name}
@@ -97,9 +97,13 @@ const Create = () => {
             </div>
           </div>
           <div className="flex items-center justify-end px-8 py-4 bg-gray-100 border-t border-gray-200">
-            <PrimaryButton processing={processing} type="submit">
+            <Button
+              type="submit"
+              leftIcon={<IconSend size={14} />}
+              loading={processing}
+            >
               Submit
-            </PrimaryButton>
+            </Button>
           </div>
         </form>
       </div>

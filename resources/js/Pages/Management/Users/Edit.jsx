@@ -2,10 +2,10 @@ import { router } from '@inertiajs/react';
 import { Head, Link, usePage, useForm } from '@inertiajs/react';
 import { TextInput, Button, Group, Text } from '@mantine/core';
 import { openModal, closeAllModals } from '@mantine/modals';
+import { IconSend } from '@tabler/icons';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteButton from '@/Components/DeleteButton';
 import FileInput from '@/Components/FileInput';
-import PrimaryButton from '@/Components/PrimaryButton';
 
 const Edit = () => {
   const { user } = usePage().props;
@@ -126,11 +126,15 @@ const Edit = () => {
               </div>
             </div>
           </div>
-          <div className="flex items-center px-8 py-4 bg-gray-100 border-t border-gray-200">
+          <div className="flex justify-between items-center px-8 py-4 bg-gray-100 border-t border-gray-200">
             <DeleteButton onDelete={openDeleteModal}>Delete User</DeleteButton>
-            <PrimaryButton processing={processing} type="submit" className="ml-auto">
-              Update User
-            </PrimaryButton>
+            <Button
+              type="submit"
+              leftIcon={<IconSend size={14} />}
+              loading={processing}
+            >
+              Submit
+            </Button>
           </div>
         </form>
       </div>

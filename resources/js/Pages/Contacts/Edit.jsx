@@ -2,9 +2,9 @@ import { router } from '@inertiajs/react';
 import { Link, Head, usePage, useForm } from '@inertiajs/react';
 import { TextInput, Select, Button, Group, Text } from '@mantine/core';
 import { openModal, closeAllModals } from '@mantine/modals';
+import { IconSend } from '@tabler/icons';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteButton from '@/Components/DeleteButton';
-import PrimaryButton from '@/Components/PrimaryButton';
 
 const Edit = () => {
   const { contact } = usePage().props;
@@ -171,11 +171,15 @@ const Edit = () => {
               </div>
             </div>
           </div>
-          <div className="flex items-center px-8 py-4 bg-gray-100 border-t border-gray-200">
+          <div className="flex justify-between items-center px-8 py-4 bg-gray-100 border-t border-gray-200">
             <DeleteButton onDelete={openDeleteModal}>Delete Contact</DeleteButton>
-            <PrimaryButton processing={processing} type="submit" className="ml-auto">
-              Delete Contact
-            </PrimaryButton>
+            <Button
+              type="submit"
+              leftIcon={<IconSend size={14} />}
+              loading={processing}
+            >
+              Submit
+            </Button>
           </div>
         </form>
       </div>
