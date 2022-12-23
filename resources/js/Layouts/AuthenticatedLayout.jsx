@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { usePage } from '@inertiajs/react';
-import FlashErrors from '@/Components/FlashErrors';
 import Sidebar from '@/Components/Sidebar';
 import FlashMessages from '@/Components/FlashMessages';
 
