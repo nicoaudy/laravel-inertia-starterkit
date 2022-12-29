@@ -3,8 +3,14 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import { TextInput, Checkbox, Button } from '@mantine/core';
 import GuestLayout from '@/Layouts/GuestLayout';
 
+type Login = {
+  email: string;
+  password: string;
+  remember: boolean;
+};
+
 const Login = ({ status, canResetPassword }) => {
-  const { data, setData, post, processing, errors, reset } = useForm({
+  const { data, setData, post, processing, errors, reset } = useForm<Login>({
     email: 'johndoe@example.com',
     password: 'password',
     remember: true,
@@ -16,10 +22,10 @@ const Login = ({ status, canResetPassword }) => {
     };
   }, []);
 
-  const onHandleChange = (event) => {
+  const onHandleChange = (e) => {
     setData(
-      event.target.name,
-      event.target.type === 'checkbox' ? event.target.checked : event.target.value
+      e.target.name,
+      e.target.type === 'checkbox' ? e.target.checked : e.target.value
     );
   };
 
