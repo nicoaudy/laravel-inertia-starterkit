@@ -8,7 +8,7 @@ const Sidebar = ({ navOpen, appName }) => {
   const { auth } = usePage().props;
 
   const navClass = classNames(
-    'absolute md:relative w-64 transform md:translate-x-0 h-screen overflow-y-scroll bg-black transition-all duration-300',
+    'absolute md:relative w-64 transform md:translate-x-0 h-screen overflow-y-scroll bg-black transition-all duration-300 z-40',
     {
       '-translate-x-full': !navOpen,
     }
