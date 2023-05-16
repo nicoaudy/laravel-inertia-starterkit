@@ -45,32 +45,37 @@ const Sidebar: React.FC<SidebarProps> = ({ navOpen, appName }) => {
             <SidebarLink
               text='Dashboard'
               link='dashboard'
+              active={route().current('dashboard')}
               icon={<IconHome size={18} />}
               can={true} // Force to show without permission
             />
             <SidebarLink
               text='Contacts'
               link='contacts.index'
+              active={route().current('contacts.*')}
               icon={<IconBook size={18} />}
               can={auth.can['view contact']}
             />
             <SidebarDropdown
               text='Management'
-              prefixLink='management.'
+              active={route().current('management.*')}
               icon={<IconSettings size={18} />}
               items={[
                 {
                   link: 'management.permissions.index',
+                  active: route().current('management.permissions.*'),
                   text: 'Permissions',
                   can: auth.can['view permission'],
                 },
                 {
                   link: 'management.roles.index',
+                  active: route().current('management.roles.*'),
                   text: 'Roles',
                   can: auth.can['view role'],
                 },
                 {
                   link: 'management.users.index',
+                  active: route().current('management.users.*'),
                   text: 'Users',
                   can: auth.can['view user'],
                 },
