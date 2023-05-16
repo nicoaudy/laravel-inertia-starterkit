@@ -1,7 +1,21 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, ChangeEvent, MouseEventHandler } from 'react';
 import { filesize } from '@/utils';
 
-const Button = ({ text, onClick }) => (
+interface ButtonProps {
+  text: string;
+  onClick: MouseEventHandler<HTMLButtonElement>;
+}
+
+interface FileInputProps {
+  className?: string;
+  name: string;
+  label?: string;
+  accept: string;
+  errors?: string[];
+  onChange: (file: File | null) => void;
+}
+
+const Button: React.FC<ButtonProps> = ({ text, onClick }) => (
   <button
     type='button'
     className='px-4 py-1 text-xs font-medium text-white bg-gray-600 rounded-sm focus:outline-none hover:bg-gray-700'
@@ -10,22 +24,24 @@ const Button = ({ text, onClick }) => (
   </button>
 );
 
-export default ({ className, name, label, accept, errors = [], onChange }) => {
-  const fileInput = useRef();
-  const [file, setFile] = useState(null);
+const FileInput: React.FC<FileInputProps> = ({ className, name, label, accept, errors = [], onChange }) => {
+  const fileInput = useRef<HTMLInputElement>(null);
+  const [file, setFile] = useState<File | null>(null);
 
   function browse() {
-    fileInput.current.click();
+    fileInput.current?.click();
   }
 
   function remove() {
     setFile(null);
     onChange(null);
-    fileInput.current.value = null;
+    if (fileInput.current) {
+      fileInput.current.value = '';
+    }
   }
 
-  function handleFileChange(e) {
-    const file = e.target.files[0];
+  function handleFileChange(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files && e.target.files[0];
     setFile(file);
     onChange(file);
   }
@@ -58,3 +74,5 @@ export default ({ className, name, label, accept, errors = [], onChange }) => {
     </div>
   );
 };
+
+export default FileInput;

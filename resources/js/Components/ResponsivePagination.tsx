@@ -1,7 +1,19 @@
+import React from 'react';
 import useFilterPagination from '@/hooks/useFilterPagination';
 import Pagination from '@/Components/Pagination';
 
-const ResponsivePagination = ({ source }) => {
+interface ResponsivePaginationProps {
+  source: {
+    current_page: number;
+    last_page: number;
+    from: number;
+    to: number;
+    total: number;
+    links: { active: boolean; label: string; url: string | null }[];
+  };
+}
+
+const ResponsivePagination: React.FC<ResponsivePaginationProps> = ({ source }) => {
   const [, setForm] = useFilterPagination();
 
   return (

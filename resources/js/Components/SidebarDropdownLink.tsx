@@ -1,11 +1,16 @@
 import { Link } from '@inertiajs/react';
 import classNames from 'classnames';
 
-const SidebarDropdownLink = ({ link, text }) => {
+interface Props {
+  link: string;
+  text: string;
+}
+
+const SidebarDropdownLink: React.FC<Props> = ({ link, text }) => {
   const isActive = route().current(link + '*');
 
   const navClass = classNames('block py-2 px-4 hover:bg-gray-800 hover:text-white rounded', {
-    ' bg-gray-800 text-white': isActive,
+    'bg-gray-800 text-white': isActive,
   });
 
   return (

@@ -4,7 +4,12 @@ import SidebarDropdown from './SidebarDropdown';
 import SidebarLink from './SidebarLink';
 import { IconBook, IconHome, IconLogout, IconSettings } from '@tabler/icons';
 
-const Sidebar = ({ navOpen, appName }) => {
+interface SidebarProps {
+  navOpen: boolean;
+  appName: string;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ navOpen, appName }) => {
   const { auth } = usePage().props;
 
   const navClass = classNames(

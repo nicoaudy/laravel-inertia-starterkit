@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { usePage } from '@inertiajs/react';
 import classNames from 'classnames';
 
-const IconDanger = () => (
+const IconDanger: React.FC = () => (
   <svg
     className='ml-4 mr-2 flex-shrink-0 w-4 h-4 text-white fill-current'
     xmlns='http://www.w3.org/2000/svg'
@@ -11,7 +11,12 @@ const IconDanger = () => (
   </svg>
 );
 
-const ButtonClose = ({ color, onClick }) => {
+interface ButtonCloseProps {
+  color: 'red' | 'green';
+  onClick: () => void;
+}
+
+const ButtonClose: React.FC<ButtonCloseProps> = ({ color, onClick }) => {
   const className = classNames('block  w-2 h-2 fill-current', {
     'text-red-700 group-hover:text-red-800': color === 'red',
     'text-green-700 group-hover:text-green-800': color === 'green',
@@ -30,7 +35,7 @@ const ButtonClose = ({ color, onClick }) => {
   );
 };
 
-export default function FlashErrors() {
+const FlashErrors: React.FC = () => {
   const [visible, setVisible] = useState(true);
   const { errors } = usePage().props;
   const numOfErrors = Object.keys(errors).length;
@@ -55,4 +60,6 @@ export default function FlashErrors() {
       )}
     </div>
   );
-}
+};
+
+export default FlashErrors;

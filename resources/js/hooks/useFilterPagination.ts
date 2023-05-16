@@ -1,13 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import { router } from '@inertiajs/react';
 import { usePrevious } from 'react-use';
 import { usePage } from '@inertiajs/react';
 import { debounce, pickBy } from 'lodash';
 
-const useFilterPagination = () => {
+interface Filters {
+  search?: string;
+  perPage?: string;
+  page?: string;
+}
+
+type ChangeEventHandler = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+
+const useFilterPagination = (): [Filters, React.Dispatch<React.SetStateAction<Filters>>, ChangeEventHandler] => {
   const { filters } = usePage().props;
 
-  const [values, setValues] = useState({
+  const [values, setValues] = useState<Filters>({
     search: filters.search || '',
     perPage: filters.perPage || '',
     page: filters.page || '',
@@ -15,11 +23,11 @@ const useFilterPagination = () => {
 
   const prevValues = usePrevious(values);
 
-  function handleChange(e) {
+  const handleChange: ChangeEventHandler = (e) => {
     const key = e.target.name;
     const value = e.target.value;
 
-    // Reset if page to null when perPage was changed
+    // Reset page to null when perPage was changed
     if (key === 'perPage') {
       setValues((values) => ({
         ...values,
@@ -31,7 +39,7 @@ const useFilterPagination = () => {
       ...values,
       [key]: value,
     }));
-  }
+  };
 
   useEffect(() => {
     if (prevValues) {

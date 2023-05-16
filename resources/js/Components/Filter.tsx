@@ -1,7 +1,8 @@
-import useFilterPagination from '@/hooks/useFilterPagination';
+import React from 'react';
 import { TextInput } from '@mantine/core';
+import useFilterPagination from '@/hooks/useFilterPagination';
 
-const Filter = () => {
+const Filter: React.FC = () => {
   const [form, , handleChange] = useFilterPagination();
 
   return (
@@ -9,7 +10,11 @@ const Filter = () => {
       <div className='flex md:justify-start items-center mb-2 md:mb-0'>
         <label className='mr-2'>Showing</label>
         <div>
-          <select className='form-select form-select-sm' name='perPage' value={form.perPage} onChange={handleChange}>
+          <select
+            className='form-select form-select-sm'
+            name='perPage'
+            value={form.perPage}
+            onChange={handleChange as React.ChangeEventHandler<HTMLSelectElement>}>
             <option value='10'>10</option>
             <option value='25'>25</option>
             <option value='50'>50</option>
@@ -23,8 +28,8 @@ const Filter = () => {
         type='text'
         name='search'
         value={form.search}
-        onChange={handleChange}
-        placeholder='Search…'
+        onChange={handleChange as React.ChangeEventHandler<HTMLInputElement>}
+        placeholder='Search...'
       />
     </div>
   );

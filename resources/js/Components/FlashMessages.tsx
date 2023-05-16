@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { usePage } from '@inertiajs/react';
 import toast, { Toaster } from 'react-hot-toast';
 
-const FlashMessages = () => {
+const FlashMessages: React.FC = () => {
   const { flash } = usePage().props;
 
   useEffect(() => {
@@ -28,12 +28,14 @@ const FlashMessages = () => {
   }, [flash]);
 
   return (
-    <Toaster
-      position='top-right'
-      toastOptions={{
-        duration: 5000,
-      }}
-    />
+    <>
+      <Toaster
+        position='top-right'
+        toastOptions={{
+          duration: 5000,
+        }}
+      />
+    </>
   );
 };
 

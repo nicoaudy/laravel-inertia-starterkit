@@ -1,18 +1,33 @@
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import SidebarDropdownLink from './SidebarDropdownLink';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons';
+import { usePage } from '@inertiajs/react';
 
-const SidebarDropdown = ({ items, icon, text, prefixLink }) => {
-  const isActive = route().current(`${prefixLink}*`);
+interface SidebarDropdownProps {
+  items: {
+    link: string;
+    text: string;
+    can?: boolean;
+  }[];
+  icon: React.ReactNode;
+  text: string;
+  prefixLink: string;
+}
+
+const SidebarDropdown: React.FC<SidebarDropdownProps> = ({ items, icon, text, prefixLink }) => {
+  const isActive = usePage().url().current(`${prefixLink}*`);
   const [open, setOpen] = useState(false);
 
   const openWhenActive = useCallback(() => {
     if (isActive) {
       setOpen(true);
     }
-  });
-  useEffect(() => openWhenActive(), []);
+  }, [isActive]);
+
+  useEffect(() => {
+    openWhenActive();
+  }, [openWhenActive]);
 
   const navClass = classNames(
     'flex items-center py-2.5 px-4 justify-between rounded hover:bg-gray-800 hover:text-white',

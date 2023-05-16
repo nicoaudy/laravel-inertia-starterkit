@@ -1,7 +1,14 @@
+import React from 'react';
 import { Link } from '@inertiajs/react';
 import classNames from 'classnames';
 
-const PageLink = ({ active, label, url }) => {
+interface PageLinkProps {
+  active: boolean;
+  label: string;
+  url: string | null;
+}
+
+const PageLink: React.FC<PageLinkProps> = ({ active, label, url }) => {
   const className = classNames(
     [
       'mr-1 mb-1',
@@ -16,22 +23,26 @@ const PageLink = ({ active, label, url }) => {
     }
   );
   return (
-    <Link className={className} href={url}>
+    <Link className={className} href={url ?? ''}>
       <span dangerouslySetInnerHTML={{ __html: label }}></span>
     </Link>
   );
 };
 
-// Previous, if on first page
-// Next, if on last page
-// and dots, if exists (...)
-const PageInactive = ({ label }) => {
+interface PageInactiveProps {
+  label: string;
+}
+
+const PageInactive: React.FC<PageInactiveProps> = ({ label }) => {
   const className = classNames('mr-1 mb-1 px-2 py-2 text-sm border rounded border-solid border-gray-300 text-gray');
   return <div className={className} dangerouslySetInnerHTML={{ __html: label }} />;
 };
 
-export default function Pagination({ links = [] }) {
-  // dont render, if there's only 1 page (previous, 1, next)
+interface PaginationProps {
+  links: { active: boolean; label: string; url: string | null }[];
+}
+
+const Pagination: React.FC<PaginationProps> = ({ links }) => {
   if (links.length === 3) return null;
   return (
     <div className='flex flex-wrap'>
@@ -44,4 +55,6 @@ export default function Pagination({ links = [] }) {
       })}
     </div>
   );
-}
+};
+
+export default Pagination;
