@@ -22,26 +22,20 @@ const SidebarDropdown = ({ items, icon, text, prefixLink }) => {
   );
 
   return (
-    <div className="block">
+    <div className='block'>
       <div onClick={() => setOpen(!open)} className={navClass}>
-        <div className="flex items-center space-x-2">
+        <div className='flex items-center space-x-2'>
           {icon}
           <span>{text}</span>
         </div>
         {open ? <IconChevronUp size={18} /> : <IconChevronDown size={18} />}
       </div>
       {open && (
-        <div className="text-sm border-l-2 border-gray-800 mx-6 my-2.5 px-2.5 flex flex-col gap-y-1">
+        <div className='text-sm border-l-2 border-gray-800 mx-6 my-2.5 px-2.5 flex flex-col gap-y-1'>
           {items.map(({ link, text, can }, index) => {
             if (!can) return null;
 
-            return (
-              <SidebarDropdownLink
-                link={link}
-                text={text}
-                key={`${text}-${index}`}
-              />
-            );
+            return <SidebarDropdownLink link={link} text={text} key={`${text}-${index}`} />;
           })}
         </div>
       )}

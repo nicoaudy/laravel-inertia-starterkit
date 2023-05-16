@@ -22,39 +22,36 @@ const Create = () => {
 
   return (
     <>
-      <Head title="Create Contact" />
+      <Head title='Create Contact' />
 
-      <div className="flex justify-between items-center border-b border-gray-300">
-        <h1 className="mt-2 mb-6 text-2xl font-semibold">
-          <Link
-            href={route('contacts.index')}
-            className="text-indigo-600 hover:text-indigo-700"
-          >
+      <div className='flex justify-between items-center border-b border-gray-300'>
+        <h1 className='mt-2 mb-6 text-2xl font-semibold'>
+          <Link href={route('contacts.index')} className='text-indigo-600 hover:text-indigo-700'>
             Contacts
           </Link>
-          <span className="font-medium text-indigo-600"> /</span> Create
+          <span className='font-medium text-indigo-600'> /</span> Create
         </h1>
       </div>
 
-      <div className="my-6 max-w-3xl overflow-hidden bg-white rounded shadow">
+      <div className='my-6 max-w-3xl overflow-hidden bg-white rounded shadow'>
         <form onSubmit={handleSubmit}>
-          <div className="flex flex-col p-8 my-2 mb-4">
-            <div className="-mx-3 md:flex mb-6">
-              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+          <div className='flex flex-col p-8 my-2 mb-4'>
+            <div className='-mx-3 md:flex mb-6'>
+              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
                 <TextInput
-                  label="Name"
-                  type="text"
-                  name="name"
+                  label='Name'
+                  type='text'
+                  name='name'
                   value={data.name}
                   onChange={(e) => setData('name', e.target.value)}
                   error={errors.name}
                 />
               </div>
-              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
                 <TextInput
-                  label="Email"
-                  type="email"
-                  name="email"
+                  label='Email'
+                  type='email'
+                  name='email'
                   value={data.email}
                   onChange={(e) => setData('email', e.target.value)}
                   error={errors.email}
@@ -62,24 +59,24 @@ const Create = () => {
               </div>
             </div>
 
-            <div className="-mx-3 md:flex mb-6">
-              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+            <div className='-mx-3 md:flex mb-6'>
+              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
                 <TextInput
-                  label="Phone"
-                  type="text"
-                  name="phone"
+                  label='Phone'
+                  type='text'
+                  name='phone'
                   value={data.phone}
-                  className="w-full"
+                  className='w-full'
                   onChange={(e) => setData('phone', e.target.value)}
                   error={errors.phone}
                 />
               </div>
 
-              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
                 <TextInput
-                  label="Address"
-                  type="text"
-                  name="address"
+                  label='Address'
+                  type='text'
+                  name='address'
                   value={data.address}
                   onChange={(e) => setData('address', e.target.value)}
                   error={errors.address}
@@ -87,22 +84,22 @@ const Create = () => {
               </div>
             </div>
 
-            <div className="-mx-3 md:flex mb-6">
-              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+            <div className='-mx-3 md:flex mb-6'>
+              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
                 <TextInput
-                  label="City"
-                  type="text"
-                  name="city"
+                  label='City'
+                  type='text'
+                  name='city'
                   value={data.city}
                   onChange={(e) => setData('city', e.target.value)}
                   error={errors.city}
                 />
               </div>
-              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
                 <TextInput
-                  label="Region"
-                  type="text"
-                  name="region"
+                  label='Region'
+                  type='text'
+                  name='region'
                   value={data.region}
                   onChange={(e) => setData('region', e.target.value)}
                   error={errors.region}
@@ -110,11 +107,11 @@ const Create = () => {
               </div>
             </div>
 
-            <div className="-mx-3 md:flex mb-6">
-              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+            <div className='-mx-3 md:flex mb-6'>
+              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
                 <Select
-                  label="Country"
-                  name="country"
+                  label='Country'
+                  name='country'
                   errors={errors.country}
                   value={data.country}
                   onChange={(e) => setData('country', e)}
@@ -125,11 +122,11 @@ const Create = () => {
                 />
               </div>
 
-              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
                 <TextInput
-                  label="Postal Code"
-                  type="text"
-                  name="postal_code"
+                  label='Postal Code'
+                  type='text'
+                  name='postal_code'
                   value={data.postal_code}
                   onChange={(e) => setData('postal_code', e.target.value)}
                   error={errors.postal_code}
@@ -137,12 +134,8 @@ const Create = () => {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-end px-8 py-4 bg-gray-100 border-t border-gray-200">
-            <Button
-              type="submit"
-              leftIcon={<IconSend size={14} />}
-              loading={processing}
-            >
+          <div className='flex items-center justify-end px-8 py-4 bg-gray-100 border-t border-gray-200'>
+            <Button type='submit' leftIcon={<IconSend size={14} />} loading={processing}>
               Submit
             </Button>
           </div>

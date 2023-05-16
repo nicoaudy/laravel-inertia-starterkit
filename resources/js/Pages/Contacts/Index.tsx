@@ -17,7 +17,7 @@ const Index = () => {
       <th>Email</th>
       <th>City</th>
       <th>Phone</th>
-      <th colSpan="2"></th>
+      <th colSpan='2'></th>
     </tr>
   );
 
@@ -29,13 +29,9 @@ const Index = () => {
       <td>{city}</td>
       <td>{phone}</td>
       <td>
-        <div className="flex item-center justify-center">
-          <div className="transform hover:text-purple-500 hover:scale-110 cursor-pointer">
-            <Link
-              tabIndex="-1"
-              href={route('contacts.edit', id)}
-              className="flex items-center px-4 focus:outline-none"
-            >
+        <div className='flex item-center justify-center'>
+          <div className='transform hover:text-purple-500 hover:scale-110 cursor-pointer'>
+            <Link tabIndex='-1' href={route('contacts.edit', id)} className='flex items-center px-4 focus:outline-none'>
               <IconChevronRight size={18} />
             </Link>
           </div>
@@ -46,11 +42,11 @@ const Index = () => {
 
   return (
     <>
-      <Head title="Contacts" />
-      <div className="flex justify-between items-center border-b border-gray-300">
-        <h1 className="text-2xl font-semibold pt-2 pb-6">Contacts</h1>
+      <Head title='Contacts' />
+      <div className='flex justify-between items-center border-b border-gray-300'>
+        <h1 className='text-2xl font-semibold pt-2 pb-6'>Contacts</h1>
         <Link href={route('contacts.create')}>
-          <Button color="dark" size="xs" leftIcon={<IconPlus size={14} />}>
+          <Button color='dark' size='xs' leftIcon={<IconPlus size={14} />}>
             Contact
           </Button>
         </Link>

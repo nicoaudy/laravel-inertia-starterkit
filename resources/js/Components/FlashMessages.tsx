@@ -29,7 +29,7 @@ const FlashMessages = () => {
 
   return (
     <Toaster
-      position="top-right"
+      position='top-right'
       toastOptions={{
         duration: 5000,
       }}

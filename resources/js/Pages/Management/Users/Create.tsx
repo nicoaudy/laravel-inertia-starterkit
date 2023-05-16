@@ -21,39 +21,36 @@ const Create = () => {
 
   return (
     <>
-      <Head title="Create User" />
+      <Head title='Create User' />
 
-      <div className="flex justify-between items-center border-b border-gray-300">
-        <h1 className="mt-2 mb-6 text-2xl font-semibold">
-          <Link
-            href={route('management.users.index')}
-            className="text-indigo-600 hover:text-indigo-700"
-          >
+      <div className='flex justify-between items-center border-b border-gray-300'>
+        <h1 className='mt-2 mb-6 text-2xl font-semibold'>
+          <Link href={route('management.users.index')} className='text-indigo-600 hover:text-indigo-700'>
             Users
           </Link>
-          <span className="font-medium text-indigo-600"> /</span> Create
+          <span className='font-medium text-indigo-600'> /</span> Create
         </h1>
       </div>
 
-      <div className="my-6 max-w-3xl overflow-hidden bg-white rounded shadow">
-        <form name="createForm" onSubmit={handleSubmit}>
-          <div className="flex flex-col p-8 my-2 mb-4">
-            <div className="-mx-3 md:flex mb-6">
-              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+      <div className='my-6 max-w-3xl overflow-hidden bg-white rounded shadow'>
+        <form name='createForm' onSubmit={handleSubmit}>
+          <div className='flex flex-col p-8 my-2 mb-4'>
+            <div className='-mx-3 md:flex mb-6'>
+              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
                 <TextInput
-                  label="Name"
-                  type="text"
-                  name="name"
+                  label='Name'
+                  type='text'
+                  name='name'
                   value={data.name}
                   onChange={(e) => setData('name', e.target.value)}
                   error={errors.name}
                 />
               </div>
-              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
                 <TextInput
-                  label="Email"
-                  type="email"
-                  name="email"
+                  label='Email'
+                  type='email'
+                  name='email'
                   value={data.email}
                   onChange={(e) => setData('email', e.target.value)}
                   error={errors.email}
@@ -61,12 +58,12 @@ const Create = () => {
               </div>
             </div>
 
-            <div className="-mx-3 md:flex mb-6">
-              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+            <div className='-mx-3 md:flex mb-6'>
+              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
                 <TextInput
-                  label="Password"
-                  type="password"
-                  name="password"
+                  label='Password'
+                  type='password'
+                  name='password'
                   value={data.password}
                   onChange={(e) => setData('password', e.target.value)}
                   error={errors.password}
@@ -74,13 +71,13 @@ const Create = () => {
               </div>
             </div>
 
-            <div className="-mx-3 md:flex mb-6">
-              <div className="md:w-1/2 px-3 mb-6 md:mb-0">
+            <div className='-mx-3 md:flex mb-6'>
+              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
                 <FileInput
-                  className="w-full pb-8 pr-6 lg:w-1/2"
-                  label="Photo"
-                  name="photo"
-                  accept="image/*"
+                  className='w-full pb-8 pr-6 lg:w-1/2'
+                  label='Photo'
+                  name='photo'
+                  accept='image/*'
                   errors={errors.photo}
                   value={data.photo}
                   onChange={(photo) => setData('photo', photo)}
@@ -88,12 +85,8 @@ const Create = () => {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-end px-8 py-4 bg-gray-100 border-t border-gray-200">
-            <Button
-              type="submit"
-              leftIcon={<IconSend size={14} />}
-              loading={processing}
-            >
+          <div className='flex items-center justify-end px-8 py-4 bg-gray-100 border-t border-gray-200'>
+            <Button type='submit' leftIcon={<IconSend size={14} />} loading={processing}>
               Submit
             </Button>
           </div>

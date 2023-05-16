@@ -18,10 +18,7 @@ const Register = () => {
   }, []);
 
   const onHandleChange = (event) => {
-    setData(
-      event.target.name,
-      event.target.type === 'checkbox' ? event.target.checked : event.target.value
-    );
+    setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
   };
 
   const submit = (e) => {
@@ -32,66 +29,63 @@ const Register = () => {
 
   return (
     <>
-      <Head title="Register" />
+      <Head title='Register' />
 
       <form onSubmit={submit}>
         <div>
           <TextInput
-            label="Name"
-            type="text"
-            name="name"
+            label='Name'
+            type='text'
+            name='name'
             value={data.name}
-            autoComplete="name"
+            autoComplete='name'
             autoFocus
             onChange={onHandleChange}
             error={errors.name}
           />
         </div>
 
-        <div className="mt-4">
+        <div className='mt-4'>
           <TextInput
-            label="Email"
-            type="email"
-            name="email"
+            label='Email'
+            type='email'
+            name='email'
             value={data.email}
-            autoComplete="username"
+            autoComplete='username'
             onChange={onHandleChange}
             error={errors.email}
           />
         </div>
 
-        <div className="mt-4">
+        <div className='mt-4'>
           <TextInput
-            label="Password"
-            type="password"
-            name="password"
+            label='Password'
+            type='password'
+            name='password'
             value={data.password}
-            autoComplete="new-password"
+            autoComplete='new-password'
             onChange={onHandleChange}
             errror={errors.password}
           />
         </div>
 
-        <div className="mt-4">
+        <div className='mt-4'>
           <TextInput
-            label="Password Confirmation"
-            type="password"
-            name="password_confirmation"
+            label='Password Confirmation'
+            type='password'
+            name='password_confirmation'
             value={data.password_confirmation}
             onChange={onHandleChange}
             error={errors.password_confirmation}
           />
         </div>
 
-        <div className="flex items-center justify-end mt-4">
-          <Link
-            href={route('login')}
-            className="underline text-sm text-gray-600 hover:text-gray-900"
-          >
+        <div className='flex items-center justify-end mt-4'>
+          <Link href={route('login')} className='underline text-sm text-gray-600 hover:text-gray-900'>
             Already registered?
           </Link>
 
-          <Button type="submit" className="ml-4" loading={processing}>
+          <Button type='submit' className='ml-4' loading={processing}>
             Register
           </Button>
         </div>

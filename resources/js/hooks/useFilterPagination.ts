@@ -37,14 +37,10 @@ const useFilterPagination = () => {
     if (prevValues) {
       const search = debounce(() => {
         let query = pickBy(values);
-        router.get(
-          route(route().current()),
-          Object.keys(query).length ? query : {},
-          {
-            replace: true,
-            preserveState: true,
-          }
-        );
+        router.get(route(route().current()), Object.keys(query).length ? query : {}, {
+          replace: true,
+          preserveState: true,
+        });
       }, 150);
       search();
     }
