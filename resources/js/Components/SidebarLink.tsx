@@ -10,8 +10,6 @@ interface SidebarLinkProps {
 }
 
 const SidebarLink: React.FC<SidebarLinkProps> = ({ icon, link, text, can }) => {
-  console.log(link);
-  console.log(usePage());
   const isActive = usePage()
     .url()
     .current(link + '*');
