@@ -1,8 +1,10 @@
+import React, { PropsWithChildren } from 'react';
 import { Link } from '@inertiajs/react';
 import { IconBrandLaravel } from '@tabler/icons';
-import { PropsWithChildren } from 'react';
 
-export default function Guest({ children }: PropsWithChildren) {
+interface GuestProps extends PropsWithChildren<{}> {}
+
+const Guest: React.FC<GuestProps> = ({ children }) => {
   return (
     <div className='min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100'>
       <div>
@@ -16,4 +18,6 @@ export default function Guest({ children }: PropsWithChildren) {
       </div>
     </div>
   );
-}
+};
+
+export default Guest;

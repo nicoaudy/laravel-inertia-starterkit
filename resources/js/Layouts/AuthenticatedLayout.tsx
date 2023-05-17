@@ -1,18 +1,22 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { usePage } from '@inertiajs/react';
 import Sidebar from '@/Components/Sidebar';
 import FlashMessages from '@/Components/FlashMessages';
 
-export default function AuthenticatedLayout({ children }) {
+interface AuthenticatedLayoutProps {
+  children: React.ReactNode;
+}
+
+const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({ children }) => {
   const { app_name } = usePage().props;
   const [navOpen, setNavOpen] = useState(false);
 
   return (
     <div className='flex relative'>
-      <Sidebar navOpen={navOpen} appName={app_name} />
+      <Sidebar navOpen={navOpen} appName={app_name as string} />
       <main className='flex-1 h-screen overflow-y-scroll overflow-x-hidden bg-gray-100'>
         <div className='md:hidden justify-between items-center bg-black text-white flex'>
-          <h1 className='text-2xl font-bold px-4'>{app_name}</h1>
+          <h1 className='text-2xl font-bold px-4'>{app_name as string}</h1>
           <button onClick={() => setNavOpen(!navOpen)} className='btn p-4 focus:outline-none hover:bg-gray-800'>
             <svg
               className='w-6 h-6 fill-current'
@@ -31,4 +35,6 @@ export default function AuthenticatedLayout({ children }) {
       </main>
     </div>
   );
-}
+};
+
+export default AuthenticatedLayout;
