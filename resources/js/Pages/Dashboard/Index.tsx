@@ -15,5 +15,6 @@ const Dashboard = () => {
   );
 };
 
-Dashboard.layout = (page) => <AuthenticatedLayout children={page} />;
+Dashboard.layout = (page: React.ReactNode) => <AuthenticatedLayout>{page}</AuthenticatedLayout>;
+
 export default Dashboard;

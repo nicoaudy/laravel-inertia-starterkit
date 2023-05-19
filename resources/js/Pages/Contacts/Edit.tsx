@@ -1,10 +1,9 @@
-import { router } from '@inertiajs/react';
-import { Link, Head, usePage, useForm } from '@inertiajs/react';
 import { TextInput, Select, Button, Group, Text } from '@mantine/core';
 import { openModal, closeAllModals } from '@mantine/modals';
 import { IconSend } from '@tabler/icons';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteButton from '@/Components/DeleteButton';
+import { Link, Head, usePage, router, useForm } from '@inertiajs/react';
 
 const Edit = () => {
   const { contact } = usePage().props;
@@ -20,7 +19,7 @@ const Edit = () => {
     postal_code: contact.postal_code || '',
   });
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     put(route('contacts.update', contact.id));
   }
@@ -49,7 +48,6 @@ const Edit = () => {
       ),
     });
   };
-
   return (
     <>
       <Head title={data.name} />
@@ -177,5 +175,5 @@ const Edit = () => {
   );
 };
 
-Edit.layout = (page) => <AuthenticatedLayout children={page} />;
+Edit.layout = (page: React.ReactNode) => <AuthenticatedLayout children={page} />;
 export default Edit;
