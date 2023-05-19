@@ -1,7 +1,7 @@
 import './bootstrap';
 import '../css/app.css';
 
-import { createRoot } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';
 import { MantineProvider, createEmotionCache } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
