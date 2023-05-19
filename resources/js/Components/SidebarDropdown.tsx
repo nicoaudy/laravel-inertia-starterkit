@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import SidebarDropdownLink from './SidebarDropdownLink';
-import { IconChevronDown, IconChevronUp } from '@tabler/icons';
+import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 
 interface SidebarDropdownProps {
   items: {

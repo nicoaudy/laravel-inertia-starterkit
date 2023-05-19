@@ -1,6 +1,6 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import { TextInput, Select, Button } from '@mantine/core';
-import { IconSend } from '@tabler/icons';
+import { IconSend } from '@tabler/icons-react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 const Create = () => {

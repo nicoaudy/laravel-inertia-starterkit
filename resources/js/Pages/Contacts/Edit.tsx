@@ -1,6 +1,6 @@
 import { TextInput, Select, Button, Group, Text } from '@mantine/core';
 import { openModal, closeAllModals } from '@mantine/modals';
-import { IconSend } from '@tabler/icons';
+import { IconSend } from '@tabler/icons-react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteButton from '@/Components/DeleteButton';
 import { Link, Head, usePage, router, useForm } from '@inertiajs/react';

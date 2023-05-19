@@ -1,7 +1,7 @@
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { TextInput, Checkbox, Button, Flex, Text } from '@mantine/core';
-import { IconSend } from '@tabler/icons';
+import { IconSend } from '@tabler/icons-react';
 
 const Create = () => {
   const { permissions } = usePage().props;

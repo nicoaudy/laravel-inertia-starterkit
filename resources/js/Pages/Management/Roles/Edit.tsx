@@ -1,7 +1,7 @@
 import { Link, Head, usePage, useForm, router } from '@inertiajs/react';
 import { TextInput, Checkbox, Button, Group, Text, Flex } from '@mantine/core';
 import { openModal, closeAllModals } from '@mantine/modals';
-import { IconSend } from '@tabler/icons';
+import { IconSend } from '@tabler/icons-react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteButton from '@/Components/DeleteButton';
 

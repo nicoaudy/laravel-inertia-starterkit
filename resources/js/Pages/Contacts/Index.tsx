@@ -1,7 +1,7 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import { ScrollArea, Table } from '@mantine/core';
 import { Button } from '@mantine/core';
-import { IconChevronRight, IconPlus } from '@tabler/icons';
+import { IconChevronRight, IconPlus } from '@tabler/icons-react';
 import Filter from '@/Components/Filter';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import ResponsivePagination from '@/Components/ResponsivePagination';

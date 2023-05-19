@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { Link } from '@inertiajs/react';
-import { IconBrandLaravel } from '@tabler/icons';
+import { IconBrandLaravel } from '@tabler/icons-react';
 
 interface GuestProps extends PropsWithChildren<{}> {}
 

@@ -2,7 +2,7 @@ import { usePage, Link } from '@inertiajs/react';
 import classNames from 'classnames';
 import SidebarDropdown from './SidebarDropdown';
 import SidebarLink from './SidebarLink';
-import { IconBook, IconHome, IconLogout, IconSettings } from '@tabler/icons';
+import { IconBook, IconHome, IconLogout, IconSettings } from '@tabler/icons-react';
 
 interface SidebarProps {
   navOpen: boolean;
