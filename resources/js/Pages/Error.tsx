@@ -1,9 +1,10 @@
 import { Head } from '@inertiajs/react';
-// import { usePage } from '@inertiajs/react';
 
-export default ({ status }) => {
-  // const { status } = usePage().props;
+interface ErrorPageProps {
+  status: number;
+}
 
+const ErrorPage = ({ status }: ErrorPageProps) => {
   const title = {
     503: '503: Service Unavailable',
     500: '500: Server Error',
@@ -28,3 +29,5 @@ export default ({ status }) => {
     </div>
   );
 };
+
+export default ErrorPage;

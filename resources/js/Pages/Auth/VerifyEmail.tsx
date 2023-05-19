@@ -2,10 +2,14 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Button } from '@mantine/core';
 
-const VerifyEmail = ({ status }) => {
+interface VerifyEmailProps {
+  status: string;
+}
+
+const VerifyEmail = ({ status }: VerifyEmailProps) => {
   const { post, processing } = useForm();
 
-  const submit = (e) => {
+  const submit = (e: React.FormEvent) => {
     e.preventDefault();
 
     post(route('verification.send'));
@@ -45,6 +49,6 @@ const VerifyEmail = ({ status }) => {
   );
 };
 
-VerifyEmail.layout = (page) => <GuestLayout children={page} />;
+VerifyEmail.layout = (page: React.ReactNode) => <GuestLayout>{page}</GuestLayout>;
 
 export default VerifyEmail;

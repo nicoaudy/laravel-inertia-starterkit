@@ -17,11 +17,11 @@ const Register = () => {
     };
   }, []);
 
-  const onHandleChange = (event) => {
+  const onHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
   };
 
-  const submit = (e) => {
+  const submit = (e: React.FormEvent) => {
     e.preventDefault();
 
     post(route('register'));
@@ -65,7 +65,7 @@ const Register = () => {
             value={data.password}
             autoComplete='new-password'
             onChange={onHandleChange}
-            errror={errors.password}
+            error={errors.password}
           />
         </div>
 
@@ -94,5 +94,6 @@ const Register = () => {
   );
 };
 
-Register.layout = (page) => <GuestLayout children={page} />;
+Register.layout = (page: React.ReactNode) => <GuestLayout>{page}</GuestLayout>;
+
 export default Register;

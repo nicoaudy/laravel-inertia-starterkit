@@ -2,16 +2,20 @@ import GuestLayout from '@/Layouts/GuestLayout';
 import { Button, TextInput } from '@mantine/core';
 import { Head, useForm } from '@inertiajs/react';
 
-const ForgotPassword = ({ status }) => {
+interface ForgotPasswordProps {
+  status: string;
+}
+
+const ForgotPassword = ({ status }: ForgotPasswordProps) => {
   const { data, setData, post, processing, errors } = useForm({
     email: '',
   });
 
-  const onHandleChange = (event) => {
+  const onHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setData(event.target.name, event.target.value);
   };
 
-  const submit = (e) => {
+  const submit = (e: React.FormEvent) => {
     e.preventDefault();
 
     post(route('password.email'));
@@ -49,5 +53,6 @@ const ForgotPassword = ({ status }) => {
   );
 };
 
-ForgotPassword.layout = (page) => <GuestLayout children={page} />;
+ForgotPassword.layout = (page: React.ReactNode) => <GuestLayout>{page}</GuestLayout>;
+
 export default ForgotPassword;

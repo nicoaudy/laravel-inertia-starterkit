@@ -8,7 +8,7 @@ interface LoginProps {
   canResetPassword: boolean;
 }
 
-export default function Login({ status, canResetPassword }: LoginProps) {
+const Login: React.FC<LoginProps> = ({ status, canResetPassword }) => {
   const { data, setData, post, processing, errors, reset } = useForm({
     email: 'johndoe@example.com',
     password: 'password',
@@ -21,11 +21,11 @@ export default function Login({ status, canResetPassword }: LoginProps) {
     };
   }, []);
 
-  const onHandleChange = (event: { target: { name: any; value: any; type: any; checked: any } }) => {
+  const onHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
   };
 
-  const submit = (e: { preventDefault: () => void }) => {
+  const submit = (e: React.FormEvent) => {
     e.preventDefault();
 
     post(route('login'));
@@ -64,7 +64,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
         </div>
 
         <div className='block mt-4'>
-          <Checkbox name='remember' value={data.remember} onChange={onHandleChange} label='Remember me' />
+          <Checkbox name='remember' checked={data.remember} onChange={onHandleChange} label='Remember me' />
         </div>
 
         <div className='flex items-center justify-end mt-4'>
@@ -81,6 +81,8 @@ export default function Login({ status, canResetPassword }: LoginProps) {
       </form>
     </>
   );
-}
+};
 
-Login.layout = (page: React.ReactNode) => <GuestLayout children={page} />;
+Login.layout = (page: React.ReactNode) => <GuestLayout>{page}</GuestLayout>;
+
+export default Login;

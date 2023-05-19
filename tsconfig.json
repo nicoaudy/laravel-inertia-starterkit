@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["vite/client"],
+    "types": ["react", "vite/client"],
     "allowJs": true,
     "module": "ESNext",
     "moduleResolution": "Node",

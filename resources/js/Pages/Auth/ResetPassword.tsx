@@ -3,7 +3,12 @@ import { Head, useForm } from '@inertiajs/react';
 import { Button, TextInput } from '@mantine/core';
 import GuestLayout from '@/Layouts/GuestLayout';
 
-const ResetPassword = ({ token, email }) => {
+interface ResetPasswordProps {
+  token: string;
+  email: string;
+}
+
+const ResetPassword = ({ token, email }: ResetPasswordProps) => {
   const { data, setData, post, processing, errors, reset } = useForm({
     token: token,
     email: email,
@@ -17,11 +22,11 @@ const ResetPassword = ({ token, email }) => {
     };
   }, []);
 
-  const onHandleChange = (event) => {
+  const onHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setData(event.target.name, event.target.value);
   };
 
-  const submit = (e) => {
+  const submit = (e: React.FormEvent) => {
     e.preventDefault();
 
     post(route('password.update'));
@@ -79,5 +84,6 @@ const ResetPassword = ({ token, email }) => {
   );
 };
 
-ResetPassword.layout = (page) => <GuestLayout children={page} />;
+ResetPassword.layout = (page: React.ReactNode) => <GuestLayout>{page}</GuestLayout>;
+
 export default ResetPassword;

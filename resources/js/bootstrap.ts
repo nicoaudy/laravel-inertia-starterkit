@@ -1,4 +1,13 @@
 import _ from 'lodash';
+declare global {
+  interface Window {
+    _: typeof _;
+    axios: typeof axios;
+    // Echo: any; // Add type for Echo if needed
+    // Pusher: typeof Pusher;
+  }
+}
+
 window._ = _;
 
 /**

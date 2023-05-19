@@ -14,11 +14,11 @@ const ConfirmPassword = () => {
     };
   }, []);
 
-  const onHandleChange = (event) => {
+  const onHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setData(event.target.name, event.target.value);
   };
 
-  const submit = (e) => {
+  const submit = (e: React.FormEvent) => {
     e.preventDefault();
 
     post(route('password.confirm'));
@@ -27,11 +27,9 @@ const ConfirmPassword = () => {
   return (
     <>
       <Head title='Confirm Password' />
-
       <div className='mb-4 text-sm text-gray-600'>
         This is a secure area of the application. Please confirm your password before continuing.
       </div>
-
       <form onSubmit={submit}>
         <div className='mt-4'>
           <TextInput
@@ -56,5 +54,6 @@ const ConfirmPassword = () => {
   );
 };
 
-ConfirmPassword.layout = (page) => <GuestLayout children={page} />;
+ConfirmPassword.layout = (page: React.ReactNode) => <GuestLayout>{page}</GuestLayout>;
+
 export default ConfirmPassword;

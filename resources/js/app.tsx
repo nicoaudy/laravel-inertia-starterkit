@@ -1,7 +1,7 @@
 import './bootstrap';
 import '../css/app.css';
 
-import { createRoot } from 'react-dom/client';
+import { createRoot } from 'react-dom';
 import { createInertiaApp } from '@inertiajs/react';
 import { MantineProvider, createEmotionCache } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
@@ -17,10 +17,10 @@ createInertiaApp({
   progress: {
     color: '#4B5563',
   },
-  title: (title) => `${title} - ${appName}`,
-  resolve: (name) => {
-    const pages = import.meta.glob('./Pages/**/*.tsx', { eager: true });
-    return pages[`./Pages/${name}.tsx`];
+  title: (title: string) => `${title} - ${appName}`,
+  resolve: (name: string) => {
+    const pages = import.meta.glob('./Pages/**/*.tsx');
+    return pages[`./Pages/${name}.tsx`]();
   },
   setup({ el, App, props }) {
     const root = createRoot(el);
