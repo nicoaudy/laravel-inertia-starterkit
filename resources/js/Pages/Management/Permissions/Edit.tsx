@@ -1,5 +1,4 @@
-import { router } from '@inertiajs/react';
-import { Link, Head, usePage, useForm } from '@inertiajs/react';
+import { Link, Head, usePage, useForm, router } from '@inertiajs/react';
 import { TextInput, Checkbox, Button, Group, Text, Flex } from '@mantine/core';
 import { openModal, closeAllModals } from '@mantine/modals';
 import { IconSend } from '@tabler/icons';
@@ -11,10 +10,10 @@ const Edit = () => {
 
   const { data, setData, errors, put, processing } = useForm({
     name: permission.name || '',
-    users: permission.users || '',
+    users: permission.users || [],
   });
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     put(route('management.permissions.update', permission.id));
   }
@@ -35,7 +34,7 @@ const Edit = () => {
     }
   }
 
-  function onSelect(id) {
+  function onSelect(id: number) {
     if (data.users.includes(id)) {
       setData(
         'users',
@@ -133,5 +132,5 @@ const Edit = () => {
   );
 };
 
-Edit.layout = (page) => <AuthenticatedLayout children={page} />;
+Edit.layout = (page: React.ReactNode) => <AuthenticatedLayout children={page} />;
 export default Edit;

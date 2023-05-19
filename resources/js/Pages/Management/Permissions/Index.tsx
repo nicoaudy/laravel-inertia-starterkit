@@ -28,7 +28,7 @@ const Index = () => {
         <div className='flex item-center justify-center'>
           <div className='transform hover:text-purple-500 hover:scale-110 cursor-pointer'>
             <Link
-              tabIndex='-1'
+              tabIndex={-1}
               href={route('management.permissions.edit', id)}
               className='flex items-center px-4 focus:outline-none'>
               <IconChevronRight size={18} />
@@ -63,5 +63,5 @@ const Index = () => {
   );
 };
 
-Index.layout = (page) => <AuthenticatedLayout children={page} />;
+Index.layout = (page: React.ReactNode) => <AuthenticatedLayout children={page} />;
 export default Index;

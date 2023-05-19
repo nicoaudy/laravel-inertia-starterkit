@@ -1,5 +1,4 @@
-import { router } from '@inertiajs/react';
-import { Link, Head, usePage, useForm } from '@inertiajs/react';
+import { Link, Head, usePage, useForm, router } from '@inertiajs/react';
 import { TextInput, Checkbox, Button, Group, Text, Flex } from '@mantine/core';
 import { openModal, closeAllModals } from '@mantine/modals';
 import { IconSend } from '@tabler/icons';
@@ -15,7 +14,7 @@ const Edit = () => {
     permissions: rolePermissions || [],
   });
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     put(route('management.roles.update', role.id));
   }
@@ -36,11 +35,11 @@ const Edit = () => {
     }
   }
 
-  function onSelect(id) {
+  function onSelect(id: number) {
     if (data.permissions.includes(id)) {
       setData(
         'permissions',
-        data.permissions.filter((row) => row != id)
+        data.permissions.filter((row) => row !== id)
       );
     } else {
       setData('permissions', [...data.permissions, id]);
@@ -58,11 +57,11 @@ const Edit = () => {
     }
   }
 
-  function onUserSelect(id) {
+  function onUserSelect(id: number) {
     if (data.users.includes(id)) {
       setData(
         'users',
-        data.users.filter((row) => row != id)
+        data.users.filter((row) => row !== id)
       );
     } else {
       setData('users', [...data.users, id]);
@@ -184,5 +183,5 @@ const Edit = () => {
   );
 };
 
-Edit.layout = (page) => <AuthenticatedLayout children={page} />;
+Edit.layout = (page: React.ReactNode) => <AuthenticatedLayout children={page} />;
 export default Edit;

@@ -63,5 +63,5 @@ const Index = () => {
   );
 };
 
-Index.layout = (page) => <AuthenticatedLayout children={page} />;
+Index.layout = (page: React.ReactNode) => <AuthenticatedLayout children={page} />;
 export default Index;

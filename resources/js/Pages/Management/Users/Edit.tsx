@@ -1,5 +1,4 @@
-import { router } from '@inertiajs/react';
-import { Head, Link, usePage, useForm } from '@inertiajs/react';
+import { Head, Link, usePage, useForm, router } from '@inertiajs/react';
 import { TextInput, Button, Group, Text } from '@mantine/core';
 import { openModal, closeAllModals } from '@mantine/modals';
 import { IconSend } from '@tabler/icons';
@@ -132,5 +131,5 @@ const Edit = () => {
   );
 };
 
-Edit.layout = (page) => <AuthenticatedLayout children={page} />;
+Edit.layout = (page: React.ReactNode) => <AuthenticatedLayout children={page} />;
 export default Edit;

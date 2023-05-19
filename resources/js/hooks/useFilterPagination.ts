@@ -1,7 +1,6 @@
 import { useState, useEffect, ChangeEvent } from 'react';
-import { router } from '@inertiajs/react';
 import { usePrevious } from 'react-use';
-import { usePage } from '@inertiajs/react';
+import { usePage, router } from '@inertiajs/react';
 import { debounce, pickBy } from 'lodash';
 
 interface Filters {

@@ -11,7 +11,7 @@ const Create = () => {
     permissions: [],
   });
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     post(route('management.roles.store'));
   }
@@ -27,11 +27,11 @@ const Create = () => {
     }
   }
 
-  function onSelect(id) {
+  function onSelect(id: number) {
     if (data.permissions.includes(id)) {
       setData(
         'permissions',
-        data.permissions.filter((row) => row != id)
+        data.permissions.filter((row) => row !== id)
       );
     } else {
       setData('permissions', [...data.permissions, id]);
@@ -99,5 +99,5 @@ const Create = () => {
   );
 };
 
-Create.layout = (page) => <AuthenticatedLayout children={page} />;
+Create.layout = (page: React.ReactNode) => <AuthenticatedLayout>{page}</AuthenticatedLayout>;
 export default Create;

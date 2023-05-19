@@ -8,7 +8,7 @@ const Create = () => {
     name: '',
   });
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     post(route('management.permissions.store'));
   }
@@ -53,5 +53,5 @@ const Create = () => {
   );
 };
 
-Create.layout = (page) => <AuthenticatedLayout children={page} />;
+Create.layout = (page: React.ReactNode) => <AuthenticatedLayout children={page} />;
 export default Create;

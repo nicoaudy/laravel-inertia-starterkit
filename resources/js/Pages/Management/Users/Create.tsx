@@ -12,7 +12,7 @@ const Create = () => {
     photo: '',
   });
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     post(route('management.users.store'), {
       forceFormData: true,
@@ -96,5 +96,5 @@ const Create = () => {
   );
 };
 
-Create.layout = (page) => <AuthenticatedLayout children={page} />;
+Create.layout = (page: React.ReactNode) => <AuthenticatedLayout children={page} />;
 export default Create;
