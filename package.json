@@ -5,19 +5,17 @@
     "pre-commit": "npm run format && pretty-quick --staged",
     "format": "prettier 'resources/{js,jsx}/**/*.{ts,tsx}' --write",
     "dev": "vite",
-    "build": "tsc && vite build && vite build --ssr"
+    "build": "vite build && vite build --ssr",
+    "tsc-build": "tsc && vite build && vite build --ssr"
   },
   "devDependencies": {
     "@emotion/react": "^11.10.6",
-    "@headlessui/react": "^1.4.2",
     "@inertiajs/react": "^1.0.0",
     "@mantine/core": "^6.0.5",
     "@mantine/hooks": "^6.0.5",
     "@mantine/modals": "^6.0.5",
-    "@tabler/icons": "^1.117.0",
     "@tabler/icons-react": "^2.18.0",
     "@types/lodash": "^4.14.194",
-    "@types/node": "^18.13.0",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.10",
     "@types/ziggy-js": "^1.3.2",
