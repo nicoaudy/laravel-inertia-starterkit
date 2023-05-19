@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "fef7891ae3a26ec5373c7c1c2b17d875",
+  "content-hash": "d7659aeaf3aebbd2e82cadf12feb14a3",
   "packages": [
     {
       "name": "brick/math",
@@ -188,17 +188,7 @@
       ],
       "description": "PHP Doctrine Cache library is a popular cache implementation that supports many different drivers such as redis, memcache, apc, mongodb and others.",
       "homepage": "https://www.doctrine-project.org/projects/cache.html",
-      "keywords": [
-        "abstraction",
-        "apcu",
-        "cache",
-        "caching",
-        "couchdb",
-        "memcached",
-        "php",
-        "redis",
-        "xcache"
-      ],
+      "keywords": ["abstraction", "apcu", "cache", "caching", "couchdb", "memcached", "php", "redis", "xcache"],
       "support": {
         "issues": "https://github.com/doctrine/cache/issues",
         "source": "https://github.com/doctrine/cache/tree/2.2.0"
@@ -430,13 +420,7 @@
       ],
       "description": "The Doctrine Event Manager is a simple PHP event system that was built to be used with the various Doctrine projects.",
       "homepage": "https://www.doctrine-project.org/projects/event-manager.html",
-      "keywords": [
-        "event",
-        "event dispatcher",
-        "event manager",
-        "event system",
-        "events"
-      ],
+      "keywords": ["event", "event dispatcher", "event manager", "event system", "events"],
       "support": {
         "issues": "https://github.com/doctrine/event-manager/issues",
         "source": "https://github.com/doctrine/event-manager/tree/2.0.0"
@@ -717,13 +701,7 @@
       ],
       "description": "A library for validating emails against several RFCs",
       "homepage": "https://github.com/egulias/EmailValidator",
-      "keywords": [
-        "email",
-        "emailvalidation",
-        "emailvalidator",
-        "validation",
-        "validator"
-      ],
+      "keywords": ["email", "emailvalidation", "emailvalidator", "validation", "validator"],
       "support": {
         "issues": "https://github.com/egulias/EmailValidator/issues",
         "source": "https://github.com/egulias/EmailValidator/tree/4.0.1"
@@ -838,13 +816,7 @@
         }
       ],
       "description": "An Implementation Of The Result Type",
-      "keywords": [
-        "Graham Campbell",
-        "GrahamCampbell",
-        "Result Type",
-        "Result-Type",
-        "result"
-      ],
+      "keywords": ["Graham Campbell", "GrahamCampbell", "Result Type", "Result-Type", "result"],
       "support": {
         "issues": "https://github.com/GrahamCampbell/Result-Type/issues",
         "source": "https://github.com/GrahamCampbell/Result-Type/tree/v1.1.1"
@@ -954,17 +926,7 @@
         }
       ],
       "description": "Guzzle is a PHP HTTP client library",
-      "keywords": [
-        "client",
-        "curl",
-        "framework",
-        "http",
-        "http client",
-        "psr-18",
-        "psr-7",
-        "rest",
-        "web service"
-      ],
+      "keywords": ["client", "curl", "framework", "http", "http client", "psr-18", "psr-7", "rest", "web service"],
       "support": {
         "issues": "https://github.com/guzzle/guzzle/issues",
         "source": "https://github.com/guzzle/guzzle/tree/7.5.0"
@@ -1150,16 +1112,7 @@
         }
       ],
       "description": "PSR-7 message implementation that also provides common utility methods",
-      "keywords": [
-        "http",
-        "message",
-        "psr-7",
-        "request",
-        "response",
-        "stream",
-        "uri",
-        "url"
-      ],
+      "keywords": ["http", "message", "psr-7", "request", "response", "stream", "uri", "url"],
       "support": {
         "issues": "https://github.com/guzzle/psr7/issues",
         "source": "https://github.com/guzzle/psr7/tree/2.4.4"
@@ -1519,16 +1472,16 @@
     },
     {
       "name": "laravel/sanctum",
-      "version": "v3.2.1",
+      "version": "v3.2.5",
       "source": {
         "type": "git",
         "url": "https://github.com/laravel/sanctum.git",
-        "reference": "d09d69bac55708fcd4a3b305d760e673d888baf9"
+        "reference": "8ebda85d59d3c414863a7f4d816ef8302faad876"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/laravel/sanctum/zipball/d09d69bac55708fcd4a3b305d760e673d888baf9",
-        "reference": "d09d69bac55708fcd4a3b305d760e673d888baf9",
+        "url": "https://api.github.com/repos/laravel/sanctum/zipball/8ebda85d59d3c414863a7f4d816ef8302faad876",
+        "reference": "8ebda85d59d3c414863a7f4d816ef8302faad876",
         "shasum": ""
       },
       "require": {
@@ -1542,6 +1495,7 @@
       "require-dev": {
         "mockery/mockery": "^1.0",
         "orchestra/testbench": "^7.0|^8.0",
+        "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^9.3"
       },
       "type": "library",
@@ -1572,7 +1526,7 @@
         "issues": "https://github.com/laravel/sanctum/issues",
         "source": "https://github.com/laravel/sanctum"
       },
-      "time": "2023-01-13T15:41:49+00:00"
+      "time": "2023-05-01T19:39:51+00:00"
     },
     {
       "name": "laravel/serializable-closure",
@@ -1754,16 +1708,7 @@
       ],
       "description": "Highly-extensible PHP Markdown parser which fully supports the CommonMark spec and GitHub-Flavored Markdown (GFM)",
       "homepage": "https://commonmark.thephpleague.com",
-      "keywords": [
-        "commonmark",
-        "flavored",
-        "gfm",
-        "github",
-        "github-flavored",
-        "markdown",
-        "md",
-        "parser"
-      ],
+      "keywords": ["commonmark", "flavored", "gfm", "github", "github-flavored", "markdown", "md", "parser"],
       "support": {
         "docs": "https://commonmark.thephpleague.com/",
         "forum": "https://github.com/thephpleague/commonmark/discussions",
@@ -1840,15 +1785,7 @@
       ],
       "description": "Define configuration arrays with strict schemas and access values with dot notation",
       "homepage": "https://config.thephpleague.com",
-      "keywords": [
-        "array",
-        "config",
-        "configuration",
-        "dot",
-        "dot-access",
-        "nested",
-        "schema"
-      ],
+      "keywords": ["array", "config", "configuration", "dot", "dot-access", "nested", "schema"],
       "support": {
         "docs": "https://config.thephpleague.com/",
         "issues": "https://github.com/thephpleague/config/issues",
@@ -2604,13 +2541,7 @@
       ],
       "description": "Common Container Interface (PHP FIG PSR-11)",
       "homepage": "https://github.com/php-fig/container",
-      "keywords": [
-        "PSR-11",
-        "container",
-        "container-interface",
-        "container-interop",
-        "psr"
-      ],
+      "keywords": ["PSR-11", "container", "container-interface", "container-interop", "psr"],
       "support": {
         "issues": "https://github.com/php-fig/container/issues",
         "source": "https://github.com/php-fig/container/tree/2.0.2"
@@ -2744,16 +2675,7 @@
         }
       ],
       "description": "Common interfaces for PSR-7 HTTP message factories",
-      "keywords": [
-        "factory",
-        "http",
-        "message",
-        "psr",
-        "psr-17",
-        "psr-7",
-        "request",
-        "response"
-      ],
+      "keywords": ["factory", "http", "message", "psr", "psr-17", "psr-7", "request", "response"],
       "support": {
         "source": "https://github.com/php-fig/http-factory/tree/master"
       },
@@ -3213,16 +3135,7 @@
       ],
       "description": "Permission handling for Laravel 6.0 and up",
       "homepage": "https://github.com/spatie/laravel-permission",
-      "keywords": [
-        "acl",
-        "laravel",
-        "permission",
-        "permissions",
-        "rbac",
-        "roles",
-        "security",
-        "spatie"
-      ],
+      "keywords": ["acl", "laravel", "permission", "permissions", "rbac", "roles", "security", "spatie"],
       "support": {
         "issues": "https://github.com/spatie/laravel-permission/issues",
         "source": "https://github.com/spatie/laravel-permission/tree/5.10.0"
@@ -3640,14 +3553,7 @@
       ],
       "description": "Generic abstractions related to dispatching event",
       "homepage": "https://symfony.com",
-      "keywords": [
-        "abstractions",
-        "contracts",
-        "decoupling",
-        "interfaces",
-        "interoperability",
-        "standards"
-      ],
+      "keywords": ["abstractions", "contracts", "decoupling", "interfaces", "interoperability", "standards"],
       "support": {
         "source": "https://github.com/symfony/event-dispatcher-contracts/tree/v3.2.1"
       },
@@ -4182,14 +4088,7 @@
       ],
       "description": "Symfony polyfill for intl's grapheme_* functions",
       "homepage": "https://symfony.com",
-      "keywords": [
-        "compatibility",
-        "grapheme",
-        "intl",
-        "polyfill",
-        "portable",
-        "shim"
-      ],
+      "keywords": ["compatibility", "grapheme", "intl", "polyfill", "portable", "shim"],
       "support": {
         "source": "https://github.com/symfony/polyfill-intl-grapheme/tree/v1.27.0"
       },
@@ -4336,14 +4235,7 @@
       ],
       "description": "Symfony polyfill for intl's Normalizer class and related functions",
       "homepage": "https://symfony.com",
-      "keywords": [
-        "compatibility",
-        "intl",
-        "normalizer",
-        "polyfill",
-        "portable",
-        "shim"
-      ],
+      "keywords": ["compatibility", "intl", "normalizer", "polyfill", "portable", "shim"],
       "support": {
         "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.27.0"
       },
@@ -4838,14 +4730,7 @@
       ],
       "description": "Generic abstractions related to writing services",
       "homepage": "https://symfony.com",
-      "keywords": [
-        "abstractions",
-        "contracts",
-        "decoupling",
-        "interfaces",
-        "interoperability",
-        "standards"
-      ],
+      "keywords": ["abstractions", "contracts", "decoupling", "interfaces", "interoperability", "standards"],
       "support": {
         "source": "https://github.com/symfony/service-contracts/tree/v3.2.1"
       },
@@ -5080,14 +4965,7 @@
       ],
       "description": "Generic abstractions related to translation",
       "homepage": "https://symfony.com",
-      "keywords": [
-        "abstractions",
-        "contracts",
-        "decoupling",
-        "interfaces",
-        "interoperability",
-        "standards"
-      ],
+      "keywords": ["abstractions", "contracts", "decoupling", "interfaces", "interoperability", "standards"],
       "support": {
         "source": "https://github.com/symfony/translation-contracts/tree/v3.2.1"
       },
@@ -5252,16 +5130,16 @@
     },
     {
       "name": "tightenco/ziggy",
-      "version": "v1.5.0",
+      "version": "v1.6.0",
       "source": {
         "type": "git",
         "url": "https://github.com/tighten/ziggy.git",
-        "reference": "419ac3f71b60795b392ec1ba6ee72e179977afc8"
+        "reference": "3beb080be60b1eadad043f3773a160df13fa215f"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/tighten/ziggy/zipball/419ac3f71b60795b392ec1ba6ee72e179977afc8",
-        "reference": "419ac3f71b60795b392ec1ba6ee72e179977afc8",
+        "url": "https://api.github.com/repos/tighten/ziggy/zipball/3beb080be60b1eadad043f3773a160df13fa215f",
+        "reference": "3beb080be60b1eadad043f3773a160df13fa215f",
         "shasum": ""
       },
       "require": {
@@ -5269,7 +5147,7 @@
         "laravel/framework": ">=5.4@dev"
       },
       "require-dev": {
-        "orchestra/testbench": "^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0",
+        "orchestra/testbench": "^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
         "phpunit/phpunit": "^6.0 || ^7.0 || ^8.0 || ^9.0"
       },
       "type": "library",
@@ -5304,9 +5182,9 @@
       "keywords": ["Ziggy", "javascript", "laravel", "routes"],
       "support": {
         "issues": "https://github.com/tighten/ziggy/issues",
-        "source": "https://github.com/tighten/ziggy/tree/v1.5.0"
+        "source": "https://github.com/tighten/ziggy/tree/v1.6.0"
       },
-      "time": "2022-09-23T22:15:05+00:00"
+      "time": "2023-05-12T20:08:56+00:00"
     },
     {
       "name": "tijsverkoyen/css-to-inline-styles",
@@ -5670,14 +5548,7 @@
       ],
       "description": "php error handling for cool kids",
       "homepage": "https://filp.github.io/whoops/",
-      "keywords": [
-        "error",
-        "exception",
-        "handling",
-        "library",
-        "throwable",
-        "whoops"
-      ],
+      "keywords": ["error", "exception", "handling", "library", "throwable", "whoops"],
       "support": {
         "issues": "https://github.com/filp/whoops/issues",
         "source": "https://github.com/filp/whoops/tree/2.15.1"
@@ -6061,9 +5932,7 @@
       "type": "library",
       "extra": {
         "laravel": {
-          "providers": [
-            "NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider"
-          ]
+          "providers": ["NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider"]
         }
       },
       "autoload": {

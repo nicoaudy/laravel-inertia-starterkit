@@ -3,6 +3,8 @@ import '../css/app.css';
 
 import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+
 import { MantineProvider, createEmotionCache } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
 
@@ -18,10 +20,7 @@ createInertiaApp({
     color: '#4B5563',
   },
   title: (title: string) => `${title} - ${appName}`,
-  resolve: (name: string) => {
-    const pages = import.meta.glob('./Pages/**/*.tsx');
-    return pages[`./Pages/${name}.tsx`]();
-  },
+  resolve: (name) => resolvePageComponent(`./Pages/${name}.tsx`, import.meta.glob('./Pages/**/*.tsx')),
   setup({ el, App, props }) {
     const root = createRoot(el);
     root.render(
