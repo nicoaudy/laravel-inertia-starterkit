@@ -1,3 +1,5 @@
+include .env
+
 # Variables
 app_container = "app"
 db_container = "db"
@@ -38,9 +40,9 @@ logs:
 logs-watch:
 	docker compose logs --follow
 log-web:
-	docker compose logs web
+	docker compose logs webserver
 log-web-watch:
-	docker compose logs --follow web
+	docker compose logs --follow webserver
 log-app:
 	docker compose logs app
 log-app-watch:
@@ -50,7 +52,7 @@ log-db:
 log-db-watch:
 	docker compose logs --follow $(db_container)
 web:
-	docker compose exec web bash
+	docker compose exec webserver bash
 app:
 	docker compose exec app bash
 migrate:
