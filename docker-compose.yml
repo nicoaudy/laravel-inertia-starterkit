@@ -26,7 +26,7 @@ services:
     restart: unless-stopped
     tty: true
     links:
-      - database
+      - db
       - redis
       - mailcatcher
     volumes:
@@ -44,7 +44,7 @@ services:
     restart: unless-stopped
     tty: true
     depends_on:
-      - database
+      - db
       - redis
     volumes:
       - ./:/var/www
@@ -64,20 +64,21 @@ services:
       - app-network
 
   # MySQL Service
-  database:
-    image: mysql:5.7
+  db:
+    image: mariadb
     container_name: wolf_flower_database
     restart: unless-stopped
     tty: true
     ports:
       - '${DB_PORT:-3306}:3306'
     environment:
-      - MYSQL_ROOT_PASSWORD='${DB_PASSWORD:-secret}'
-      - MYSQL_DATABASE='${DB_NAME:-app}'
-      - MYSQL_USER='${DB_USER:-homestead}'
-      - MYSQL_PASSWORD='${DB_PASSWORD:-secret}'
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD:-secret}
+      - MYSQL_DATABASE=${DB_NAME:-app}
+      - MYSQL_USER=${DB_USER:-homestead}
+      - MYSQL_PASSWORD=${DB_PASSWORD:-secret}
     volumes:
-      - app-database:/var/lib/mysql/
+      - app-database:/var/lib/mysql
+      # - ./.docker/mysql:/etc/mysql/conf.d/custom.cnf:ro
     networks:
       - app-network
 
