@@ -53,7 +53,7 @@ log-db-watch:
 	docker compose logs --follow $(db_container)
 web:
 	docker compose exec webserver bash
-app:
+app-cli:
 	docker compose exec app bash
 migrate:
 	docker compose exec app php artisan migrate
