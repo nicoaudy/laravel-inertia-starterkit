@@ -49,12 +49,12 @@ services:
 
   #Database Service
   db:
-    image : mysql
+    image: mysql
     container_name: db
     volumes:
       - app-database:/var/lib/mysql
     ports:
-      - '${DB_PORT:-3306}:3306'
+      - '${EXPOSE_DB_PORT:-3306}:${DB_PORT:-3306}'
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_PASSWORD:-secret}
       - MYSQL_DATABASE=${DB_NAME:-app}
@@ -114,7 +114,7 @@ services:
     env_file: .env
     hostname: redis
     ports:
-      - '${REDIS_PORT:-6379}:6379'
+      - '${EXPOSE_REDIS_PORT:-6379}:${REDIS_PORT:-6379}'
     volumes:
       - app-redis:/data
     networks:
