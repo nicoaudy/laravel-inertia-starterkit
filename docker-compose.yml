@@ -1,27 +1,22 @@
-version: '3.7'
+version: '3'
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+
+#Volumes
+volumes:
+  app-database:
+    driver: local
+  app-redis:
+    driver: local
 
 services:
-  app:
-    build:
-      args:
-        user: user
-        uid: 1000
-      context: .
-      dockerfile: ./docker/Dockerfile
-    image: starterkit/php:8.1
-    container_name: '${APP_CONTAINER:-app}_APP'
-    restart: unless-stopped
-    tty: true
-    working_dir: /var/www
-    volumes:
-      - ./:/var/www
-      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
-    networks:
-      - app-network
-
-  server:
+  # Nginx Service
+  webserver:
     image: nginx:alpine
-    container_name: '${APP_CONTAINER:-app}_SERVER'
+    container_name: webserver
     restart: unless-stopped
     tty: true
     ports:
@@ -29,28 +24,108 @@ services:
       - '${APP_PORT_HTTPS:-433}:443'
     volumes:
       - ./:/var/www
-      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./.docker/nginx/:/etc/nginx/conf.d/
     networks:
       - app-network
 
-  db:
-    image: postgres:14.1-alpine
-    restart: always
-    environment:
-      - POSTGRES_DB=homestead
-      - POSTGRES_USER=homestead
-      - POSTGRES_PASSWORD=secret
-    ports:
-      - '6432:5432'
+  # PHP Service
+  app:
+    build:
+      context: .
+      dockerfile: .docker/php/Dockerfile
+    image: wolf_flower/app
+    container_name: app
+    restart: unless-stopped
+    tty: true
+    links:
+      - db
+      - redis
+      - mailcatcher
     volumes:
-      - db:/var/lib/postgresql/data
+      - ./:/var/www
+      - ./.docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini
     networks:
       - app-network
 
-networks:
-  app-network:
-    driver: bridge
-
-volumes:
+  #Database Service
   db:
-    driver: local
+    image: mysql
+    container_name: db
+    volumes:
+      - app-database:/var/lib/mysql
+    ports:
+      - '${EXPOSE_DB_PORT:-3306}:${DB_PORT:-3306}'
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD:-secret}
+      - MYSQL_DATABASE=${DB_NAME:-app}
+      - MYSQL_USER=${DB_USER:-homestead}
+      - MYSQL_PASSWORD=${DB_PASSWORD:-secret}
+    networks:
+      - app-network
+  # db:
+  #   image: postgres:15.0-alpine
+  #   restart: unless-stopped
+  #   tty: true
+  #   volumes:
+  #     - app-database:/var/lib/postgresql/data
+  #   ports:
+  #     - '${DB_PORT:-5432}:5432'
+  #   environment:
+  #     POSTGRES_DB: ${DB_NAME:-app}
+  #     POSTGRES_USER: ${DB_USER:-homestead}
+  #     POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+  #     POSTGRES_HOST_AUTH_METHOD: trust
+  #   networks:
+  #     - app-network
+
+  horizon:
+    build:
+      context: .
+      dockerfile: .docker/php/Dockerfile
+    image: wolf_flower/app
+    container_name: horizon
+    restart: unless-stopped
+    tty: true
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./:/var/www
+      - ./.docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+    command: php artisan horizon
+    networks:
+      - app-network
+
+  # Cron Service
+  cron:
+    build:
+      context: ./.docker/cron
+    container_name: cron
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - app-network
+
+  # Redis Service
+  redis:
+    image: redis:5-alpine
+    container_name: redis
+    command: redis-server --appendonly yes
+    env_file: .env
+    hostname: redis
+    ports:
+      - '${EXPOSE_REDIS_PORT:-6379}:${REDIS_PORT:-6379}'
+    volumes:
+      - app-redis:/data
+    networks:
+      - app-network
+
+  # MailCatcher Service
+  mailcatcher:
+    image: jeanberu/mailcatcher:0.7.1
+    container_name: mailcatcher
+    ports:
+      - '${MAIL_PORT:-1025}:1025'
+      - '${MAIL_PORT_UI:-1080}:1080'
+    networks:
+      - app-network
