@@ -28,7 +28,7 @@ const Index = () => {
         <div className='flex item-center justify-center'>
           <div className='transform hover:text-purple-500 hover:scale-110 cursor-pointer'>
             <Link
-              tabIndex='-1'
+              tabIndex={-1}
               href={route('management.roles.edit', id)}
               className='flex items-center px-4 focus:outline-none'>
               <IconChevronRight size={18} />

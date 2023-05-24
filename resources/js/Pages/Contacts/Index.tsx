@@ -31,7 +31,7 @@ const Index = () => {
       <td>
         <div className='flex item-center justify-center'>
           <div className='transform hover:text-purple-500 hover:scale-110 cursor-pointer'>
-            <Link tabIndex='-1' href={route('contacts.edit', id)} className='flex items-center px-4 focus:outline-none'>
+            <Link tabIndex={-1} href={route('contacts.edit', id)} className='flex items-center px-4 focus:outline-none'>
               <IconChevronRight size={18} />
             </Link>
           </div>
