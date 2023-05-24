@@ -5,21 +5,43 @@ import { IconPlus, IconChevronRight } from '@tabler/icons-react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Filter from '@/Components/Filter';
 import ResponsivePagination from '@/Components/ResponsivePagination';
+import { User } from '@/types';
+
+interface Link {
+  active: boolean;
+  label: string;
+  url: string;
+}
+
+interface PropsData {
+  current_page: number;
+  data: User[];
+  first_page_url: string;
+  from: number;
+  last_page: number;
+  last_page_url: string;
+  links: Link[];
+  next_page_url: string;
+  path: string;
+  per_page: number;
+  prev_page_url: string;
+  to: number;
+  total: number;
+}
 
 const Index = () => {
-  const { users } = usePage().props;
-  const { data } = users;
+  const { users }: PropsData = usePage().props;
 
   const ths = (
     <tr>
       <th>#</th>
       <th>Name</th>
       <th>Email</th>
-      <th colSpan='2'></th>
+      <th colSpan={2}></th>
     </tr>
   );
 
-  const rows = data.map(({ id, name, photo, email }, index) => (
+  const rows = users.data.map(({ id, name, photo, email }, index: number) => (
     <tr key={index}>
       <td>{users.from + index}</td>
       <td>

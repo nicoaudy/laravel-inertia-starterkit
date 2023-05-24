@@ -17,7 +17,7 @@ const Index = () => {
       <th>Email</th>
       <th>City</th>
       <th>Phone</th>
-      <th colSpan='2'></th>
+      <th colSpan={2}></th>
     </tr>
   );
 
