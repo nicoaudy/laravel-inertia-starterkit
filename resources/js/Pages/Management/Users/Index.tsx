@@ -6,31 +6,15 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Filter from '@/Components/Filter';
 import ResponsivePagination from '@/Components/ResponsivePagination';
 import { User } from '@/types';
+import { IDefaultData } from '@/types/default-data';
 
-interface Link {
-  active: boolean;
-  label: string;
-  url: string;
-}
-
-interface PropsData {
-  current_page: number;
+interface PropsData extends IDefaultData {
   data: User[];
-  first_page_url: string;
-  from: number;
-  last_page: number;
-  last_page_url: string;
-  links: Link[];
-  next_page_url: string;
-  path: string;
-  per_page: number;
-  prev_page_url: string;
-  to: number;
-  total: number;
 }
 
 const Index = () => {
-  const { users }: PropsData = usePage().props;
+  const props = usePage().props as any;
+  const users = props.users as PropsData;
 
   const ths = (
     <tr>
