@@ -40,4 +40,9 @@ npm run dev
 npm run build
 ```
 
+
+## Notes
+
+If you want to use javascript version, switch to branch `lang:javascript`
+
 and all set🎉
