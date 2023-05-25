@@ -12,15 +12,17 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRoles;
-
-    public $appends = ['photo'];
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+    use SoftDeletes;
+    use HasRoles;
 
     protected $fillable = [
         'name',
         'email',
         'password',
-        'photo_path',
+        'photo',
     ];
 
     /**
@@ -41,11 +43,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function getPhotoAttribute()
-    {
-        return $this->photo_path;
-    }
 
     public function scopeOrderByName($query)
     {

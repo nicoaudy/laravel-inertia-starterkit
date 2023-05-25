@@ -6,12 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
+use App\Traits\FileUploadTrait;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
 class UserController extends Controller
 {
+    use FileUploadTrait;
+
     public function index()
     {
         $this->can('view user');
@@ -34,12 +37,11 @@ class UserController extends Controller
     {
         $this->can('add user');
 
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-            'photo_path' => $request->file('photo') ? $request->file('photo')->store('avatar') : null,
-        ]);
+        if ($request->hasFile('file')) {
+            $request->merge(['photo' => $this->upload($request->file('file'))]);
+        }
+
+        User::create($request->all());
 
         return Redirect::route('management.users.index')->with('success', 'User created.');
     }
@@ -60,8 +62,9 @@ class UserController extends Controller
             'email' => $request->email,
         ]);
 
-        if ($request->file('photo')) {
-            $user->update(['photo_path' => $request->file('photo')->store('avatar')]);
+        if ($request->hasFile('file')) {
+            $this->remove($user->photo);
+            $user->update(['photo' => $this->upload($request->file('file'))]);
         }
 
         if ($request->password) {
@@ -75,6 +78,9 @@ class UserController extends Controller
     {
         $this->can('delete user');
 
+        if ($user->photo) {
+            $this->remove($user->photo);
+        }
         $user->delete();
 
         return Redirect::route('management.users.index')->with('success', 'User deleted.');
