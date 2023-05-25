@@ -5,8 +5,8 @@
     "pre-commit": "npm run format && pretty-quick --staged",
     "format": "prettier 'resources/{js,jsx}/**/*.{ts,tsx}' --write",
     "dev": "vite",
-    "build": "vite build && vite build --ssr",
-    "tsc-build": "tsc && vite build && vite build --ssr"
+    "build": "tsc && vite build && vite build --ssr",
+    "non-strict-build": "vite build && vite build --ssr"
   },
   "devDependencies": {
     "@emotion/react": "^11.10.6",
