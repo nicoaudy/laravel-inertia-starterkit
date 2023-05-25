@@ -3,10 +3,19 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { TextInput, Checkbox, Button, Flex, Text } from '@mantine/core';
 import { IconSend } from '@tabler/icons-react';
 
-const Create = () => {
-  const { permissions } = usePage().props;
+interface Permission {
+  id: number;
+  name: string;
+}
 
-  const { data, setData, errors, post, processing } = useForm({
+const Create = () => {
+  const props = usePage().props;
+  const permissions = props.permissions as Permission[];
+
+  const { data, setData, errors, post, processing } = useForm<{
+    name: string;
+    permissions: number[];
+  }>({
     name: '',
     permissions: [],
   });
@@ -31,7 +40,7 @@ const Create = () => {
     if (data.permissions.includes(id)) {
       setData(
         'permissions',
-        data.permissions.filter((row) => row !== id)
+        data.permissions.filter((row: number) => row !== id)
       );
     } else {
       setData('permissions', [...data.permissions, id]);
@@ -71,7 +80,7 @@ const Create = () => {
               <div className='w-full px-3 mb-6 md:mb-0'>
                 <Flex justify='space-between' className='mb-4'>
                   <Text fz='sm'>Permissions</Text>
-                  <Checkbox label='Select All' type='checkbox' onChange={selectAll} />
+                  <Checkbox label='Select All' onChange={selectAll} />
                 </Flex>
                 <div className='grid grid-cols-2 space-y-2'>
                   {permissions.map(({ id, name }) => (

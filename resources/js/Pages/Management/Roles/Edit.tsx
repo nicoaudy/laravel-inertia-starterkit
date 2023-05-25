@@ -5,10 +5,31 @@ import { IconSend } from '@tabler/icons-react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteButton from '@/Components/DeleteButton';
 
-const Edit = () => {
-  const { role, permissions, rolePermissions, users } = usePage().props;
+interface Role {
+  id: number;
+  name: string;
+  users: [];
+}
 
-  const { data, setData, errors, put, processing } = useForm({
+interface Permission {
+  id: number;
+  name: string;
+}
+
+interface User {
+  id: number;
+  name: string;
+  roles: number[];
+}
+
+const Edit = () => {
+  const props = usePage().props;
+  const role = props.role as Role;
+  const permissions = props.permissions as Permission[];
+  const rolePermissions = props.rolePermissions as number[];
+  const users = props.users as User[];
+
+  const { data, setData, errors, put, processing } = useForm<{ name: string; users: number[]; permissions: number[] }>({
     name: role.name || '',
     users: role.users || [],
     permissions: rolePermissions || [],
@@ -76,7 +97,7 @@ const Edit = () => {
         <>
           <Text size='sm'>Are you sure you want to delete this data? Once confirmed, you cannot redo this action.</Text>
           <Group className='mt-4' position='right'>
-            <Button variant='outline' color='dark' onClick={closeAllModals}>
+            <Button variant='outline' color='dark' onClick={() => closeAllModals}>
               Cancel
             </Button>
             <Button variant='outline' color='red' onClick={destroy}>
@@ -134,7 +155,6 @@ const Edit = () => {
                     <Checkbox
                       key={id}
                       label={name}
-                      type='checkbox'
                       name='permissions'
                       value={id}
                       onChange={() => onSelect(id)}
@@ -160,7 +180,6 @@ const Edit = () => {
                     <Checkbox
                       key={id}
                       label={name}
-                      type='checkbox'
                       name='users'
                       value={id}
                       onChange={() => onUserSelect(id)}
