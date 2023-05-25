@@ -4,7 +4,16 @@ import { IconSend } from '@tabler/icons-react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 const Create = () => {
-  const { data, setData, errors, post, processing } = useForm({
+  const { data, setData, errors, post, processing } = useForm<{
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+    city: string;
+    region: string;
+    country: string;
+    postal_code: string;
+  }>({
     name: '',
     email: '',
     phone: '',
@@ -112,9 +121,9 @@ const Create = () => {
                 <Select
                   label='Country'
                   name='country'
-                  errors={errors.country}
+                  error={errors.country}
                   value={data.country}
-                  onChange={(e) => setData('country', e)}
+                  onChange={(e) => setData('country', e as string)}
                   data={[
                     { value: 'CA', label: 'Canada' },
                     { value: 'US', label: 'United States' },

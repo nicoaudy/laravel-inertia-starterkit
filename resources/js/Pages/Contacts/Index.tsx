@@ -5,10 +5,30 @@ import { IconChevronRight, IconPlus } from '@tabler/icons-react';
 import Filter from '@/Components/Filter';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import ResponsivePagination from '@/Components/ResponsivePagination';
+import { IDefaultData } from '@/types/default-data';
+
+interface Contact {
+  address: string;
+  city: string;
+  country: string;
+  created_at: string;
+  deleted_at: string;
+  email: string;
+  id: number;
+  name: string;
+  phone: string;
+  postal_code: string;
+  region: string;
+  updated_at: string;
+}
+
+interface IProps extends IDefaultData {
+  data: Contact[];
+}
 
 const Index = () => {
-  const { contacts } = usePage().props;
-  const { data } = contacts;
+  const props = usePage().props;
+  const contacts = props.contacts as IProps;
 
   const ths = (
     <tr>
@@ -21,7 +41,7 @@ const Index = () => {
     </tr>
   );
 
-  const rows = data.map(({ id, name, email, city, phone }, index) => (
+  const rows = contacts.data.map(({ id, name, city, phone }, index) => (
     <tr key={index}>
       <td>{contacts.from + index}</td>
       <td>{name}</td>

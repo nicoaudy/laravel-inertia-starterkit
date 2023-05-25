@@ -5,8 +5,24 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteButton from '@/Components/DeleteButton';
 import { Link, Head, usePage, router, useForm } from '@inertiajs/react';
 
+interface Contact {
+  address: string;
+  city: string;
+  country: string;
+  created_at: string;
+  deleted_at: string;
+  email: string;
+  id: number;
+  name: string;
+  phone: string;
+  postal_code: string;
+  region: string;
+  updated_at: string;
+}
+
 const Edit = () => {
-  const { contact } = usePage().props;
+  const props = usePage().props;
+  const contact = props.contact as Contact;
 
   const { data, setData, errors, put, processing } = useForm({
     name: contact.name || '',
@@ -37,7 +53,7 @@ const Edit = () => {
         <>
           <Text size='sm'>Are you sure you want to delete this data? Once confirmed, you cannot redo this action.</Text>
           <Group className='mt-4' position='right'>
-            <Button variant='outline' color='dark' onClick={closeAllModals}>
+            <Button variant='outline' color='dark' onClick={() => closeAllModals}>
               Cancel
             </Button>
             <Button variant='outline' color='red' onClick={destroy}>
@@ -141,9 +157,9 @@ const Edit = () => {
                 <Select
                   label='Country'
                   name='country'
-                  errors={errors.country}
+                  error={errors.country}
                   value={data.country}
-                  onChange={(e) => setData('country', e)}
+                  onChange={(e) => setData('country', e as string)}
                   data={[
                     { value: 'CA', label: 'Canada' },
                     { value: 'US', label: 'United States' },

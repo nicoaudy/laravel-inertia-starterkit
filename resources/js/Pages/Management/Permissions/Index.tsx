@@ -5,10 +5,23 @@ import { IconChevronRight, IconPlus } from '@tabler/icons-react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Filter from '@/Components/Filter';
 import ResponsivePagination from '@/Components/ResponsivePagination';
+import { IDefaultData } from '@/types/default-data';
+
+interface Permission {
+  created_at: string;
+  guard_name: string;
+  id: number;
+  name: string;
+  updated_at: string;
+}
+
+interface IProps extends IDefaultData {
+  data: Permission[];
+}
 
 const Index = () => {
-  const { permissions } = usePage().props;
-  const { data } = permissions;
+  const props = usePage().props;
+  const permissions = props.permissions as IProps;
 
   const ths = (
     <tr>
@@ -19,7 +32,7 @@ const Index = () => {
     </tr>
   );
 
-  const rows = data.map(({ id, guard_name, name }, index) => (
+  const rows = permissions.data.map(({ id, guard_name, name }, index) => (
     <tr key={index}>
       <td className='py-3 px-6 text-left'>{permissions.from + index}</td>
       <td className='py-3 px-6 text-left'>{guard_name}</td>

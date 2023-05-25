@@ -5,10 +5,24 @@ import { IconSend } from '@tabler/icons-react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteButton from '@/Components/DeleteButton';
 
-const Edit = () => {
-  const { permission, users } = usePage().props;
+interface Permission {
+  id: number;
+  name: string;
+  users: number[];
+}
 
-  const { data, setData, errors, put, processing } = useForm({
+interface User {
+  id: number;
+  name: string;
+  permissions: number[];
+}
+
+const Edit = () => {
+  const props = usePage().props;
+  const permission = props.permission as Permission;
+  const users = props.users as User[];
+
+  const { data, setData, errors, put, processing } = useForm<{ name: string; users: number[] }>({
     name: permission.name || '',
     users: permission.users || [],
   });
@@ -53,7 +67,7 @@ const Edit = () => {
         <>
           <Text size='sm'>Are you sure you want to delete this data? Once confirmed, you cannot redo this action.</Text>
           <Group className='mt-4' position='right'>
-            <Button variant='outline' color='dark' onClick={closeAllModals}>
+            <Button variant='outline' color='dark' onClick={() => closeAllModals}>
               Cancel
             </Button>
             <Button variant='outline' color='red' onClick={destroy}>
