@@ -11,7 +11,7 @@ interface FileInputProps {
   name: string;
   label?: string;
   accept: string;
-  errors?: string[];
+  errors?: string;
   onChange: (file: File | null) => void;
 }
 
@@ -24,7 +24,7 @@ const Button: React.FC<ButtonProps> = ({ text, onClick }) => (
   </button>
 );
 
-const FileInput: React.FC<FileInputProps> = ({ className, name, label, accept, errors = [], onChange }) => {
+const FileInput: React.FC<FileInputProps> = ({ className, name, label, accept, errors, onChange }) => {
   const fileInput = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
 
@@ -53,7 +53,7 @@ const FileInput: React.FC<FileInputProps> = ({ className, name, label, accept, e
           {label}:
         </label>
       )}
-      <div className={`form-input p-0 ${errors.length && 'error'}`}>
+      <div className={`form-input p-0 ${errors && 'error'}`}>
         <input id={name} ref={fileInput} accept={accept} type='file' className='hidden' onChange={handleFileChange} />
         {!file && (
           <div className='p-2'>
@@ -70,7 +70,7 @@ const FileInput: React.FC<FileInputProps> = ({ className, name, label, accept, e
           </div>
         )}
       </div>
-      {errors.length > 0 && <div className='form-error'>{errors}</div>}
+      {errors && <div className='form-error'>{errors}</div>}
     </div>
   );
 };

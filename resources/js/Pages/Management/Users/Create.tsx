@@ -1,22 +1,58 @@
 import { Head, Link, useForm } from '@inertiajs/react';
-import { TextInput, Button } from '@mantine/core';
-import { IconSend } from '@tabler/icons-react';
+import { TextInput, Button, Image, Text, ActionIcon, HoverCard } from '@mantine/core';
+import { IconSend, IconTrash } from '@tabler/icons-react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import FileInput from '@/Components/FileInput';
+import { useState } from 'react';
+import { Dropzone, FileWithPath, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 
 const Create = () => {
   const { data, setData, errors, post, processing } = useForm({
     name: '',
     email: '',
     password: '',
-    photo: '',
+    file: '' as File | '',
   });
+  const [preview, setPreview] = useState<string>();
+
+  function handleFileChange(event: FileWithPath[]) {
+    if (event.length) {
+      const inputFile = event[0];
+      setData('file', inputFile as unknown as File);
+
+      // Preview file
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result as string);
+      };
+      reader.readAsDataURL(inputFile);
+    }
+  }
+
+  function handleDelete() {
+    setData('file', '');
+    setPreview('');
+  }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     post(route('management.users.store'), {
       forceFormData: true,
     });
+  }
+
+  function PreviewImage({ file }: { file: string }) {
+    return (
+      <HoverCard shadow='md'>
+        <HoverCard.Target>
+          <Image src={file} alt='Upload Preview' />
+        </HoverCard.Target>
+        <HoverCard.Dropdown>
+          <ActionIcon variant='outline' color='red' onClick={handleDelete}>
+            <IconTrash />
+          </ActionIcon>
+        </HoverCard.Dropdown>
+      </HoverCard>
+    );
   }
 
   return (
@@ -73,15 +109,14 @@ const Create = () => {
 
             <div className='-mx-3 md:flex mb-6'>
               <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
-                <FileInput
-                  className='w-full pb-8 pr-6 lg:w-1/2'
-                  label='Photo'
-                  name='photo'
-                  accept='image/*'
-                  errors={errors.photo}
-                  value={data.photo}
-                  onChange={(photo) => setData('photo', photo)}
-                />
+                <Dropzone accept={IMAGE_MIME_TYPE} onDrop={handleFileChange}>
+                  <Text align='center'>Drop images here</Text>
+                </Dropzone>
+                {preview && (
+                  <div className='mt-4'>
+                    <PreviewImage file={preview} />
+                  </div>
+                )}
               </div>
             </div>
           </div>

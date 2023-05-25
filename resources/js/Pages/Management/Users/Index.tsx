@@ -5,7 +5,7 @@ import { IconPlus, IconChevronRight } from '@tabler/icons-react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Filter from '@/Components/Filter';
 import ResponsivePagination from '@/Components/ResponsivePagination';
-import { User } from '@/types';
+import { User } from '@/types/user';
 import { IDefaultData } from '@/types/default-data';
 
 interface PropsData extends IDefaultData {
@@ -13,7 +13,7 @@ interface PropsData extends IDefaultData {
 }
 
 const Index = () => {
-  const props = usePage().props as any;
+  const props = usePage().props;
   const users = props.users as PropsData;
 
   const ths = (
@@ -29,8 +29,8 @@ const Index = () => {
     <tr key={index}>
       <td>{users.from + index}</td>
       <td>
-        <Link href={route('management.users.edit', id)}>
-          {photo && <img src={`/${photo}`} className='block w-5 h-5 mr-2 -my-2 rounded-full' />}
+        <Link href={route('management.users.edit', id)} className='flex items-center'>
+          {photo && <img src={`/${photo}`} className='block w-10 h-10 mr-2 rounded-full' />}
           {name}
         </Link>
       </td>

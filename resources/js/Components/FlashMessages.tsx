@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { usePage } from '@inertiajs/react';
 import toast, { Toaster } from 'react-hot-toast';
+import { Flash } from '@/types/flash';
 
 const FlashMessages: React.FC = () => {
-  const { flash } = usePage().props;
+  const props = usePage().props;
+  const flash = props.flash as Flash;
 
   useEffect(() => {
     if (flash.success) {

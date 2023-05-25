@@ -13,6 +13,7 @@ createServer((page) =>
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => resolvePageComponent(`./Pages/${name}.tsx`, import.meta.glob('./Pages/**/*.tsx')),
     setup: ({ App, props }) => {
+      // @ts-ignore
       global.route = (name, params, absolute) =>
         route(name, params, absolute, {
           // @ts-expect-error

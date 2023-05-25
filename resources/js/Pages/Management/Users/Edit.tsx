@@ -1,32 +1,50 @@
 import { Head, Link, usePage, useForm, router } from '@inertiajs/react';
-import { TextInput, Button, Group, Text } from '@mantine/core';
+import { TextInput, Button, Group, Text, HoverCard, Image, ActionIcon } from '@mantine/core';
 import { openModal, closeAllModals } from '@mantine/modals';
-import { IconSend } from '@tabler/icons-react';
+import { IconSend, IconTrash } from '@tabler/icons-react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteButton from '@/Components/DeleteButton';
-import FileInput from '@/Components/FileInput';
+import { User } from '@/types/user';
+import { useState } from 'react';
+import { Dropzone, FileWithPath, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 
 const Edit = () => {
-  const { user } = usePage().props;
+  const props = usePage().props;
+  const user = props.user as User;
 
   const { data, setData, errors, post, processing } = useForm({
     name: user.name || '',
     email: user.email || '',
-    password: user.password || '',
-    photo: '',
-
-    // NOTE: When working with Laravel PUT/PATCH requests and FormData
-    // you SHOULD send POST request and fake the PUT request like this.
+    password: '',
+    file: '' as File | '',
     _method: 'PUT',
   });
+  const [preview, setPreview] = useState<string>(user.photo ? `/${user.photo}` : '');
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    // NOTE: We are using POST method here, not PUT/PACH. See comment above.
     post(route('management.users.update', user.id), {
       forceFormData: true,
     });
+  }
+
+  function handleFileChange(event: FileWithPath[]) {
+    if (event.length) {
+      const inputFile = event[0];
+      setData('file', inputFile as unknown as File);
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result as string);
+      };
+      reader.readAsDataURL(inputFile);
+    }
+  }
+
+  function handleDelete() {
+    setData('file', '');
+    setPreview('');
   }
 
   function destroy() {
@@ -34,7 +52,7 @@ const Edit = () => {
     router.delete(route('management.users.destroy', user.id));
   }
 
-  const openDeleteModal = () => {
+  function openDeleteModal() {
     return openModal({
       title: 'Please confirm your action',
       centered: true,
@@ -42,7 +60,7 @@ const Edit = () => {
         <>
           <Text size='sm'>Are you sure you want to delete this data? Once confirmed, you cannot redo this action.</Text>
           <Group className='mt-4' position='right'>
-            <Button variant='outline' color='dark' onClick={closeAllModals}>
+            <Button variant='outline' color='dark' onClick={() => closeAllModals}>
               Cancel
             </Button>
             <Button variant='outline' color='red' onClick={destroy}>
@@ -52,7 +70,22 @@ const Edit = () => {
         </>
       ),
     });
-  };
+  }
+
+  function PreviewImage({ file }: { file: string }) {
+    return (
+      <HoverCard shadow='md'>
+        <HoverCard.Target>
+          <Image src={file} alt='Upload Preview' />
+        </HoverCard.Target>
+        <HoverCard.Dropdown>
+          <ActionIcon variant='outline' color='red' onClick={handleDelete}>
+            <IconTrash />
+          </ActionIcon>
+        </HoverCard.Dropdown>
+      </HoverCard>
+    );
+  }
 
   return (
     <>
@@ -107,15 +140,14 @@ const Edit = () => {
             </div>
             <div className='-mx-3 md:flex mb-6'>
               <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
-                <FileInput
-                  className='w-full pb-8 pr-6 lg:w-1/2'
-                  label='Photo'
-                  name='photo'
-                  accept='image/*'
-                  errors={errors.photo}
-                  value={data.photo}
-                  onChange={(photo) => setData('photo', photo)}
-                />
+                <Dropzone accept={IMAGE_MIME_TYPE} onDrop={handleFileChange}>
+                  <Text align='center'>Drop images here</Text>
+                </Dropzone>
+                {preview && (
+                  <div className='mt-4'>
+                    <PreviewImage file={preview} />
+                  </div>
+                )}
               </div>
             </div>
           </div>
