@@ -23,7 +23,8 @@ const ResetPassword = ({ token, email }: ResetPasswordProps) => {
   }, []);
 
   const onHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setData(event.target.name, event.target.value);
+    const { name, value } = event.target;
+    setData(name as keyof typeof data, value);
   };
 
   const submit = (e: React.FormEvent) => {

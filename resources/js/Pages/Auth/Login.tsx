@@ -8,7 +8,7 @@ interface LoginProps {
   canResetPassword: boolean;
 }
 
-const Login: React.FC<LoginProps> = ({ status, canResetPassword }) => {
+const Login = ({ status, canResetPassword }: LoginProps) => {
   const { data, setData, post, processing, errors, reset } = useForm({
     email: 'johndoe@example.com',
     password: 'password',
@@ -22,7 +22,8 @@ const Login: React.FC<LoginProps> = ({ status, canResetPassword }) => {
   }, []);
 
   const onHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
+    const { name, value, type, checked } = event.target;
+    setData(name as keyof typeof data, type === 'checkbox' ? checked : value);
   };
 
   const submit = (e: React.FormEvent) => {

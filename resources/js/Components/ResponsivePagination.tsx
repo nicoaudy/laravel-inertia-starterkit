@@ -2,6 +2,12 @@ import React from 'react';
 import useFilterPagination from '@/hooks/useFilterPagination';
 import Pagination from '@/Components/Pagination';
 
+interface PaginationFilters {
+  page?: number;
+  search?: string;
+  perPage?: string;
+}
+
 interface ResponsivePaginationProps {
   source: {
     current_page: number;
@@ -14,22 +20,35 @@ interface ResponsivePaginationProps {
 }
 
 const ResponsivePagination: React.FC<ResponsivePaginationProps> = ({ source }) => {
-  const [, setForm] = useFilterPagination();
+  const [_, setForm] = useFilterPagination();
+
+  const handlePreviousPage = () => {
+    // @ts-ignore
+    setForm((prevForm: PaginationFilters) => ({
+      ...prevForm,
+      page: ((prevForm.page || 1) as number) - 1,
+    }));
+  };
+
+  const handleNextPage = () => {
+    // @ts-ignore
+    setForm((prevForm: PaginationFilters) => ({
+      ...prevForm,
+      page: ((prevForm.page || 1) as number) + 1,
+    }));
+  };
 
   return (
     <>
       <div className='mt-2 px-2 py-3 flex items-center justify-between border-t border-gray-200'>
         <div className='flex-1 flex justify-between sm:hidden'>
-          <button
-            className='btn-pagination'
-            disabled={source.current_page <= 1}
-            onClick={() => setForm((values) => ({ ...values, page: source.current_page - 1 }))}>
+          <button className='btn-pagination' disabled={source.current_page <= 1} onClick={handlePreviousPage}>
             Previous
           </button>
           <button
             className='btn-pagination'
             disabled={source.current_page >= source.last_page}
-            onClick={() => setForm((values) => ({ ...values, page: source.current_page + 1 }))}>
+            onClick={handleNextPage}>
             Next
           </button>
         </div>

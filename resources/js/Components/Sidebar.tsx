@@ -3,14 +3,24 @@ import classNames from 'classnames';
 import SidebarDropdown from './SidebarDropdown';
 import SidebarLink from './SidebarLink';
 import { IconBook, IconHome, IconLogout, IconSettings } from '@tabler/icons-react';
+import { User } from '@/types/user';
+import { Role } from '@/types/role';
+import { Permission } from '@/types/permission';
 
 interface SidebarProps {
   navOpen: boolean;
   appName: string;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ navOpen, appName }) => {
-  const { auth } = usePage().props;
+interface AuthUser extends User {
+  roles: Role[];
+  permissions: Permission[];
+}
+
+const Sidebar = ({ navOpen, appName }: SidebarProps) => {
+  const props = usePage().props;
+  const auth = props.auth as any;
+  const user = auth.user as AuthUser;
 
   const navClass = classNames(
     'absolute md:relative w-64 transform md:translate-x-0 h-screen overflow-y-scroll bg-black transition-all duration-300 z-40',
@@ -86,13 +96,13 @@ const Sidebar: React.FC<SidebarProps> = ({ navOpen, appName }) => {
 
         {/* PROFILE */}
         <div className='text-gray-200 border-gray-800 rounded flex items-center justify-between p-2 mb-2'>
-          <Link href={route('management.users.edit', auth.user.id)} className='flex items-center space-x-2'>
+          <Link href={route('management.users.edit', user.id)} className='flex items-center space-x-2'>
             <img
-              src={`https://ui-avatars.com/api/?name=${auth.user.name}&size=128&background=ff4433&color=fff`}
+              src={`https://ui-avatars.com/api/?name=${user.name}&size=128&background=ff4433&color=fff`}
               className='w-7 rounded-full'
               alt='Profile'
             />
-            <p>{auth.user.name}</p>
+            <p>{user.name}</p>
           </Link>
           <Link
             as='button'

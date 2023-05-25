@@ -12,7 +12,8 @@ interface Filters {
 type ChangeEventHandler = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 
 const useFilterPagination = (): [Filters, React.Dispatch<React.SetStateAction<Filters>>, ChangeEventHandler] => {
-  const { filters } = usePage().props;
+  const props = usePage().props;
+  const filters = props.filters as Filters;
 
   const [values, setValues] = useState<Filters>({
     search: filters.search || '',
@@ -44,7 +45,10 @@ const useFilterPagination = (): [Filters, React.Dispatch<React.SetStateAction<Fi
     if (prevValues) {
       const search = debounce(() => {
         let query = pickBy(values);
-        router.get(route(route().current()), Object.keys(query).length ? query : {}, {
+
+        // @ts-ignore
+        const url = route(route().current());
+        router.get(url, Object.keys(query).length ? query : {}, {
           replace: true,
           preserveState: true,
         });
