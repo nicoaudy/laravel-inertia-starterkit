@@ -12,13 +12,13 @@ trait FileUploadTrait
 
         $raw_path = $folder;
         $path = public_path($raw_path);
-        if (!File::isDirectory($path)) {
+        if (! File::isDirectory($path)) {
             File::makeDirectory($path, 0777, true, true);
         }
 
         $file->move($path, $filename);
 
-        return $raw_path .'/' . $filename;
+        return $raw_path.'/'.$filename;
     }
 
    public function remove($file)

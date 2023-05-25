@@ -37,7 +37,7 @@ class UserController extends Controller
     {
         $this->can('add user');
 
-        if($request->hasFile('file')) {
+        if ($request->hasFile('file')) {
             $request->merge(['photo' => $this->upload($request->file('file'))]);
         }
 
@@ -78,7 +78,7 @@ class UserController extends Controller
     {
         $this->can('delete user');
 
-        if($user->photo) {
+        if ($user->photo) {
             $this->remove($user->photo);
         }
         $user->delete();
