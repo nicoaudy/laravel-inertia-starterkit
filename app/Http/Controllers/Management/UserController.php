@@ -62,6 +62,11 @@ class UserController extends Controller
             'email' => $request->email,
         ]);
 
+        if($request->is_photo_removed) {
+            $this->remove($user->photo);
+            $user->update(['photo' => null]);
+        }
+
         if ($request->hasFile('file')) {
             $this->remove($user->photo);
             $user->update(['photo' => $this->upload($request->file('file'))]);

@@ -18,6 +18,7 @@ const Edit = () => {
     password: '',
     file: '' as File | '',
     _method: 'PUT',
+    is_photo_removed: false,
   });
   const [preview, setPreview] = useState<string>(user.photo ? `/${user.photo}` : '');
 
@@ -44,6 +45,7 @@ const Edit = () => {
 
   function handleDelete() {
     setData('file', '');
+    setData('is_photo_removed', true);
     setPreview('');
   }
 
