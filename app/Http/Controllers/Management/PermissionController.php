@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Management;
 
-use App\Http\Actions\Permissions\StorePermission;
-use App\Http\Actions\Permissions\UpdatePermission;
 use App\Http\Actions\Permissions\GetPermissions;
 use App\Http\Actions\Permissions\RemovePermission;
+use App\Http\Actions\Permissions\StorePermission;
+use App\Http\Actions\Permissions\UpdatePermission;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PermissionRequest;
 use App\Models\Permission;

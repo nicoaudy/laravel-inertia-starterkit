@@ -25,7 +25,7 @@ class PermissionRequest extends FormRequest
     {
         return [
             'name' => ['required', 'max:50'],
-            'users' => ['nullable', 'array']
+            'users' => ['nullable', 'array'],
         ];
     }
 }

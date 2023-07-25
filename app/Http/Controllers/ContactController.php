@@ -20,7 +20,7 @@ class ContactController extends Controller
 
         return Inertia::render('Contacts/Index', [
             'filters' => $request->all('search', 'perPage'),
-            'contacts' => $getContacts->execute($request)
+            'contacts' => $getContacts->execute($request),
         ]);
     }
 

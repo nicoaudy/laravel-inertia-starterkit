@@ -9,7 +9,7 @@ class StorePermission
     public function execute(array $request)
     {
         return Permission::create([
-            "name" => $request['name'],
+            'name' => $request['name'],
         ]);
     }
 }
