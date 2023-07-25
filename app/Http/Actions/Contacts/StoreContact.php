@@ -8,7 +8,7 @@ class StoreContact
 {
     public function execute(array $request)
     {
-        return Contact::create([
+        Contact::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'phone' => $request['phone'],

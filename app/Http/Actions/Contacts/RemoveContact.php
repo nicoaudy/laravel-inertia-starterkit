@@ -8,6 +8,6 @@ class RemoveContact
 {
     public function execute(Contact $contact)
     {
-        return $contact->delete();
+        $contact->delete();
     }
 }

@@ -8,7 +8,7 @@ class UpdateContact
 {
     public function execute(Contact $contact, array $request)
     {
-        return $contact->update([
+        $contact->update([
             'name' => $request['name'],
             'email' => $request['email'],
             'phone' => $request['phone'],

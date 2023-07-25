@@ -2,29 +2,27 @@
 
 namespace App\Http\Controllers\Management;
 
+use App\Http\Actions\Users\GetUsers;
+use App\Http\Actions\Users\RemoveUser;
+use App\Http\Actions\Users\StoreUser;
+use App\Http\Actions\Users\UpdateUser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
-use App\Traits\FileUploadTrait;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    use FileUploadTrait;
-
-    public function index()
+    public function index(Request $request, GetUsers $getUsers)
     {
         $this->can('view user');
 
         return Inertia::render('Management/Users/Index', [
-            'filters' => Request::all('search', 'perPage'),
-            'users' => User::orderByName()
-                ->filter(Request::only('search', 'perPage'))
-                ->paginate()
-                ->appends(Request::all()),
+            'filters' => $request->all('search', 'perPage'),
+            'users' => $getUsers->execute($request)
         ]);
     }
 
@@ -33,15 +31,11 @@ class UserController extends Controller
         return Inertia::render('Management/Users/Create');
     }
 
-    public function store(UserStoreRequest $request)
+    public function store(UserStoreRequest $request, StoreUser $storeUser)
     {
         $this->can('add user');
 
-        if ($request->hasFile('file')) {
-            $request->merge(['photo' => $this->upload($request->file('file'))]);
-        }
-
-        User::create($request->all());
+        $storeUser->execute($request->validated());
 
         return Redirect::route('management.users.index')->with('success', 'User created.');
     }
@@ -53,40 +47,20 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(User $user, UserUpdateRequest $request)
+    public function update(User $user, UserUpdateRequest $request, UpdateUser $updateUser)
     {
         $this->can('edit user');
 
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-        ]);
-
-        if ($request->is_photo_removed) {
-            $this->remove($user->photo);
-            $user->update(['photo' => null]);
-        }
-
-        if ($request->hasFile('file')) {
-            $this->remove($user->photo);
-            $user->update(['photo' => $this->upload($request->file('file'))]);
-        }
-
-        if ($request->password) {
-            $user->update(['password' => bcrypt($request->password)]);
-        }
+        $updateUser->execute($user, $request->validated());
 
         return back()->with('success', 'User updated.');
     }
 
-    public function destroy(User $user)
+    public function destroy(User $user, RemoveUser $removeUser)
     {
         $this->can('delete user');
 
-        if ($user->photo) {
-            $this->remove($user->photo);
-        }
-        $user->delete();
+        $removeUser->execute($user);
 
         return Redirect::route('management.users.index')->with('success', 'User deleted.');
     }
