@@ -1,6 +1,10 @@
+import React from 'react';
 import GuestLayout from '@/Layouts/GuestLayout';
-import { Button, TextInput } from '@mantine/core';
 import { Head, useForm } from '@inertiajs/react';
+import { CardDescription } from '@/Components/ui/card';
+import { Input } from '@/Components/ui/input';
+import InputError from '@/Components/input-error';
+import { Button } from '@/Components/ui/button';
 
 interface ForgotPasswordProps {
   status: string;
@@ -11,46 +15,42 @@ const ForgotPassword = ({ status }: ForgotPasswordProps) => {
     email: '',
   });
 
-  const onHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setData(name as keyof typeof data, value);
-  };
-
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-
     post(route('password.email'));
   };
 
   return (
-    <>
+    <React.Fragment>
       <Head title='Forgot Password' />
 
-      <div className='mb-4 text-sm text-gray-500 leading-normal'>
+      <CardDescription className='mb-6'>
         Forgot your password? No problem. Just let us know your email address and we will email you a password reset
         link that will allow you to choose a new one.
-      </div>
+      </CardDescription>
 
       {status && <div className='mb-4 font-medium text-sm text-green-600'>{status}</div>}
 
       <form onSubmit={submit}>
-        <TextInput
-          label='Email'
-          type='text'
+        <Input
+          id='email'
+          type='email'
           name='email'
           value={data.email}
-          onChange={onHandleChange}
+          className='mt-1 block w-full'
+          onChange={(e) => setData('email', e.target.value)}
           autoFocus
-          error={errors.email}
         />
 
+        <InputError message={errors.email} className='mt-2' />
+
         <div className='flex items-center justify-end mt-4'>
-          <Button type='submit' className='ml-4' loading={processing}>
+          <Button className='ml-4' disabled={processing} loading={processing}>
             Email Password Reset Link
           </Button>
         </div>
       </form>
-    </>
+    </React.Fragment>
   );
 };
 

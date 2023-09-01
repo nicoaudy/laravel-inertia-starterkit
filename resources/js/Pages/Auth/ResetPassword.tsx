@@ -1,7 +1,10 @@
-import { useEffect } from 'react';
+import React, { FormEventHandler, useEffect } from 'react';
 import { Head, useForm } from '@inertiajs/react';
-import { Button, TextInput } from '@mantine/core';
 import GuestLayout from '@/Layouts/GuestLayout';
+import { Label } from '@/Components/ui/label';
+import InputError from '@/Components/input-error';
+import { Input } from '@/Components/ui/input';
+import { Button } from '@/Components/ui/button';
 
 interface ResetPasswordProps {
   token: string;
@@ -22,66 +25,72 @@ const ResetPassword = ({ token, email }: ResetPasswordProps) => {
     };
   }, []);
 
-  const onHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setData(name as keyof typeof data, value);
-  };
-
-  const submit = (e: React.FormEvent) => {
+  const submit: FormEventHandler = (e) => {
     e.preventDefault();
 
-    post(route('password.update'));
+    post(route('password.store'));
   };
 
   return (
-    <>
+    <React.Fragment>
       <Head title='Reset Password' />
 
       <form onSubmit={submit}>
         <div>
-          <TextInput
-            label='Email'
+          <Label htmlFor='email'>Email</Label>
+
+          <Input
+            id='email'
             type='email'
             name='email'
             value={data.email}
+            className='mt-1 block w-full'
             autoComplete='username'
-            onChange={onHandleChange}
-            error={errors.email}
+            onChange={(e) => setData('email', e.target.value)}
           />
+
+          <InputError message={errors.email} className='mt-2' />
         </div>
 
         <div className='mt-4'>
-          <TextInput
-            label='Password'
+          <Label htmlFor='password'>Password</Label>
+
+          <Input
+            id='password'
             type='password'
             name='password'
             value={data.password}
+            className='mt-1 block w-full'
             autoComplete='new-password'
+            onChange={(e) => setData('password', e.target.value)}
             autoFocus
-            onChange={onHandleChange}
-            error={errors.password}
           />
+
+          <InputError message={errors.password} className='mt-2' />
         </div>
 
         <div className='mt-4'>
-          <TextInput
-            label='Password Confirmation'
+          <Label htmlFor='password_confirmation'>Confirm Password</Label>
+
+          <Input
             type='password'
             name='password_confirmation'
             value={data.password_confirmation}
+            className='mt-1 block w-full'
             autoComplete='new-password'
-            onChange={onHandleChange}
-            error={errors.password_confirmation}
+            onChange={(e) => setData('password_confirmation', e.target.value)}
           />
+
+          <InputError message={errors.password_confirmation} className='mt-2' />
         </div>
 
         <div className='flex items-center justify-end mt-4'>
-          <Button type='submit' className='ml-4' loading={processing}>
+          <Button className='ml-4' disabled={processing} loading={processing}>
             Reset Password
           </Button>
         </div>
       </form>
-    </>
+    </React.Fragment>
   );
 };
 

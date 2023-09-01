@@ -1,11 +1,22 @@
 import { Head, Link, usePage } from '@inertiajs/react';
-import { ScrollArea, Table } from '@mantine/core';
-import { Button } from '@mantine/core';
-import { IconChevronRight, IconPlus } from '@tabler/icons-react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import Filter from '@/Components/Filter';
-import ResponsivePagination from '@/Components/ResponsivePagination';
-import { IDefaultData } from '@/types/default-data';
+import Filter from '@/Components/filter';
+import { IDefaultData } from '@/types/interfaces';
+import ResponsivePagination from '@/Components/responsive-pagination';
+import { Button } from '@/Components/ui/button';
+import { Can } from '@/Components/Can';
+import { Table, TableHead, TableHeader, TableRow, TableCell, TableBody } from '@/Components/ui/table';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/Components/ui/dropdown-menu';
+import { DotsHorizontalIcon } from '@radix-ui/react-icons';
+import { TableCellSort } from '@/Components/table-cell-sort';
+import useFilterPagination from '@/hooks/useFilterPagination';
+import { EmptyPlaceholder } from '@/Components/empty-placeholder';
+import React from 'react';
 
 interface Permission {
   created_at: string;
@@ -23,56 +34,99 @@ const Index = () => {
   const props = usePage().props;
   const permissions = props.permissions as IProps;
 
+  const [form, setForm] = useFilterPagination();
+  const handleSort = (s: string) => {
+    const newSortDir = form.sortBy === s && form.sortDir === 'asc' ? 'desc' : 'asc';
+    setForm((prevForm) => ({
+      ...prevForm,
+      sortBy: s,
+      sortDir: newSortDir,
+    }));
+  };
+
   const ths = (
-    <tr>
-      <th>#</th>
-      <th>Guard</th>
-      <th>Name</th>
-      <th></th>
-    </tr>
+    <TableRow>
+      <TableHead>No. </TableHead>
+      <TableHead>
+        <TableCellSort
+          title='Guard'
+          sortBy='guard_name'
+          currentSortBy={form.sortBy}
+          sortDir={form.sortDir}
+          onSort={handleSort}
+        />
+      </TableHead>
+      <TableHead>
+        <TableCellSort
+          title='Name'
+          sortBy='name'
+          currentSortBy={form.sortBy}
+          sortDir={form.sortDir}
+          onSort={handleSort}
+        />
+      </TableHead>
+      <TableHead>
+        <TableCellSort
+          title='Tanggal'
+          sortBy='created_at'
+          currentSortBy={form.sortBy}
+          sortDir={form.sortDir}
+          onSort={handleSort}
+        />
+      </TableHead>
+      <TableHead></TableHead>
+    </TableRow>
   );
 
-  const rows = permissions.data.map(({ id, guard_name, name }, index) => (
-    <tr key={index}>
-      <td className='py-3 px-6 text-left'>{permissions.from + index}</td>
-      <td className='py-3 px-6 text-left'>{guard_name}</td>
-      <td className='py-3 px-6 text-left'>{name}</td>
-      <td className='py-3 px-6 text-center'>
-        <div className='flex item-center justify-center'>
-          <div className='transform hover:text-purple-500 hover:scale-110 cursor-pointer'>
-            <Link
-              tabIndex={-1}
-              href={route('management.permissions.edit', id)}
-              className='flex items-center px-4 focus:outline-none'>
-              <IconChevronRight size={18} />
-            </Link>
-          </div>
-        </div>
-      </td>
-    </tr>
+  const rows = permissions.data.map(({ id, guard_name, name, created_at }, index) => (
+    <TableRow key={index}>
+      <TableCell>{permissions.from + index}</TableCell>
+      <TableCell>{guard_name}</TableCell>
+      <TableCell>{name}</TableCell>
+      <TableCell>{created_at}</TableCell>
+      <TableCell>
+        <Can permission='edit permission'>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant='ghost'>
+                <DotsHorizontalIcon />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <Link href={route('management.permissions.edit', id)}>
+                <DropdownMenuItem>Edit</DropdownMenuItem>
+              </Link>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </Can>
+      </TableCell>
+    </TableRow>
   ));
 
   return (
-    <>
+    <React.Fragment>
       <Head title='Permissions' />
-      <div className='flex justify-between items-center border-b border-gray-300'>
-        <h1 className='text-2xl font-semibold pt-2 pb-6'>Permissions</h1>
-        <Link href={route('management.permissions.create')}>
-          <Button color='dark' size='xs' leftIcon={<IconPlus size={14} />}>
-            Permission
-          </Button>
-        </Link>
+
+      <div className='flex justify-between items-center mb-8'>
+        <Filter />
+
+        <Can permission='add permission'>
+          <Link href={route('management.permissions.create')}>
+            <Button>Tambah permission</Button>
+          </Link>
+        </Can>
       </div>
 
-      <Filter />
-      <ScrollArea>
-        <Table highlightOnHover>
-          <thead>{ths}</thead>
-          <tbody>{rows}</tbody>
+      {rows.length === 0 && <EmptyPlaceholder title='Data tidak ditemukan' className='mt-4' />}
+      {rows.length !== 0 && (
+        <Table>
+          <TableHeader>{ths}</TableHeader>
+          <TableBody>{rows}</TableBody>
         </Table>
-      </ScrollArea>
+      )}
+
       <ResponsivePagination source={permissions} />
-    </>
+    </React.Fragment>
   );
 };
 

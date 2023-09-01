@@ -1,7 +1,17 @@
-import { Head, Link, useForm } from '@inertiajs/react';
-import { TextInput, Button } from '@mantine/core';
-import { IconSend } from '@tabler/icons-react';
+import { Head, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import Breadcrumbs from '@/Components/breadcrumbs';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
+import InputError from '@/Components/input-error';
+import { Button } from '@/Components/ui/button';
+import React from 'react';
+
+const items = [
+  { title: 'Home', href: route('dashboard') },
+  { title: 'Permissions', href: route('management.permissions.index') },
+  { title: 'Create', href: '#' },
+];
 
 const Create = () => {
   const { data, setData, errors, post, processing } = useForm({
@@ -14,42 +24,25 @@ const Create = () => {
   }
 
   return (
-    <>
+    <React.Fragment>
       <Head title='Create Permission' />
 
-      <div className='flex justify-between items-center border-b border-gray-300'>
-        <h1 className='mt-2 mb-6 text-2xl font-semibold'>
-          <Link href={route('management.permissions.index')} className='text-indigo-600 hover:text-indigo-700'>
-            Permissions
-          </Link>
-          <span className='font-medium text-indigo-600'> /</span> Create
-        </h1>
-      </div>
+      <div className='space-y-6'>
+        <Breadcrumbs items={items} />
 
-      <div className='my-6 max-w-3xl overflow-hidden bg-white rounded shadow'>
-        <form onSubmit={handleSubmit}>
-          <div className='flex flex-col p-8 my-2 mb-4'>
-            <div className='-mx-3 md:flex mb-6'>
-              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
-                <TextInput
-                  label='Name'
-                  type='text'
-                  name='name'
-                  value={data.name}
-                  onChange={(e) => setData('name', e.target.value)}
-                  error={errors.name}
-                />
-              </div>
-            </div>
+        <form className='space-y-6' onSubmit={handleSubmit}>
+          <div className='grid w-full max-w-sm items-center gap-1.5'>
+            <Label htmlFor='name'>Name</Label>
+            <Input name='name' type='text' value={data.name} onChange={(e) => setData('name', e.target.value)} />
+            <InputError message={errors.name} />
           </div>
-          <div className='flex items-center justify-end px-8 py-4 bg-gray-100 border-t border-gray-200'>
-            <Button type='submit' leftIcon={<IconSend size={14} />} loading={processing}>
-              Submit
-            </Button>
-          </div>
+
+          <Button type='submit' disabled={processing} loading={processing}>
+            Submit
+          </Button>
         </form>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

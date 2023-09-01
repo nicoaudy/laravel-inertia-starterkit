@@ -1,12 +1,23 @@
 import { Head, Link, usePage } from '@inertiajs/react';
-import { ScrollArea, Table } from '@mantine/core';
-import { Button } from '@mantine/core';
-import { IconPlus, IconChevronRight } from '@tabler/icons-react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import Filter from '@/Components/Filter';
-import ResponsivePagination from '@/Components/ResponsivePagination';
-import { User } from '@/types/user';
-import { IDefaultData } from '@/types/default-data';
+import Filter from '@/Components/filter';
+import { IDefaultData, User } from '@/types/interfaces';
+import ResponsivePagination from '@/Components/responsive-pagination';
+import { Button } from '@/Components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
+import { Can } from '@/Components/Can';
+import { Table, TableHead, TableHeader, TableRow, TableCell, TableBody } from '@/Components/ui/table';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/Components/ui/dropdown-menu';
+import { DotsHorizontalIcon } from '@radix-ui/react-icons';
+import { TableCellSort } from '@/Components/table-cell-sort';
+import useFilterPagination from '@/hooks/useFilterPagination';
+import { EmptyPlaceholder } from '@/Components/empty-placeholder';
+import React from 'react';
 
 interface PropsData extends IDefaultData {
   data: User[];
@@ -16,70 +27,109 @@ const Index = () => {
   const props = usePage().props;
   const users = props.users as PropsData;
 
+  const [form, setForm] = useFilterPagination();
+
+  const handleSort = (s: string) => {
+    const newSortDir = form.sortBy === s && form.sortDir === 'asc' ? 'desc' : 'asc';
+    setForm((prevForm) => ({
+      ...prevForm,
+      sortBy: s,
+      sortDir: newSortDir,
+    }));
+  };
+
   const ths = (
-    <tr>
-      <th>#</th>
-      <th>Name</th>
-      <th>Email</th>
-      <th colSpan={2}></th>
-    </tr>
+    <TableRow>
+      <TableHead>No. </TableHead>
+      <TableHead>
+        <TableCellSort
+          title='Name'
+          sortBy='name'
+          currentSortBy={form.sortBy}
+          sortDir={form.sortDir}
+          onSort={handleSort}
+        />
+      </TableHead>
+      <TableHead>
+        <TableCellSort
+          title='Email'
+          sortBy='email'
+          currentSortBy={form.sortBy}
+          sortDir={form.sortDir}
+          onSort={handleSort}
+        />
+      </TableHead>
+      <TableHead>Role</TableHead>
+      <TableHead>
+        <TableCellSort
+          title='Tanggal'
+          sortBy='created_at'
+          currentSortBy={form.sortBy}
+          sortDir={form.sortDir}
+          onSort={handleSort}
+        />
+      </TableHead>
+      <TableHead></TableHead>
+    </TableRow>
   );
 
-  const rows = users.data.map(({ id, name, photo, email }, index: number) => (
-    <tr key={index}>
-      <td>{users.from + index}</td>
-      <td>
-        <Link href={route('management.users.edit', id)} className='flex items-center'>
-          {photo && <img src={`/${photo}`} className='block w-10 h-10 mr-2 rounded-full' />}
-          {name}
-        </Link>
-      </td>
-      <td>
-        <Link
-          tabIndex={-1}
-          href={route('management.users.edit', id)}
-          className='flex items-center px-6 py-4 focus:text-indigo focus:outline-none'>
-          {email}
-        </Link>
-      </td>
-      <td>
-        <div className='flex item-center justify-center'>
-          <div className='transform hover:text-purple-500 hover:scale-110 cursor-pointer'>
-            <Link
-              tabIndex={-1}
-              href={route('management.users.edit', id)}
-              className='flex items-center px-4 focus:outline-none'>
-              <IconChevronRight size={18} />
-            </Link>
-          </div>
-        </div>
-      </td>
-    </tr>
+  const rows = users.data.map(({ id, name, photo, email, created_at }, index: number) => (
+    <TableRow key={index}>
+      <TableCell>{index + 1}</TableCell>
+      <TableCell>
+        {photo && (
+          <Avatar className='mr-2'>
+            <AvatarImage src={`/${photo}`} />
+            <AvatarFallback>N</AvatarFallback>
+          </Avatar>
+        )}
+        {name}
+      </TableCell>
+      <TableCell>{email}</TableCell>
+      <TableCell>{created_at}</TableCell>
+      <TableCell>
+        <Can permission='edit user'>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant='ghost'>
+                <DotsHorizontalIcon />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <Link href={route('management.users.edit', id)}>
+                <DropdownMenuItem>Edit</DropdownMenuItem>
+              </Link>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </Can>
+      </TableCell>
+    </TableRow>
   ));
 
   return (
-    <>
+    <React.Fragment>
       <Head title='Users' />
 
-      <div className='flex justify-between items-center border-b border-gray-300'>
-        <h1 className='text-2xl font-semibold pt-2 pb-6'>Users</h1>
-        <Link href={route('management.users.create')}>
-          <Button color='dark' size='xs' leftIcon={<IconPlus size={14} />}>
-            User
-          </Button>
-        </Link>
+      <div className='flex justify-between items-center mb-8'>
+        <Filter />
+
+        <Can permission='add user'>
+          <Link href={route('management.users.create')}>
+            <Button>Tambah user</Button>
+          </Link>
+        </Can>
       </div>
 
-      <Filter />
-
-      <ScrollArea>
-        <Table highlightOnHover>
-          <thead>{ths}</thead>
-          <tbody>{rows}</tbody>
+      {rows.length === 0 && <EmptyPlaceholder title='Data tidak ditemukan' className='mt-4' />}
+      {rows.length !== 0 && (
+        <Table>
+          <TableHeader>{ths}</TableHeader>
+          <TableBody>{rows}</TableBody>
         </Table>
-      </ScrollArea>
+      )}
+
       <ResponsivePagination source={users} />
-    </>
+    </React.Fragment>
   );
 };
 

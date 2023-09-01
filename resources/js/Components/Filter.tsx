@@ -1,36 +1,28 @@
 import React from 'react';
-import { TextInput } from '@mantine/core';
 import useFilterPagination from '@/hooks/useFilterPagination';
+import { Input } from '@/Components/ui/input';
+import { Button } from './ui/button';
+import { Cross2Icon } from '@radix-ui/react-icons';
 
 const Filter: React.FC = () => {
-  const [form, , handleChange] = useFilterPagination();
+  const [form, setForm, handleChange] = useFilterPagination();
 
   return (
-    <div className='flex flex-col md:flex-row justify-between my-6'>
-      <div className='flex md:justify-start items-center mb-2 md:mb-0'>
-        <label className='mr-2'>Showing</label>
-        <div>
-          <select
-            className='form-select form-select-sm'
-            name='perPage'
-            value={form.perPage}
-            onChange={handleChange as React.ChangeEventHandler<HTMLSelectElement>}>
-            <option value='10'>10</option>
-            <option value='25'>25</option>
-            <option value='50'>50</option>
-            <option value='100'>100</option>
-          </select>
-        </div>
-        <label className='ml-2'>Entries</label>
-      </div>
-      <TextInput
-        className='w-full md:w-1/3'
+    <div className='flex space-x-2'>
+      <Input
+        className='w-[150px] lg:w-[250px]'
         type='text'
         name='search'
         value={form.search}
         onChange={handleChange as React.ChangeEventHandler<HTMLInputElement>}
         placeholder='Search...'
       />
+      {form.search && (
+        <Button variant='ghost' onClick={() => setForm({ ...form, search: '' })}>
+          Reset
+          <Cross2Icon className='ml-2 h-4 w-4' />
+        </Button>
+      )}
     </div>
   );
 };
