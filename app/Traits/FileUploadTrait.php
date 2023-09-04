@@ -21,11 +21,11 @@ trait FileUploadTrait
         return $raw_path.'/'.$filename;
     }
 
-   public function remove($file)
-   {
-       $file_path = public_path($file);
-       if (File::exists($file_path)) {
-           File::delete($file_path);
-       }
-   }
+    public function remove($file)
+    {
+        $file_path = public_path($file);
+        if (File::exists($file_path)) {
+            File::delete($file_path);
+        }
+    }
 }
