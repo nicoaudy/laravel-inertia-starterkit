@@ -62,7 +62,7 @@ const Index = () => {
       <TableHead>Role</TableHead>
       <TableHead>
         <TableCellSort
-          title='Tanggal'
+          title='Created At'
           sortBy='created_at'
           currentSortBy={form.sortBy}
           sortDir={form.sortDir}

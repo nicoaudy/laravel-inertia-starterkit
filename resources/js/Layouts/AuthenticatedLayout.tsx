@@ -1,7 +1,7 @@
 import React from 'react';
-import { Sidebar } from '@/Components/sidebar';
+import { Sidebar } from '@/Components/Sidebar';
 import { Navbar } from '@/Components/navbar';
-import { House, UsersFour } from '@phosphor-icons/react';
+import { House, List, UsersFour } from '@phosphor-icons/react';
 import FlashMessages from '@/Components/flash-messages';
 import { FaceIcon, RocketIcon } from '@radix-ui/react-icons';
 
@@ -12,13 +12,19 @@ interface AuthenticatedLayoutProps {
 const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({ children }) => {
   const menu = [
     {
-      name: 'Menu Utama',
+      name: 'Menu',
       links: [
         {
           icon: <House className='mr-2 h-4 w-4' />,
           label: 'Home',
           href: route('dashboard'),
           active: route().current('dashboard'),
+        },
+        {
+          icon: <List className='mr-2 h-4 w-4' />,
+          label: 'Contacts',
+          href: route('contacts.index'),
+          active: route().current('contacts.*'),
         },
       ],
     },

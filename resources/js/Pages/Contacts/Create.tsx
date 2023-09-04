@@ -1,7 +1,18 @@
-import { Head, Link, useForm } from '@inertiajs/react';
-import { TextInput, Select, Button } from '@mantine/core';
-import { IconSend } from '@tabler/icons-react';
+import { Head, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
+import Breadcrumbs from '@/Components/breadcrumbs';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
+import InputError from '@/Components/input-error';
+import { Textarea } from '@/Components/ui/textarea';
+import { Button } from '@/Components/ui/button';
+
+const items = [
+  { title: 'Home', href: route('dashboard') },
+  { title: 'Contacts', href: route('contacts.index') },
+  { title: 'Create', href: '#' },
+];
 
 const Create = () => {
   const { data, setData, errors, post, processing } = useForm<{
@@ -33,121 +44,73 @@ const Create = () => {
     <>
       <Head title='Create Contact' />
 
-      <div className='flex justify-between items-center border-b border-gray-300'>
-        <h1 className='mt-2 mb-6 text-2xl font-semibold'>
-          <Link href={route('contacts.index')} className='text-indigo-600 hover:text-indigo-700'>
-            Contacts
-          </Link>
-          <span className='font-medium text-indigo-600'> /</span> Create
-        </h1>
-      </div>
+      <div className='space-y-6'>
+        <Breadcrumbs items={items} />
 
-      <div className='my-6 max-w-3xl overflow-hidden bg-white rounded shadow'>
-        <form onSubmit={handleSubmit}>
-          <div className='flex flex-col p-8 my-2 mb-4'>
-            <div className='-mx-3 md:flex mb-6'>
-              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
-                <TextInput
-                  label='Name'
-                  type='text'
-                  name='name'
-                  value={data.name}
-                  onChange={(e) => setData('name', e.target.value)}
-                  error={errors.name}
-                />
-              </div>
-              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
-                <TextInput
-                  label='Email'
-                  type='email'
-                  name='email'
-                  value={data.email}
-                  onChange={(e) => setData('email', e.target.value)}
-                  error={errors.email}
-                />
-              </div>
-            </div>
-
-            <div className='-mx-3 md:flex mb-6'>
-              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
-                <TextInput
-                  label='Phone'
-                  type='text'
-                  name='phone'
-                  value={data.phone}
-                  className='w-full'
-                  onChange={(e) => setData('phone', e.target.value)}
-                  error={errors.phone}
-                />
-              </div>
-
-              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
-                <TextInput
-                  label='Address'
-                  type='text'
-                  name='address'
-                  value={data.address}
-                  onChange={(e) => setData('address', e.target.value)}
-                  error={errors.address}
-                />
-              </div>
-            </div>
-
-            <div className='-mx-3 md:flex mb-6'>
-              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
-                <TextInput
-                  label='City'
-                  type='text'
-                  name='city'
-                  value={data.city}
-                  onChange={(e) => setData('city', e.target.value)}
-                  error={errors.city}
-                />
-              </div>
-              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
-                <TextInput
-                  label='Region'
-                  type='text'
-                  name='region'
-                  value={data.region}
-                  onChange={(e) => setData('region', e.target.value)}
-                  error={errors.region}
-                />
-              </div>
-            </div>
-
-            <div className='-mx-3 md:flex mb-6'>
-              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
-                <Select
-                  label='Country'
-                  name='country'
-                  error={errors.country}
-                  value={data.country}
-                  onChange={(e) => setData('country', e as string)}
-                  data={[
+        <form className='space-y-6' onSubmit={handleSubmit}>
+          <div className='grid w-full max-w-sm items-center gap-1.5'>
+            <Label htmlFor='name'>Name</Label>
+            <Input name='name' type='text' value={data.name} onChange={(e) => setData('name', e.target.value)} />
+            <InputError message={errors.name} />
+          </div>
+          <div className='grid w-full max-w-sm items-center gap-1.5'>
+            <Label htmlFor='email'>Email</Label>
+            <Input name='email' type='email' value={data.email} onChange={(e) => setData('email', e.target.value)} />
+            <InputError message={errors.email} />
+          </div>
+          <div className='grid w-full max-w-sm items-center gap-1.5'>
+            <Label htmlFor='phone'>Phone</Label>
+            <Input name='phone' type='tel' value={data.phone} onChange={(e) => setData('phone', e.target.value)} />
+            <InputError message={errors.phone} />
+          </div>
+          <div className='grid w-full max-w-sm items-center gap-1.5'>
+            <Label htmlFor='address'>Address</Label>
+            <Textarea name='address' value={data.address} onChange={(e) => setData('address', e.target.value)} />
+            <InputError message={errors.phone} />
+          </div>
+          <div className='grid w-full max-w-sm items-center gap-1.5'>
+            <Label htmlFor='city'>City</Label>
+            <Input name='city' type='text' value={data.city} onChange={(e) => setData('city', e.target.value)} />
+            <InputError message={errors.city} />
+          </div>
+          <div className='grid w-full max-w-sm items-center gap-1.5'>
+            <Label htmlFor='region'>Region</Label>
+            <Input name='region' type='text' value={data.region} onChange={(e) => setData('region', e.target.value)} />
+            <InputError message={errors.region} />
+          </div>
+          <div className='grid w-full max-w-sm items-center gap-1.5'>
+            <Label htmlFor='country'>Country</Label>
+            <Select onValueChange={(e) => setData('country', e)} defaultValue={data.country}>
+              <SelectTrigger>
+                <SelectValue placeholder='Pilih' />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {[
                     { value: 'CA', label: 'Canada' },
                     { value: 'US', label: 'United States' },
-                  ]}
-                />
-              </div>
-
-              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
-                <TextInput
-                  label='Postal Code'
-                  type='text'
-                  name='postal_code'
-                  value={data.postal_code}
-                  onChange={(e) => setData('postal_code', e.target.value)}
-                  error={errors.postal_code}
-                />
-              </div>
-            </div>
+                  ].map((item) => (
+                    <SelectItem key={item.value} value={item.value}>
+                      {item.label}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
-          <div className='flex items-center justify-end px-8 py-4 bg-gray-100 border-t border-gray-200'>
-            <Button type='submit' leftIcon={<IconSend size={14} />} loading={processing}>
-              Submit
-            </Button>
+          <div className='grid w-full max-w-sm items-center gap-1.5'>
+            <Label htmlFor='postal_code'>Postal Code</Label>
+            <Input
+              name='postal_code'
+              type='text'
+              value={data.postal_code}
+              onChange={(e) => setData('postal_code', e.target.value)}
+            />
+            <InputError message={errors.postal_code} />
           </div>
+          <Button type='submit' disabled={processing} loading={processing}>
+            Submit
+          </Button>
         </form>
       </div>
     </>

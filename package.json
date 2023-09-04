@@ -11,9 +11,6 @@
   "devDependencies": {
     "@emotion/react": "^11.10.6",
     "@inertiajs/react": "^1.0.0",
-    "@mantine/core": "^6.0.5",
-    "@mantine/hooks": "^6.0.5",
-    "@mantine/modals": "^6.0.5",
     "@tabler/icons-react": "^2.18.0",
     "@types/lodash": "^4.14.194",
     "@types/react": "^18.0.28",
@@ -39,7 +36,6 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.1",
-    "@mantine/dropzone": "^6.0.11",
     "@phosphor-icons/react": "^2.0.10",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-alert-dialog": "^1.0.4",
@@ -73,7 +69,9 @@
     "cmdk": "^0.2.0",
     "date-fns": "^2.30.0",
     "react-day-picker": "^8.8.1",
+    "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.45.4",
+    "react-select": "^5.7.4",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.2"
