@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Management;
 
+use App\Http\Actions\Roles\GetRoles;
+use App\Http\Actions\Roles\RemoveRole;
+use App\Http\Actions\Roles\StoreRole;
+use App\Http\Actions\Roles\UpdateRole;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoleRequest;
 use App\Models\Permission;
@@ -13,13 +17,13 @@ use stdClass;
 
 class RoleController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, GetRoles $getRoles)
     {
         $this->can('view role');
 
         return Inertia::render('Management/Roles/Index', [
             'filters' => $request->all('search', 'perPage'),
-            'roles' => Role::filter($request->only('search', 'perPage'))->paginate($request->input('perPage', 10))->appends($request->all()),
+            'roles' => $getRoles->execute($request),
         ]);
     }
 
@@ -30,17 +34,11 @@ class RoleController extends Controller
         ]);
     }
 
-    public function store(RoleRequest $request)
+    public function store(RoleRequest $request, StoreRole $storeRole)
     {
         $this->can('add role');
 
-        $role = Role::create([
-            'name' => $request->name,
-        ]);
-
-        if ($request->has('permissions') && count($request->get('permissions')) > 0) {
-            $role->syncPermissions($request->get('permissions'));
-        }
+        $storeRole->execute($request->validated());
 
         return redirect()->route('management.roles.index')->with('success', 'Role created.');
     }
@@ -63,23 +61,20 @@ class RoleController extends Controller
         );
     }
 
-    public function update(RoleRequest $request, Role $role)
+    public function update(RoleRequest $request, Role $role, UpdateRole $updateRole)
     {
         $this->can('edit role');
 
-        $role->update(['name' => $request->get('name')]);
-        $role->users()->sync($request->get('users'));
-        $role->syncPermissions($request->get('permissions'));
+        $updateRole->execute($role, $request->validated());
 
         return redirect()->back()->with('success', 'Role updated.');
     }
 
-    public function destroy($id)
+    public function destroy(Role $role, RemoveRole $removeRole)
     {
         $this->can('delete role');
 
-        $role = Role::findOrFail($id);
-        $role->delete();
+        $removeRole->execute($role);
 
         return redirect()->route('management.roles.index')->with('success', 'Role deleted.');
     }

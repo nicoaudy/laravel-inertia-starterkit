@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Management;
 
+use App\Http\Actions\Permissions\GetPermissions;
+use App\Http\Actions\Permissions\RemovePermission;
+use App\Http\Actions\Permissions\StorePermission;
+use App\Http\Actions\Permissions\UpdatePermission;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PermissionRequest;
 use App\Models\Permission;
@@ -12,13 +16,13 @@ use stdClass;
 
 class PermissionController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, GetPermissions $getPermissions)
     {
         $this->can('view permission');
 
         return Inertia::render('Management/Permissions/Index', [
             'filters' => $request->all('search', 'perPage'),
-            'permissions' => Permission::filter($request->only('search', 'perPage'))->paginate($request->input('perPage', 10))->appends($request->all()),
+            'permissions' => $getPermissions->execute($request),
         ]);
     }
 
@@ -27,11 +31,11 @@ class PermissionController extends Controller
         return Inertia::render('Management/Permissions/Create');
     }
 
-    public function store(PermissionRequest $request)
+    public function store(PermissionRequest $request, StorePermission $storePermission)
     {
         $this->can('add permission');
 
-        Permission::create($request->all());
+        $storePermission->execute($request->validated());
 
         return redirect()->route('management.permissions.index')->with('success', 'Permission created.');
     }
@@ -49,22 +53,20 @@ class PermissionController extends Controller
         ]);
     }
 
-    public function update(PermissionRequest $request, Permission $permission)
+    public function update(PermissionRequest $request, Permission $permission, UpdatePermission $updatePermission)
     {
         $this->can('edit permission');
 
-        $permission->update(['name' => strtolower($request->get('name'))]);
-        $permission->users()->sync($request->get('users'));
+        $updatePermission->execute($permission, $request->validated());
 
         return redirect()->back()->with('success', 'Permission updated.');
     }
 
-    public function destroy($id)
+    public function destroy(Permission $permission, RemovePermission $removePermission)
     {
         $this->can('delete permission');
 
-        $permission = Permission::findOrFail($id);
-        $permission->delete();
+        $removePermission->execute($permission);
 
         return redirect()->route('management.permissions.index')->with('success', 'Permission deleted.');
     }

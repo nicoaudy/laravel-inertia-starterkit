@@ -39,6 +39,7 @@ const Edit = () => {
     file: '' as File | '',
     _method: 'PUT',
   });
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
