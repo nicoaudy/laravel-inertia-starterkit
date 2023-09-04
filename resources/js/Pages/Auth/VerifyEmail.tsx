@@ -1,6 +1,8 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import GuestLayout from '@/Layouts/GuestLayout';
-import { Button } from '@mantine/core';
+import React, { FormEventHandler } from 'react';
+import { CardDescription } from '@/Components/ui/card';
+import { Button } from '@/Components/ui/button';
 
 interface VerifyEmailProps {
   status: string;
@@ -9,20 +11,20 @@ interface VerifyEmailProps {
 const VerifyEmail = ({ status }: VerifyEmailProps) => {
   const { post, processing } = useForm();
 
-  const submit = (e: React.FormEvent) => {
+  const submit: FormEventHandler = (e) => {
     e.preventDefault();
 
     post(route('verification.send'));
   };
 
   return (
-    <>
+    <React.Fragment>
       <Head title='Email Verification' />
 
-      <div className='mb-4 text-sm text-gray-600'>
+      <CardDescription>
         Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we
         just emailed to you? If you didn't receive the email, we will gladly send you another.
-      </div>
+      </CardDescription>
 
       {status === 'verification-link-sent' && (
         <div className='mb-4 font-medium text-sm text-green-600'>
@@ -32,20 +34,16 @@ const VerifyEmail = ({ status }: VerifyEmailProps) => {
 
       <form onSubmit={submit}>
         <div className='mt-4 flex items-center justify-between'>
-          <Button type='submit' className='ml-4' loading={processing}>
-            Resend Verification Email
-          </Button>
+          <Button disabled={processing}>Resend Verification Email</Button>
 
-          <Link
-            href={route('logout')}
-            method='post'
-            as='button'
-            className='underline text-sm text-gray-600 hover:text-gray-900'>
-            Log Out
-          </Link>
+          <Button variant='link' asChild>
+            <Link href={route('logout')} method='post' as='button'>
+              Log Out
+            </Link>
+          </Button>
         </div>
       </form>
-    </>
+    </React.Fragment>
   );
 };
 

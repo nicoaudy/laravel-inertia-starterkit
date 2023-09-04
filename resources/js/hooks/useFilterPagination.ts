@@ -7,6 +7,8 @@ interface Filters {
   search?: string;
   perPage?: string;
   page?: string;
+  sortBy?: string;
+  sortDir?: 'asc' | 'desc' | undefined;
 }
 
 type ChangeEventHandler = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
@@ -17,8 +19,10 @@ const useFilterPagination = (): [Filters, React.Dispatch<React.SetStateAction<Fi
 
   const [values, setValues] = useState<Filters>({
     search: filters.search || '',
-    perPage: filters.perPage || '',
+    perPage: filters.perPage || '100',
     page: filters.page || '',
+    sortBy: filters.sortBy || '',
+    sortDir: filters.sortDir,
   });
 
   const prevValues = usePrevious(values);

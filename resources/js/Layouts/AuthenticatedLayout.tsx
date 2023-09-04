@@ -1,38 +1,85 @@
-import React, { useState } from 'react';
-import { usePage } from '@inertiajs/react';
-import Sidebar from '@/Components/Sidebar';
-import FlashMessages from '@/Components/FlashMessages';
+import React from 'react';
+import { Sidebar } from '@/Components/Sidebar';
+import { Navbar } from '@/Components/navbar';
+import { House, List, UsersFour } from '@phosphor-icons/react';
+import FlashMessages from '@/Components/flash-messages';
+import { FaceIcon, RocketIcon } from '@radix-ui/react-icons';
 
 interface AuthenticatedLayoutProps {
   children: React.ReactNode;
 }
 
 const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({ children }) => {
-  const { app_name } = usePage().props;
-  const [navOpen, setNavOpen] = useState(false);
+  const menu = [
+    {
+      name: 'Menu',
+      links: [
+        {
+          icon: <House className='mr-2 h-4 w-4' />,
+          label: 'Home',
+          href: route('dashboard'),
+          active: route().current('dashboard'),
+        },
+        {
+          icon: <List className='mr-2 h-4 w-4' />,
+          label: 'Contacts',
+          href: route('contacts.index'),
+          active: route().current('contacts.*'),
+        },
+      ],
+    },
+    {
+      name: 'Management',
+      links: [
+        {
+          icon: <FaceIcon className='mr-2 h-4 w-4' />,
+          label: 'Users',
+          href: route('management.users.index'),
+          active: route().current('management.users.*'),
+          can: 'view user',
+        },
+        {
+          icon: <RocketIcon className='mr-2 h-4 w-4' />,
+          label: 'Roles',
+          href: route('management.roles.index'),
+          active: route().current('management.roles.*'),
+          can: 'view role',
+        },
+        {
+          icon: <RocketIcon className='mr-2 h-4 w-4' />,
+          label: 'Permissions',
+          href: route('management.permissions.index'),
+          active: route().current('management.permissions.*'),
+          can: 'view permission',
+        },
+      ],
+    },
+    {
+      name: 'Master Data',
+      permissions: ['view patient', 'view pricelist', 'view stock', 'view team'],
+      links: [
+        {
+          icon: <UsersFour className='mr-2 h-4 w-4' />,
+          label: 'Contacts',
+          href: route('contacts.index'),
+          active: route().current('contacts.*'),
+          can: 'view contact',
+        },
+      ],
+    },
+  ];
 
   return (
-    <div className='flex relative'>
-      <Sidebar navOpen={navOpen} appName={app_name as string} />
-      <main className='flex-1 h-screen overflow-y-scroll overflow-x-hidden bg-gray-100'>
-        <div className='md:hidden justify-between items-center bg-black text-white flex'>
-          <h1 className='text-2xl font-bold px-4'>{app_name as string}</h1>
-          <button onClick={() => setNavOpen(!navOpen)} className='btn p-4 focus:outline-none hover:bg-gray-800'>
-            <svg
-              className='w-6 h-6 fill-current'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-              xmlns='http://www.w3.org/2000/svg'>
-              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M4 6h16M4 12h16m-7 6h7'></path>
-            </svg>
-          </button>
+    <div className='flex-col md:flex h-screen'>
+      <Navbar menu={menu} />
+      <div className='flex-1 overflow-hidden bg-background'>
+        <div className='flex'>
+          <Sidebar className='w-1/4 lg:block hidden overflow-y-auto h-screen pt-20' menu={menu} />
+          <div className='flex-3 overflow-y-auto lg:border-l h-screen container pt-20 pb-10'>{children}</div>
         </div>
-        <section className='max-w-7xl mx-auto py-4 px-5'>
-          <FlashMessages />
-          {children}
-        </section>
-      </main>
+      </div>
+
+      <FlashMessages />
     </div>
   );
 };

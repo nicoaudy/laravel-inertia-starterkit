@@ -1,9 +1,24 @@
-import { Link, Head, usePage, useForm, router } from '@inertiajs/react';
-import { TextInput, Checkbox, Button, Group, Text, Flex } from '@mantine/core';
-import { openModal, closeAllModals } from '@mantine/modals';
-import { IconSend } from '@tabler/icons-react';
+import { Head, usePage, useForm, router } from '@inertiajs/react';
+import Breadcrumbs from '@/Components/breadcrumbs';
+import { Label } from '@/Components/ui/label';
+import { Input } from '@/Components/ui/input';
+import InputError from '@/Components/input-error';
+import { Button } from '@/Components/ui/button';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import DeleteButton from '@/Components/DeleteButton';
+import React from 'react';
+import { Checkbox } from '@/Components/ui/checkbox';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/Components/ui/alert-dialog';
+import { Can } from '@/Components/Can';
 
 interface Permission {
   id: number;
@@ -16,6 +31,12 @@ interface User {
   name: string;
   permissions: number[];
 }
+
+const items = [
+  { title: 'Home', href: route('dashboard') },
+  { title: 'Permissions', href: route('management.permissions.index') },
+  { title: 'Edit', href: '#' },
+];
 
 const Edit = () => {
   const props = usePage().props;
@@ -33,7 +54,6 @@ const Edit = () => {
   }
 
   function destroy() {
-    closeAllModals();
     router.delete(route('management.permissions.destroy', permission.id));
   }
 
@@ -59,90 +79,70 @@ const Edit = () => {
     }
   }
 
-  const openDeleteModal = () => {
-    return openModal({
-      title: 'Please confirm your action',
-      centered: true,
-      children: (
-        <>
-          <Text size='sm'>Are you sure you want to delete this data? Once confirmed, you cannot redo this action.</Text>
-          <Group className='mt-4' position='right'>
-            <Button variant='outline' color='dark' onClick={() => closeAllModals}>
-              Cancel
-            </Button>
-            <Button variant='outline' color='red' onClick={destroy}>
-              Confirm
-            </Button>
-          </Group>
-        </>
-      ),
-    });
-  };
-
   return (
-    <>
+    <React.Fragment>
       <Head title={permission.name} />
 
-      <div className='flex justify-between items-center border-b border-gray-300'>
-        <h1 className='mt-2 mb-6 text-2xl font-semibold'>
-          <Link href={route('management.permissions.index')} className='text-indigo-600 hover:text-indigo-700'>
-            Permissions
-          </Link>
-          <span className='font-medium text-indigo-600'> / </span>
-          {data.name}
-        </h1>
-      </div>
+      <div className='space-y-6'>
+        <Breadcrumbs items={items} />
 
-      <div className='my-6 max-w-3xl overflow-hidden bg-white rounded shadow'>
-        <form onSubmit={handleSubmit}>
-          <div className='flex flex-col p-8 my-2 mb-4'>
-            <div className='-mx-3 md:flex mb-6'>
-              <div className='md:w-1/2 px-3 mb-6 md:mb-0'>
-                <TextInput
-                  label='Name'
-                  type='text'
-                  name='name'
-                  value={data.name}
-                  onChange={(e) => setData('name', e.target.value)}
-                  error={errors.name}
-                />
-              </div>
+        <form className='space-y-6' onSubmit={handleSubmit}>
+          <div className='grid w-full max-w-sm items-center gap-1.5'>
+            <Label htmlFor='name'>Name</Label>
+            <Input name='name' type='text' value={data.name} onChange={(e) => setData('name', e.target.value)} />
+            <InputError message={errors.name} />
+          </div>
+          <div className='grid w-full max-w-sm items-center gap-1.5'>
+            <h1>Users</h1>
+            <div className='flex items-center gap-2'>
+              <Checkbox checked={data.users.length == users.length} onCheckedChange={selectAll} />
+              <Label>Select All</Label>
             </div>
-            <div className='-mx-3 md:flex mb-6'>
-              <div className='w-full px-3 mb-6 md:mb-0'>
-                <Flex justify='space-between' className='mb-4'>
-                  <Text fz='sm'>Users</Text>
+            <div className='grid grid-cols-2 space-y-2'>
+              {users.map(({ id, name }) => (
+                <div className='flex items-center gap-2'>
                   <Checkbox
-                    label='Select All'
-                    name='selectAll'
-                    checked={data.users.length == users.length}
-                    onChange={selectAll}
+                    key={id}
+                    name='users'
+                    value={id}
+                    onCheckedChange={() => onSelect(id)}
+                    checked={data.users.includes(id)}
                   />
-                </Flex>
-                <div className='grid grid-cols-2 space-y-2'>
-                  {users.map(({ id, name }) => (
-                    <Checkbox
-                      key={id}
-                      label={name}
-                      name='users'
-                      value={id}
-                      onChange={() => onSelect(id)}
-                      checked={data.users.includes(id)}
-                    />
-                  ))}
+                  <Label>{name}</Label>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
-          <div className='flex justify-between items-center px-8 py-4 bg-gray-100 border-t border-gray-200'>
-            <DeleteButton onDelete={openDeleteModal}>Delete Permission</DeleteButton>
-            <Button type='submit' leftIcon={<IconSend size={14} />} loading={processing}>
+          <div className='w-full max-w-sm flex justify-between space-x-2'>
+            <Can permission='delete permission'>
+              <AlertDialog>
+                <AlertDialogTrigger>
+                  <Button type='button' variant='ghost'>
+                    Delete
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete your data and remove your data from our
+                      servers.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={destroy}>Continue</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </Can>
+            <Button type='submit' disabled={processing} loading={processing}>
               Submit
             </Button>
           </div>
         </form>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

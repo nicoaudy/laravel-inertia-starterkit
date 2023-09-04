@@ -8,7 +8,7 @@
 
 - [Roles & Permissions](https://spatie.be/docs/laravel-permission/)
 - [Tailwindcss](https://tailwindcss.com)
-- [Mantine](https://mantine.dev/)
+- [shadcn/ui](https://ui.shadcn.com/)
 - [Redis](https://redis.io/)
 - [Mailcatcher](https://mailcatcher.me/)
 
@@ -39,7 +39,6 @@ npm run dev
 ```bash
 npm run build
 ```
-
 
 ## Notes
 
