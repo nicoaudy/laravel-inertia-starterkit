@@ -21,7 +21,7 @@ class UserController extends Controller
         $this->can('view user');
 
         return Inertia::render('Management/Users/Index', [
-            'filters' => $request->all('search', 'perPage'),
+            'filters' => $request->all('search', 'sortBy', 'sortDir', 'perPage'),
             'users' => $getUsers->execute($request),
         ]);
     }

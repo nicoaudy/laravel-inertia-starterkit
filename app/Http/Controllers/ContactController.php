@@ -19,7 +19,7 @@ class ContactController extends Controller
         $this->can('view contact');
 
         return Inertia::render('Contacts/Index', [
-            'filters' => $request->all('search', 'perPage'),
+            'filters' => $request->all('search', 'sortBy', 'sortDir', 'perPage'),
             'contacts' => $getContacts->execute($request),
         ]);
     }

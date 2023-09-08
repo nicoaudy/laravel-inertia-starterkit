@@ -1,10 +1,11 @@
+# Use the PHP image as a base image
 FROM php:8.1-fpm
 
 # Set working directory
 WORKDIR /var/www
 VOLUME ["/var/www"]
 
-# Dependencies and necessary packages
+# Dependencies and necessary packages for PHP
 RUN apt-get update \
     && apt-get install -y \
     build-essential \
@@ -38,9 +39,12 @@ RUN apt-get update \
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Install Node.js and Npm
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
-    && apt-get install -y nodejs
+# Download and install bun
+RUN wget https://github.com/oven-sh/bun/releases/latest/download/bun-linux-x64.zip -O /tmp/bun-linux-x64.zip \
+    && unzip /tmp/bun-linux-x64.zip -d /tmp/ \
+    && mv /tmp/bun-linux-x64/bun /usr/local/bin/ \
+    && rm -rf /tmp/bun-linux-x64/ /tmp/bun-linux-x64.zip \
+    && chmod +x /usr/local/bin/bun
 
 # Install Redis extension
 RUN pecl install redis && docker-php-ext-enable redis

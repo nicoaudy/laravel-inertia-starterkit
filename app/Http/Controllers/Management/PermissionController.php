@@ -21,7 +21,7 @@ class PermissionController extends Controller
         $this->can('view permission');
 
         return Inertia::render('Management/Permissions/Index', [
-            'filters' => $request->all('search', 'perPage'),
+            'filters' => $request->all('search', 'sortBy', 'sortDir', 'perPage'),
             'permissions' => $getPermissions->execute($request),
         ]);
     }

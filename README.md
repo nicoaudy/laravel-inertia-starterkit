@@ -6,6 +6,7 @@
 
 ## Features
 
+- [bun.sh](https://bun.sh/)
 - [Roles & Permissions](https://spatie.be/docs/laravel-permission/)
 - [Tailwindcss](https://tailwindcss.com)
 - [shadcn/ui](https://ui.shadcn.com/)
@@ -24,20 +25,20 @@
 - Edit `.env` and set your database connection details
 - (When installed via git clone or download, run `php artisan key:generate`)
 - `php artisan migrate`
-- `npm install`
+- `bun install`
 
 ## Usage
 
 #### Development
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 #### Production
 
 ```bash
-npm run build
+bun run build
 ```
 
 ## Notes

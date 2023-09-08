@@ -9,6 +9,13 @@ class GetUsers
 {
     public function execute(Request $request)
     {
-        return User::orderByName()->filter($request->only('search', 'perPage'))->paginate()->appends($request->all());
+        $query = User::filter($request->only('search', 'perPage'));
+        if ($request->has('sortBy')) {
+            $query = $query->orderBy($request->input('sortBy'), $request->input('sortDir', 'asc'));
+        } else {
+            $query = $query->orderBy('name');
+        }
+
+        return $query->paginate($request->input('perPage', 100))->appends($request->all());
     }
 }
