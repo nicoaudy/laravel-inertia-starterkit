@@ -1,7 +1,7 @@
 # Laravel-React(Inertia) Starterkit
 
 <p align="center">
-<img src="https://imgur.com/a/X4V9Sf5">
+<img src="https://i.imgur.com/SsjMVfI.png">
 </p>
 
 ## Features
