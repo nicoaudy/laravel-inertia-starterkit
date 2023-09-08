@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { usePage } from '@inertiajs/react';
 import { Flash } from '@/types/interfaces';
-import { Toaster } from '@/Components/ui/toaster';
-import { useToast } from '@/Components/ui/use-toast';
+import { Toaster } from '@/components/ui/toaster';
+import { useToast } from '@/components/ui/use-toast';
 
 const FlashMessages: React.FC = () => {
   const props = usePage().props;

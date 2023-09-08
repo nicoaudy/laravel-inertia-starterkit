@@ -1,11 +1,11 @@
 import React, { FormEventHandler, useEffect } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
-import GuestLayout from '@/Layouts/GuestLayout';
-import { Label } from '@/Components/ui/label';
-import { Input } from '@/Components/ui/input';
-import { Switch } from '@/Components/ui/switch';
-import { Button } from '@/Components/ui/button';
-import InputError from '@/Components/input-error';
+import GuestLayout from '@/layouts/guest-layout';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Switch } from '@/components/ui/switch';
+import { Button } from '@/components/ui/button';
+import InputError from '@/components/input-error';
 
 interface LoginProps {
   status: string;

@@ -1,13 +1,13 @@
 import React from 'react';
 import { Head, usePage, useForm, router } from '@inertiajs/react';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import Breadcrumbs from '@/Components/breadcrumbs';
-import FileDropzone from '@/Components/dropzone';
-import { Label } from '@/Components/ui/label';
-import { ImagePreview } from '@/Components/image-preview';
-import { Input } from '@/Components/ui/input';
-import InputError from '@/Components/input-error';
-import { Button } from '@/Components/ui/button';
+import AuthenticatedLayout from '@/layouts/authenticated-layout';
+import Breadcrumbs from '@/components/breadcrumbs';
+import FileDropzone from '@/components/dropzone';
+import { Label } from '@/components/ui/label';
+import { ImagePreview } from '@/components/image-preview';
+import { Input } from '@/components/ui/input';
+import InputError from '@/components/input-error';
+import { Button } from '@/components/ui/button';
 import { User } from '@/types/interfaces';
 import {
   AlertDialog,
@@ -19,8 +19,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/Components/ui/alert-dialog';
-import { Can } from '@/Components/Can';
+} from '@/components/ui/alert-dialog';
+import { Can } from '@/components/Can';
 
 const items = [
   { title: 'Home', href: route('dashboard') },

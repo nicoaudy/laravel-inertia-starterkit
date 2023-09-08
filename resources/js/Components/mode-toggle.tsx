@@ -1,11 +1,11 @@
-import { Button } from '@/Components/ui/button';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/Components/ui/dropdown-menu';
-import { useTheme } from '@/Components/theme-provider';
+} from '@/components/ui/dropdown-menu';
+import { useTheme } from '@/components/theme-provider';
 import { Moon, Sun } from '@phosphor-icons/react';
 
 export function ModeToggle() {

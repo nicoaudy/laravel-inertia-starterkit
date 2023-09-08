@@ -1,12 +1,12 @@
 import { Head, useForm } from '@inertiajs/react';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
-import Breadcrumbs from '@/Components/breadcrumbs';
-import { Label } from '@/Components/ui/label';
-import { Input } from '@/Components/ui/input';
-import InputError from '@/Components/input-error';
-import { Textarea } from '@/Components/ui/textarea';
-import { Button } from '@/Components/ui/button';
+import AuthenticatedLayout from '@/layouts/authenticated-layout';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import Breadcrumbs from '@/components/breadcrumbs';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import InputError from '@/components/input-error';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
 
 const items = [
   { title: 'Home', href: route('dashboard') },

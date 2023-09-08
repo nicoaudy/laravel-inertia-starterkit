@@ -1,22 +1,22 @@
 import { Head, Link, usePage } from '@inertiajs/react';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import Filter from '@/Components/filter';
+import AuthenticatedLayout from '@/layouts/authenticated-layout';
+import Filter from '@/components/filter';
 import { IDefaultData, User } from '@/types/interfaces';
-import ResponsivePagination from '@/Components/responsive-pagination';
-import { Button } from '@/Components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
-import { Can } from '@/Components/Can';
-import { Table, TableHead, TableHeader, TableRow, TableCell, TableBody } from '@/Components/ui/table';
+import ResponsivePagination from '@/components/responsive-pagination';
+import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Can } from '@/components/Can';
+import { Table, TableHead, TableHeader, TableRow, TableCell, TableBody } from '@/components/ui/table';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/Components/ui/dropdown-menu';
+} from '@/components/ui/dropdown-menu';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
-import { TableCellSort } from '@/Components/table-cell-sort';
+import { TableCellSort } from '@/components/table-cell-sort';
 import useFilterPagination from '@/hooks/useFilterPagination';
-import { EmptyPlaceholder } from '@/Components/empty-placeholder';
+import { EmptyPlaceholder } from '@/components/empty-placeholder';
 import React from 'react';
 
 interface PropsData extends IDefaultData {
@@ -115,7 +115,7 @@ const Index = () => {
 
         <Can permission='add user'>
           <Link href={route('management.users.create')}>
-            <Button>Tambah user</Button>
+            <Button>Add new user</Button>
           </Link>
         </Can>
       </div>

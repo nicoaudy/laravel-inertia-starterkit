@@ -1,5 +1,5 @@
 import { ArrowDownIcon, ArrowUpIcon, CaretSortIcon } from '@radix-ui/react-icons';
-import { Button } from '@/Components/ui/button';
+import { Button } from '@/components/ui/button';
 
 interface TableCellSortProps {
   title: string;

@@ -1,10 +1,10 @@
 import React, { FormEventHandler, useEffect } from 'react';
 import { Head, useForm } from '@inertiajs/react';
-import GuestLayout from '@/Layouts/GuestLayout';
-import { Label } from '@/Components/ui/label';
-import InputError from '@/Components/input-error';
-import { Input } from '@/Components/ui/input';
-import { Button } from '@/Components/ui/button';
+import GuestLayout from '@/layouts/guest-layout';
+import { Label } from '@/components/ui/label';
+import InputError from '@/components/input-error';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 interface ResetPasswordProps {
   token: string;

@@ -1,9 +1,8 @@
 import React from 'react';
-import { Sidebar } from '@/Components/Sidebar';
-import { Navbar } from '@/Components/navbar';
-import { House, List, UsersFour } from '@phosphor-icons/react';
-import FlashMessages from '@/Components/flash-messages';
-import { FaceIcon, RocketIcon } from '@radix-ui/react-icons';
+import { Sidebar } from '@/components/sidebar';
+import { Navbar } from '@/components/navbar';
+import { File, House, UserGear, UsersFour } from '@phosphor-icons/react';
+import FlashMessages from '@/components/flash-messages';
 
 interface AuthenticatedLayoutProps {
   children: React.ReactNode;
@@ -21,7 +20,7 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({ children }) =
           active: route().current('dashboard'),
         },
         {
-          icon: <List className='mr-2 h-4 w-4' />,
+          icon: <File className='mr-2 h-4 w-4' />,
           label: 'Contacts',
           href: route('contacts.index'),
           active: route().current('contacts.*'),
@@ -32,21 +31,21 @@ const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({ children }) =
       name: 'Management',
       links: [
         {
-          icon: <FaceIcon className='mr-2 h-4 w-4' />,
+          icon: <UsersFour className='mr-2 h-4 w-4' />,
           label: 'Users',
           href: route('management.users.index'),
           active: route().current('management.users.*'),
           can: 'view user',
         },
         {
-          icon: <RocketIcon className='mr-2 h-4 w-4' />,
+          icon: <UserGear className='mr-2 h-4 w-4' />,
           label: 'Roles',
           href: route('management.roles.index'),
           active: route().current('management.roles.*'),
           can: 'view role',
         },
         {
-          icon: <RocketIcon className='mr-2 h-4 w-4' />,
+          icon: <UserGear className='mr-2 h-4 w-4' />,
           label: 'Permissions',
           href: route('management.permissions.index'),
           active: route().current('management.permissions.*'),

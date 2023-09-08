@@ -1,6 +1,6 @@
 import React from 'react';
 import useFilterPagination from '@/hooks/useFilterPagination';
-import { Input } from '@/Components/ui/input';
+import { Input } from '@/components/ui/input';
 import { Button } from './ui/button';
 import { Cross2Icon } from '@radix-ui/react-icons';
 

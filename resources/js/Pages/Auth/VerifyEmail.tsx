@@ -1,8 +1,8 @@
 import { Head, Link, useForm } from '@inertiajs/react';
-import GuestLayout from '@/Layouts/GuestLayout';
+import GuestLayout from '@/layouts/guest-layout';
 import React, { FormEventHandler } from 'react';
-import { CardDescription } from '@/Components/ui/card';
-import { Button } from '@/Components/ui/button';
+import { CardDescription } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 interface VerifyEmailProps {
   status: string;

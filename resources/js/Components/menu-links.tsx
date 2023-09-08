@@ -1,6 +1,6 @@
-import { Button } from '@/Components/ui/button';
+import { Button } from '@/components/ui/button';
 import { Link } from '@inertiajs/react';
-import { Can } from '@/Components/Can';
+import { Can } from '@/components/Can';
 
 interface MenuLinks extends React.HTMLAttributes<HTMLDivElement> {
   menu: {

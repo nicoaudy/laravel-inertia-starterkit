@@ -1,4 +1,4 @@
-import { ScrollArea } from '@/Components/ui/scroll-area';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { MenuLinks } from './menu-links';
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {

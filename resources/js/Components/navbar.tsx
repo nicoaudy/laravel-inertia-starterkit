@@ -1,9 +1,10 @@
-import { Sheet, SheetContent, SheetTrigger } from '@/Components/ui/sheet';
-import { UserNav } from '@/Components/user-nav';
-import { Button } from '@/Components/ui/button';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { UserNav } from '@/components/user-nav';
+import { Button } from '@/components/ui/button';
 import { MenuLinks } from './menu-links';
 import { List } from '@phosphor-icons/react';
-import { ModeToggle } from '@/Components/mode-toggle';
+import { ModeToggle } from '@/components/mode-toggle';
+import { CommandMenu } from './command-menu';
 
 interface NavbarProps extends React.HTMLAttributes<HTMLDivElement> {
   menu: {
@@ -28,7 +29,7 @@ export function Navbar({ menu }: NavbarProps) {
           </SheetContent>
         </Sheet>
         <div className='ml-auto flex items-center space-x-4'>
-          <ModeToggle />
+          <CommandMenu />
           <UserNav />
         </div>
       </div>

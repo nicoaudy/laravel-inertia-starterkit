@@ -1,12 +1,12 @@
 import { Head, usePage, useForm, router } from '@inertiajs/react';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import Breadcrumbs from '@/Components/breadcrumbs';
-import { Label } from '@/Components/ui/label';
-import { Input } from '@/Components/ui/input';
-import InputError from '@/Components/input-error';
-import { Button } from '@/Components/ui/button';
+import AuthenticatedLayout from '@/layouts/authenticated-layout';
+import Breadcrumbs from '@/components/breadcrumbs';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import InputError from '@/components/input-error';
+import { Button } from '@/components/ui/button';
 import React from 'react';
-import { Checkbox } from '@/Components/ui/checkbox';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,8 +17,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/Components/ui/alert-dialog';
-import { Can } from '@/Components/Can';
+} from '@/components/ui/alert-dialog';
+import { Can } from '@/components/Can';
 
 interface Role {
   id: number;

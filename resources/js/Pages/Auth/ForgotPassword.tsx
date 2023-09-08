@@ -1,10 +1,10 @@
 import React from 'react';
-import GuestLayout from '@/Layouts/GuestLayout';
+import GuestLayout from '@/layouts/guest-layout';
 import { Head, useForm } from '@inertiajs/react';
-import { CardDescription } from '@/Components/ui/card';
-import { Input } from '@/Components/ui/input';
-import InputError from '@/Components/input-error';
-import { Button } from '@/Components/ui/button';
+import { CardDescription } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import InputError from '@/components/input-error';
+import { Button } from '@/components/ui/button';
 
 interface ForgotPasswordProps {
   status: string;
