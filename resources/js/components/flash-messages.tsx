@@ -12,7 +12,7 @@ const FlashMessages: React.FC = () => {
   useEffect(() => {
     if (flash.success) {
       toast({
-        title: "Berhasil",
+        title: "Success",
         description: flash.success,
       });
     }
