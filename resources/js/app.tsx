@@ -11,7 +11,7 @@ const appName = window.document.getElementsByTagName("title")[0]?.innerText || "
 
 createInertiaApp({
   progress: {
-    color: "#4B5563",
+    color: "#484848",
   },
   title: (title: string) => `${title} - ${appName}`,
   resolve: (name) => resolvePageComponent(`./Pages/${name}.tsx`, import.meta.glob("./Pages/**/*.tsx")),
