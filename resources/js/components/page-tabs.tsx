@@ -16,7 +16,7 @@ type Props = {
 
 export const PageTabs: React.FC<React.PropsWithChildren<Props>> = ({ navigation, className }) => {
   return (
-    <nav className={cn('sticky top-0 bg-background z-20', className)}>
+    <nav className={cn('top-0 bg-background z-20', className)}>
       <div className='flex items-center w-full gap-4 overflow-x-auto'>
         {navigation.map(({ title, href, active, count }, index) => {
           return (
