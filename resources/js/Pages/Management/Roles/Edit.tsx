@@ -1,12 +1,12 @@
-import { Head, usePage, useForm, router } from '@inertiajs/react';
-import AuthenticatedLayout from '@/layouts/authenticated-layout';
-import Breadcrumbs from '@/components/breadcrumbs';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import InputError from '@/components/input-error';
-import { Button } from '@/components/ui/button';
-import React from 'react';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Head, usePage, useForm, router } from "@inertiajs/react";
+import AuthenticatedLayout from "@/layouts/authenticated-layout";
+import Breadcrumbs from "@/components/breadcrumbs";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import InputError from "@/components/input-error";
+import { Button } from "@/components/ui/button";
+import React from "react";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,8 +17,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { Can } from '@/components/Can';
+} from "@/components/ui/alert-dialog";
+import { Can } from "@/components/Can";
 
 interface Role {
   id: number;
@@ -38,9 +38,9 @@ interface User {
 }
 
 const items = [
-  { title: 'Home', href: route('dashboard') },
-  { title: 'Roles', href: route('management.roles.index') },
-  { title: 'Edit', href: '#' },
+  { title: "Home", href: route("dashboard") },
+  { title: "Roles", href: route("management.roles.index") },
+  { title: "Edit", href: "#" },
 ];
 
 const Edit = () => {
@@ -51,26 +51,26 @@ const Edit = () => {
   const users = props.users as User[];
 
   const { data, setData, errors, put, processing } = useForm<{ name: string; users: number[]; permissions: number[] }>({
-    name: role.name || '',
+    name: role.name || "",
     users: role.users || [],
     permissions: rolePermissions || [],
   });
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    put(route('management.roles.update', role.id));
+    put(route("management.roles.update", role.id));
   }
 
   function destroy() {
-    router.delete(route('management.roles.destroy', role.id));
+    router.delete(route("management.roles.destroy", role.id));
   }
 
   function selectAll() {
     if (data.permissions.length) {
-      setData('permissions', []);
+      setData("permissions", []);
     } else {
       setData(
-        'permissions',
+        "permissions",
         permissions.map((permission) => permission.id)
       );
     }
@@ -79,20 +79,20 @@ const Edit = () => {
   function onSelect(id: number) {
     if (data.permissions.includes(id)) {
       setData(
-        'permissions',
+        "permissions",
         data.permissions.filter((row) => row !== id)
       );
     } else {
-      setData('permissions', [...data.permissions, id]);
+      setData("permissions", [...data.permissions, id]);
     }
   }
 
   function selectAllUser() {
     if (data.users.length) {
-      setData('users', []);
+      setData("users", []);
     } else {
       setData(
-        'users',
+        "users",
         users.map((user) => user.id)
       );
     }
@@ -101,11 +101,11 @@ const Edit = () => {
   function onUserSelect(id: number) {
     if (data.users.includes(id)) {
       setData(
-        'users',
+        "users",
         data.users.filter((row) => row !== id)
       );
     } else {
-      setData('users', [...data.users, id]);
+      setData("users", [...data.users, id]);
     }
   }
 
@@ -119,7 +119,7 @@ const Edit = () => {
         <form className='space-y-6' onSubmit={handleSubmit}>
           <div className='grid w-full max-w-sm items-center gap-1.5'>
             <Label htmlFor='name'>Name</Label>
-            <Input name='name' type='text' value={data.name} onChange={(e) => setData('name', e.target.value)} />
+            <Input name='name' type='text' value={data.name} onChange={(e) => setData("name", e.target.value)} />
             <InputError message={errors.name} />
           </div>
           <div className='grid w-full max-w-sm items-center gap-1.5'>

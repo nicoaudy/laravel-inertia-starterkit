@@ -1,12 +1,12 @@
-import { Head, useForm, usePage } from '@inertiajs/react';
-import AuthenticatedLayout from '@/layouts/authenticated-layout';
-import Breadcrumbs from '@/components/breadcrumbs';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import InputError from '@/components/input-error';
-import { Button } from '@/components/ui/button';
-import React from 'react';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Head, useForm, usePage } from "@inertiajs/react";
+import AuthenticatedLayout from "@/layouts/authenticated-layout";
+import Breadcrumbs from "@/components/breadcrumbs";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import InputError from "@/components/input-error";
+import { Button } from "@/components/ui/button";
+import React from "react";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface Permission {
   id: number;
@@ -14,9 +14,9 @@ interface Permission {
 }
 
 const items = [
-  { title: 'Home', href: route('dashboard') },
-  { title: 'Roles', href: route('management.roles.index') },
-  { title: 'Create', href: '#' },
+  { title: "Home", href: route("dashboard") },
+  { title: "Roles", href: route("management.roles.index") },
+  { title: "Create", href: "#" },
 ];
 
 const Create = () => {
@@ -27,21 +27,21 @@ const Create = () => {
     name: string;
     permissions: number[];
   }>({
-    name: '',
+    name: "",
     permissions: [],
   });
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    post(route('management.roles.store'));
+    post(route("management.roles.store"));
   }
 
   function selectAll() {
     if (data.permissions.length) {
-      setData('permissions', []);
+      setData("permissions", []);
     } else {
       setData(
-        'permissions',
+        "permissions",
         permissions.map((permission) => permission.id)
       );
     }
@@ -50,11 +50,11 @@ const Create = () => {
   function onSelect(id: number) {
     if (data.permissions.includes(id)) {
       setData(
-        'permissions',
+        "permissions",
         data.permissions.filter((row: number) => row !== id)
       );
     } else {
-      setData('permissions', [...data.permissions, id]);
+      setData("permissions", [...data.permissions, id]);
     }
   }
 
@@ -68,7 +68,7 @@ const Create = () => {
         <form className='space-y-6' onSubmit={handleSubmit}>
           <div className='grid w-full max-w-sm items-center gap-1.5'>
             <Label htmlFor='name'>Name</Label>
-            <Input name='name' type='text' value={data.name} onChange={(e) => setData('name', e.target.value)} />
+            <Input name='name' type='text' value={data.name} onChange={(e) => setData("name", e.target.value)} />
             <InputError message={errors.name} />
           </div>
           <div className='grid w-full max-w-sm items-center gap-1.5'>

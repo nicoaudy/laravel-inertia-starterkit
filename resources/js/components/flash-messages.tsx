@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import { usePage } from '@inertiajs/react';
-import { Flash } from '@/types/interfaces';
-import { Toaster } from '@/components/ui/toaster';
-import { useToast } from '@/components/ui/use-toast';
+import React, { useEffect } from "react";
+import { usePage } from "@inertiajs/react";
+import { Flash } from "@/types/interfaces";
+import { Toaster } from "@/components/ui/toaster";
+import { useToast } from "@/components/ui/use-toast";
 
 const FlashMessages: React.FC = () => {
   const props = usePage().props;
@@ -12,14 +12,14 @@ const FlashMessages: React.FC = () => {
   useEffect(() => {
     if (flash.success) {
       toast({
-        title: 'Berhasil',
+        title: "Berhasil",
         description: flash.success,
       });
     }
 
     if (flash.error) {
       toast({
-        variant: 'destructive',
+        variant: "destructive",
         description: flash.error,
       });
     }

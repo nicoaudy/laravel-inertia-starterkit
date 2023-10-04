@@ -1,12 +1,12 @@
-import { Head, usePage, useForm, router } from '@inertiajs/react';
-import Breadcrumbs from '@/components/breadcrumbs';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import InputError from '@/components/input-error';
-import { Button } from '@/components/ui/button';
-import AuthenticatedLayout from '@/layouts/authenticated-layout';
-import React from 'react';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Head, usePage, useForm, router } from "@inertiajs/react";
+import Breadcrumbs from "@/components/breadcrumbs";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import InputError from "@/components/input-error";
+import { Button } from "@/components/ui/button";
+import AuthenticatedLayout from "@/layouts/authenticated-layout";
+import React from "react";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,8 +17,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { Can } from '@/components/Can';
+} from "@/components/ui/alert-dialog";
+import { Can } from "@/components/Can";
 
 interface Permission {
   id: number;
@@ -33,9 +33,9 @@ interface User {
 }
 
 const items = [
-  { title: 'Home', href: route('dashboard') },
-  { title: 'Permissions', href: route('management.permissions.index') },
-  { title: 'Edit', href: '#' },
+  { title: "Home", href: route("dashboard") },
+  { title: "Permissions", href: route("management.permissions.index") },
+  { title: "Edit", href: "#" },
 ];
 
 const Edit = () => {
@@ -44,25 +44,25 @@ const Edit = () => {
   const users = props.users as User[];
 
   const { data, setData, errors, put, processing } = useForm<{ name: string; users: number[] }>({
-    name: permission.name || '',
+    name: permission.name || "",
     users: permission.users || [],
   });
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    put(route('management.permissions.update', permission.id));
+    put(route("management.permissions.update", permission.id));
   }
 
   function destroy() {
-    router.delete(route('management.permissions.destroy', permission.id));
+    router.delete(route("management.permissions.destroy", permission.id));
   }
 
   function selectAll() {
     if (data.users.length) {
-      setData('users', []);
+      setData("users", []);
     } else {
       setData(
-        'users',
+        "users",
         users.map((user) => user.id)
       );
     }
@@ -71,11 +71,11 @@ const Edit = () => {
   function onSelect(id: number) {
     if (data.users.includes(id)) {
       setData(
-        'users',
+        "users",
         data.users.filter((row) => row != id)
       );
     } else {
-      setData('users', [...data.users, id]);
+      setData("users", [...data.users, id]);
     }
   }
 
@@ -89,7 +89,7 @@ const Edit = () => {
         <form className='space-y-6' onSubmit={handleSubmit}>
           <div className='grid w-full max-w-sm items-center gap-1.5'>
             <Label htmlFor='name'>Name</Label>
-            <Input name='name' type='text' value={data.name} onChange={(e) => setData('name', e.target.value)} />
+            <Input name='name' type='text' value={data.name} onChange={(e) => setData("name", e.target.value)} />
             <InputError message={errors.name} />
           </div>
           <div className='grid w-full max-w-sm items-center gap-1.5'>

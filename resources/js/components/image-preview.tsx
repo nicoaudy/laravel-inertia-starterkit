@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export interface ImagePreviewProps {
   files: File[];
@@ -15,4 +15,4 @@ export const ImagePreview = React.memo((props: React.PropsWithChildren<ImagePrev
   </div>
 ));
 
-ImagePreview.displayName = 'ImagePreview';
+ImagePreview.displayName = "ImagePreview";

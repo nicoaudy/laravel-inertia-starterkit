@@ -1,7 +1,7 @@
-import { Link, router, usePage } from '@inertiajs/react';
-import { PageProps } from '@/types';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
+import { Link, router, usePage } from "@inertiajs/react";
+import { PageProps } from "@/types";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,13 +10,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 
 export function UserNav() {
   const user = usePage<PageProps>().props.auth.user;
 
   function logout() {
-    router.post(route('logout'));
+    router.post(route("logout"));
   }
 
   return (
@@ -38,7 +38,7 @@ export function UserNav() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Link href={route('management.users.edit', user.id)}>
+          <Link href={route("management.users.edit", user.id)}>
             <DropdownMenuItem className='cursor-pointer'>Profile</DropdownMenuItem>
           </Link>
           <DropdownMenuItem className='cursor-not-allowed'>Billing</DropdownMenuItem>

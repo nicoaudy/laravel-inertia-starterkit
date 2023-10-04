@@ -1,5 +1,5 @@
-import { PropsWithChildren } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import { PropsWithChildren } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function Guest({ children }: PropsWithChildren) {
   return (

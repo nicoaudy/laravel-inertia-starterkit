@@ -1,22 +1,22 @@
-import { Head, Link, usePage } from '@inertiajs/react';
-import AuthenticatedLayout from '@/layouts/authenticated-layout';
-import Filter from '@/components/filter';
-import { Contact, IDefaultData, User } from '@/types/interfaces';
-import ResponsivePagination from '@/components/responsive-pagination';
-import { Button } from '@/components/ui/button';
-import { Can } from '@/components/Can';
-import { Table, TableHead, TableHeader, TableRow, TableCell, TableBody } from '@/components/ui/table';
+import { Head, Link, usePage } from "@inertiajs/react";
+import AuthenticatedLayout from "@/layouts/authenticated-layout";
+import Filter from "@/components/filter";
+import { Contact, IDefaultData, User } from "@/types/interfaces";
+import ResponsivePagination from "@/components/responsive-pagination";
+import { Button } from "@/components/ui/button";
+import { Can } from "@/components/Can";
+import { Table, TableHead, TableHeader, TableRow, TableCell, TableBody } from "@/components/ui/table";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { DotsHorizontalIcon } from '@radix-ui/react-icons';
-import { TableCellSort } from '@/components/table-cell-sort';
-import useFilterPagination from '@/hooks/useFilterPagination';
-import { EmptyPlaceholder } from '@/components/empty-placeholder';
-import React from 'react';
+} from "@/components/ui/dropdown-menu";
+import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { TableCellSort } from "@/components/table-cell-sort";
+import useFilterPagination from "@/hooks/useFilterPagination";
+import { EmptyPlaceholder } from "@/components/empty-placeholder";
+import React from "react";
 
 interface PropsData extends IDefaultData {
   data: Contact[];
@@ -29,7 +29,7 @@ const Index = () => {
   const [form, setForm] = useFilterPagination();
 
   const handleSort = (s: string) => {
-    const newSortDir = form.sortBy === s && form.sortDir === 'asc' ? 'desc' : 'asc';
+    const newSortDir = form.sortBy === s && form.sortDir === "asc" ? "desc" : "asc";
     setForm((prevForm) => ({
       ...prevForm,
       sortBy: s,
@@ -90,7 +90,7 @@ const Index = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <Link href={route('contacts.edit', id)}>
+              <Link href={route("contacts.edit", id)}>
                 <DropdownMenuItem>Edit</DropdownMenuItem>
               </Link>
             </DropdownMenuContent>
@@ -108,7 +108,7 @@ const Index = () => {
         <Filter />
 
         <Can permission='add contact'>
-          <Link href={route('contacts.create')}>
+          <Link href={route("contacts.create")}>
             <Button>Create contact</Button>
           </Link>
         </Can>

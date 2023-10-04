@@ -1,7 +1,7 @@
-import React from 'react';
-import useFilterPagination from '@/hooks/useFilterPagination';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import PaginationLinks from '@/components/pagination-links';
+import React from "react";
+import useFilterPagination from "@/hooks/useFilterPagination";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import PaginationLinks from "@/components/pagination-links";
 
 interface ResponsivePaginationProps {
   source: {

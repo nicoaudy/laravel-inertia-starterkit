@@ -1,37 +1,37 @@
-import { Head, useForm } from '@inertiajs/react';
-import React from 'react';
-import AuthenticatedLayout from '@/layouts/authenticated-layout';
-import Breadcrumbs from '@/components/breadcrumbs';
-import FileDropzone from '@/components/dropzone';
-import { Label } from '@/components/ui/label';
-import { ImagePreview } from '@/components/image-preview';
-import { Input } from '@/components/ui/input';
-import InputError from '@/components/input-error';
-import { Button } from '@/components/ui/button';
+import { Head, useForm } from "@inertiajs/react";
+import React from "react";
+import AuthenticatedLayout from "@/layouts/authenticated-layout";
+import Breadcrumbs from "@/components/breadcrumbs";
+import FileDropzone from "@/components/dropzone";
+import { Label } from "@/components/ui/label";
+import { ImagePreview } from "@/components/image-preview";
+import { Input } from "@/components/ui/input";
+import InputError from "@/components/input-error";
+import { Button } from "@/components/ui/button";
 
 const items = [
-  { title: 'Home', href: route('dashboard') },
-  { title: 'Users', href: route('management.users.index') },
-  { title: 'Create', href: '#' },
+  { title: "Home", href: route("dashboard") },
+  { title: "Users", href: route("management.users.index") },
+  { title: "Create", href: "#" },
 ];
 
 const Create = () => {
   const { data, setData, errors, post, processing } = useForm({
-    name: '',
-    email: '',
-    password: '',
-    file: '' as File | '',
+    name: "",
+    email: "",
+    password: "",
+    file: "" as File | "",
   });
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    post(route('management.users.store'), {
+    post(route("management.users.store"), {
       forceFormData: true,
     });
   }
 
   const handleFileDrop = (acceptedFiles: File[]) => {
-    setData('file', acceptedFiles[0]);
+    setData("file", acceptedFiles[0]);
   };
 
   return (
@@ -44,12 +44,12 @@ const Create = () => {
         <form className='space-y-6' onSubmit={handleSubmit}>
           <div className='grid w-full max-w-sm items-center gap-1.5'>
             <Label htmlFor='name'>Name</Label>
-            <Input name='name' type='text' value={data.name} onChange={(e) => setData('name', e.target.value)} />
+            <Input name='name' type='text' value={data.name} onChange={(e) => setData("name", e.target.value)} />
             <InputError message={errors.name} />
           </div>
           <div className='grid w-full max-w-sm items-center gap-1.5'>
             <Label htmlFor='email'>Email</Label>
-            <Input name='email' type='email' value={data.email} onChange={(e) => setData('email', e.target.value)} />
+            <Input name='email' type='email' value={data.email} onChange={(e) => setData("email", e.target.value)} />
             <InputError message={errors.email} />
           </div>
           <div className='grid w-full max-w-sm items-center gap-1.5'>
@@ -58,12 +58,12 @@ const Create = () => {
               name='password'
               type='password'
               value={data.password}
-              onChange={(e) => setData('password', e.target.value)}
+              onChange={(e) => setData("password", e.target.value)}
             />
             <InputError message={errors.password} />
           </div>
           <div className='grid w-full max-w-sm items-center gap-1.5'>
-            <FileDropzone onDrop={handleFileDrop} accept={{ 'image/jpeg': ['.jpeg', '.png'] }}>
+            <FileDropzone onDrop={handleFileDrop} accept={{ "image/jpeg": [".jpeg", ".png"] }}>
               {!data.file && <Label>Drag & drop image files here (max size: 5MB, accepted formats: .jpg, .png)</Label>}
               {data.file && <ImagePreview files={[data.file]} />}
             </FileDropzone>

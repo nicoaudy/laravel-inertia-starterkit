@@ -1,25 +1,25 @@
-import React, { FormEventHandler, useEffect } from 'react';
-import { Head, useForm } from '@inertiajs/react';
-import GuestLayout from '@/layouts/guest-layout';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import InputError from '@/components/input-error';
-import { Button } from '@/components/ui/button';
+import React, { FormEventHandler, useEffect } from "react";
+import { Head, useForm } from "@inertiajs/react";
+import GuestLayout from "@/layouts/guest-layout";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import InputError from "@/components/input-error";
+import { Button } from "@/components/ui/button";
 
 const ConfirmPassword = () => {
   const { data, setData, post, processing, errors, reset } = useForm({
-    password: '',
+    password: "",
   });
 
   useEffect(() => {
     return () => {
-      reset('password');
+      reset("password");
     };
   }, []);
 
   const submit: FormEventHandler = (e) => {
     e.preventDefault();
-    post(route('password.confirm'));
+    post(route("password.confirm"));
   };
 
   return (
@@ -37,7 +37,7 @@ const ConfirmPassword = () => {
             name='password'
             value={data.password}
             className='mt-1 block w-full'
-            onChange={(e) => setData('password', e.target.value)}
+            onChange={(e) => setData("password", e.target.value)}
             autoFocus
           />
           <InputError message={errors.password} className='mt-2' />

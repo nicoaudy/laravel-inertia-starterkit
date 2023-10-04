@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button';
-import { Link } from '@inertiajs/react';
-import { Can } from '@/components/Can';
+import { Button } from "@/components/ui/button";
+import { Link } from "@inertiajs/react";
+import { Can } from "@/components/Can";
 
 interface MenuLinks extends React.HTMLAttributes<HTMLDivElement> {
   menu: {
@@ -23,7 +23,7 @@ export function MenuLinks({ menu }: MenuLinks) {
                   return (
                     <Can permission={link.can} key={`link-${j}-${link.label}`}>
                       <Link href={link.href}>
-                        <Button variant={link.active ? 'secondary' : 'ghost'} className='w-full justify-start'>
+                        <Button variant={link.active ? "secondary" : "ghost"} className='w-full justify-start'>
                           {link.icon}
                           {link.label}
                         </Button>

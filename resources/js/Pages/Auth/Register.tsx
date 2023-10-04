@@ -1,37 +1,37 @@
-import React, { FormEventHandler, useEffect } from 'react';
-import { Head, Link, useForm } from '@inertiajs/react';
-import GuestLayout from '@/layouts/guest-layout';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import InputError from '@/components/input-error';
-import { Button } from '@/components/ui/button';
+import React, { FormEventHandler, useEffect } from "react";
+import { Head, Link, useForm } from "@inertiajs/react";
+import GuestLayout from "@/layouts/guest-layout";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import InputError from "@/components/input-error";
+import { Button } from "@/components/ui/button";
 
 const Register = () => {
   const { data, setData, post, processing, errors, reset } = useForm({
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
+    name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
 
-    subdomain: '',
-    business_name: '',
-    business_address: '',
-    business_phone: '',
-    logo: '' as File | '',
+    subdomain: "",
+    business_name: "",
+    business_address: "",
+    business_phone: "",
+    logo: "" as File | "",
   });
 
   console.log(data);
 
   useEffect(() => {
     return () => {
-      reset('password', 'password_confirmation');
+      reset("password", "password_confirmation");
     };
   }, []);
 
   const submit: FormEventHandler = (e) => {
     e.preventDefault();
 
-    post(route('register'));
+    post(route("register"));
   };
 
   return (
@@ -48,7 +48,7 @@ const Register = () => {
             value={data.name}
             className='mt-1 block w-full'
             autoComplete='name'
-            onChange={(e) => setData('name', e.target.value)}
+            onChange={(e) => setData("name", e.target.value)}
             autoFocus
           />
 
@@ -65,7 +65,7 @@ const Register = () => {
             value={data.email}
             className='mt-1 block w-full'
             autoComplete='username'
-            onChange={(e) => setData('email', e.target.value)}
+            onChange={(e) => setData("email", e.target.value)}
           />
 
           <InputError message={errors.email} className='mt-2' />
@@ -80,7 +80,7 @@ const Register = () => {
             name='subdomain'
             value={data.subdomain}
             className='mt-1 block w-full'
-            onChange={(e) => setData('subdomain', e.target.value)}
+            onChange={(e) => setData("subdomain", e.target.value)}
           />
 
           <InputError message={errors.subdomain} className='mt-2' />
@@ -95,7 +95,7 @@ const Register = () => {
             name='business_name'
             value={data.business_name}
             className='mt-1 block w-full'
-            onChange={(e) => setData('business_name', e.target.value)}
+            onChange={(e) => setData("business_name", e.target.value)}
           />
 
           <InputError message={errors.business_name} className='mt-2' />
@@ -110,7 +110,7 @@ const Register = () => {
             name='business_address'
             value={data.business_address}
             className='mt-1 block w-full'
-            onChange={(e) => setData('business_address', e.target.value)}
+            onChange={(e) => setData("business_address", e.target.value)}
           />
 
           <InputError message={errors.business_address} className='mt-2' />
@@ -125,7 +125,7 @@ const Register = () => {
             name='business_phone'
             value={data.business_phone}
             className='mt-1 block w-full'
-            onChange={(e) => setData('business_phone', e.target.value)}
+            onChange={(e) => setData("business_phone", e.target.value)}
           />
 
           <InputError message={errors.business_phone} className='mt-2' />
@@ -138,7 +138,7 @@ const Register = () => {
             type='file'
             name='logo'
             className='mt-1 block w-full'
-            onChange={(e) => setData('logo', e.target.value as unknown as File)}
+            onChange={(e) => setData("logo", e.target.value as unknown as File)}
             accept='image/png,image/jpeg'
           />
 
@@ -155,7 +155,7 @@ const Register = () => {
             value={data.password}
             className='mt-1 block w-full'
             autoComplete='new-password'
-            onChange={(e) => setData('password', e.target.value)}
+            onChange={(e) => setData("password", e.target.value)}
           />
 
           <InputError message={errors.password} className='mt-2' />
@@ -171,7 +171,7 @@ const Register = () => {
             value={data.password_confirmation}
             className='mt-1 block w-full'
             autoComplete='new-password'
-            onChange={(e) => setData('password_confirmation', e.target.value)}
+            onChange={(e) => setData("password_confirmation", e.target.value)}
           />
 
           <InputError message={errors.password_confirmation} className='mt-2' />
@@ -179,7 +179,7 @@ const Register = () => {
 
         <div className='flex items-center justify-end mt-4'>
           <Button variant='link' asChild>
-            <Link href={route('login')}>Already registered?</Link>
+            <Link href={route("login")}>Already registered?</Link>
           </Button>
 
           <Button className='ml-4' disabled={processing} loading={processing}>
