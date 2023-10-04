@@ -1,5 +1,5 @@
-import { Head } from '@inertiajs/react';
-import AuthenticatedLayout from '@/layouts/authenticated-layout';
+import { Head } from "@inertiajs/react";
+import AuthenticatedLayout from "@/layouts/authenticated-layout";
 
 const Dashboard = () => {
   return (

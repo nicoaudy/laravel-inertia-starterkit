@@ -1,24 +1,24 @@
-import { Head, Link, usePage } from '@inertiajs/react';
-import AuthenticatedLayout from '@/layouts/authenticated-layout';
-import Filter from '@/components/filter';
-import { IDefaultData, User } from '@/types/interfaces';
-import ResponsivePagination from '@/components/responsive-pagination';
-import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Can } from '@/components/Can';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Head, Link, usePage } from "@inertiajs/react";
+import AuthenticatedLayout from "@/layouts/authenticated-layout";
+import Filter from "@/components/filter";
+import { IDefaultData, User } from "@/types/interfaces";
+import ResponsivePagination from "@/components/responsive-pagination";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Can } from "@/components/Can";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { DotsHorizontalIcon } from '@radix-ui/react-icons';
-import { TableCellSort } from '@/components/table-cell-sort';
-import useFilterPagination from '@/hooks/useFilterPagination';
-import { EmptyPlaceholder } from '@/components/empty-placeholder';
-import React from 'react';
-import { PageTabs } from '@/components/page-tabs';
+} from "@/components/ui/dropdown-menu";
+import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { TableCellSort } from "@/components/table-cell-sort";
+import useFilterPagination from "@/hooks/useFilterPagination";
+import { EmptyPlaceholder } from "@/components/empty-placeholder";
+import React from "react";
+import { PageTabs } from "@/components/page-tabs";
 
 interface PropsData extends IDefaultData {
   data: User[];
@@ -31,7 +31,7 @@ const Index = () => {
   const [form, setForm] = useFilterPagination();
 
   const handleSort = (s: string) => {
-    const newSortDir = form.sortBy === s && form.sortDir === 'asc' ? 'desc' : 'asc';
+    const newSortDir = form.sortBy === s && form.sortDir === "asc" ? "desc" : "asc";
     setForm((prevForm) => ({
       ...prevForm,
       sortBy: s,
@@ -97,7 +97,7 @@ const Index = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <Link href={route('management.users.edit', id)}>
+              <Link href={route("management.users.edit", id)}>
                 <DropdownMenuItem>Edit</DropdownMenuItem>
               </Link>
             </DropdownMenuContent>
@@ -109,19 +109,19 @@ const Index = () => {
 
   const navigation = [
     {
-      title: 'Users',
-      href: route('management.users.index'),
-      active: route().current('management.users.*'),
+      title: "Users",
+      href: route("management.users.index"),
+      active: route().current("management.users.*"),
     },
     {
-      title: 'Roles',
-      href: route('management.roles.index'),
-      active: route().current('management.roles.*'),
+      title: "Roles",
+      href: route("management.roles.index"),
+      active: route().current("management.roles.*"),
     },
     {
-      title: 'Permissions',
-      href: route('management.permissions.index'),
-      active: route().current('management.permissions.*'),
+      title: "Permissions",
+      href: route("management.permissions.index"),
+      active: route().current("management.permissions.*"),
     },
   ];
 
@@ -135,7 +135,7 @@ const Index = () => {
         <Filter />
 
         <Can permission='add user'>
-          <Link href={route('management.users.create')}>
+          <Link href={route("management.users.create")}>
             <Button>Add new user</Button>
           </Link>
         </Can>

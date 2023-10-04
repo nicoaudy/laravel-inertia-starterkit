@@ -1,10 +1,10 @@
-import React from 'react';
-import GuestLayout from '@/layouts/guest-layout';
-import { Head, useForm } from '@inertiajs/react';
-import { CardDescription } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import InputError from '@/components/input-error';
-import { Button } from '@/components/ui/button';
+import React from "react";
+import GuestLayout from "@/layouts/guest-layout";
+import { Head, useForm } from "@inertiajs/react";
+import { CardDescription } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import InputError from "@/components/input-error";
+import { Button } from "@/components/ui/button";
 
 interface ForgotPasswordProps {
   status: string;
@@ -12,12 +12,12 @@ interface ForgotPasswordProps {
 
 const ForgotPassword = ({ status }: ForgotPasswordProps) => {
   const { data, setData, post, processing, errors } = useForm({
-    email: '',
+    email: "",
   });
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    post(route('password.email'));
+    post(route("password.email"));
   };
 
   return (
@@ -38,7 +38,7 @@ const ForgotPassword = ({ status }: ForgotPasswordProps) => {
           name='email'
           value={data.email}
           className='mt-1 block w-full'
-          onChange={(e) => setData('email', e.target.value)}
+          onChange={(e) => setData("email", e.target.value)}
           autoFocus
         />
 

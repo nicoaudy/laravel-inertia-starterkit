@@ -1,6 +1,6 @@
-import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-ui/react-icons';
-import { FC } from 'react';
-import { Button } from '@/components/ui/button';
+import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from "@radix-ui/react-icons";
+import { FC } from "react";
+import { Button } from "@/components/ui/button";
 
 interface PaginationProps {
   source: {
@@ -71,7 +71,7 @@ const PaginationLinks: FC<PaginationProps> = ({ source, onPaginateChange, offset
           <Button
             key={`pagination-link-${index}`}
             size='sm'
-            variant={source.current_page === page ? 'secondary' : 'ghost'}
+            variant={source.current_page === page ? "secondary" : "ghost"}
             onClick={(e) => {
               e.preventDefault();
               paginate(page);

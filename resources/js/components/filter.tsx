@@ -1,8 +1,8 @@
-import React from 'react';
-import useFilterPagination from '@/hooks/useFilterPagination';
-import { Input } from '@/components/ui/input';
-import { Button } from './ui/button';
-import { Cross2Icon } from '@radix-ui/react-icons';
+import React from "react";
+import useFilterPagination from "@/hooks/useFilterPagination";
+import { Input } from "@/components/ui/input";
+import { Button } from "./ui/button";
+import { Cross2Icon } from "@radix-ui/react-icons";
 
 const Filter: React.FC = () => {
   const [form, setForm, handleChange] = useFilterPagination();
@@ -18,7 +18,7 @@ const Filter: React.FC = () => {
         placeholder='Search...'
       />
       {form.search && (
-        <Button variant='ghost' onClick={() => setForm({ ...form, search: '' })}>
+        <Button variant='ghost' onClick={() => setForm({ ...form, search: "" })}>
           Reset
           <Cross2Icon className='ml-2 h-4 w-4' />
         </Button>

@@ -1,8 +1,8 @@
-import FlashMessages from '@/components/flash-messages';
-import { Navbar } from '@/components/navbar';
-import { Sidebar } from '@/components/sidebar';
-import { File, House, Users, UsersFour } from '@phosphor-icons/react';
-import React from 'react';
+import FlashMessages from "@/components/flash-messages";
+import { Navbar } from "@/components/navbar";
+import { Sidebar } from "@/components/sidebar";
+import { File, House, Users, UsersFour } from "@phosphor-icons/react";
+import React from "react";
 
 interface AuthenticatedLayoutProps {
   children: React.ReactNode;
@@ -11,44 +11,44 @@ interface AuthenticatedLayoutProps {
 const AuthenticatedLayout: React.FC<AuthenticatedLayoutProps> = ({ children }) => {
   const menu = [
     {
-      name: 'Menu',
+      name: "Menu",
       links: [
         {
           icon: <House className='mr-2 h-4 w-4' />,
-          label: 'Home',
-          href: route('dashboard'),
-          active: route().current('dashboard'),
+          label: "Home",
+          href: route("dashboard"),
+          active: route().current("dashboard"),
         },
         {
           icon: <File className='mr-2 h-4 w-4' />,
-          label: 'Contacts',
-          href: route('contacts.index'),
-          active: route().current('contacts.*'),
+          label: "Contacts",
+          href: route("contacts.index"),
+          active: route().current("contacts.*"),
         },
       ],
     },
     {
-      name: 'Management',
+      name: "Management",
       links: [
         {
           icon: <Users className='mr-2 h-4 w-4' />,
-          label: 'Users',
-          href: route('management.users.index'),
-          active: route().current('management.*.*'),
-          can: 'view user',
+          label: "Users",
+          href: route("management.users.index"),
+          active: route().current("management.*.*"),
+          can: "view user",
         },
       ],
     },
     {
-      name: 'Master Data',
-      permissions: ['view patient', 'view pricelist', 'view stock', 'view team'],
+      name: "Master Data",
+      permissions: ["view patient", "view pricelist", "view stock", "view team"],
       links: [
         {
           icon: <UsersFour className='mr-2 h-4 w-4' />,
-          label: 'Contacts',
-          href: route('contacts.index'),
-          active: route().current('contacts.*'),
-          can: 'view contact',
+          label: "Contacts",
+          href: route("contacts.index"),
+          active: route().current("contacts.*"),
+          can: "view contact",
         },
       ],
     },

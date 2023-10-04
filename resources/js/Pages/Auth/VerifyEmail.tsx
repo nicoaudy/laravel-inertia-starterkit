@@ -1,8 +1,8 @@
-import { Head, Link, useForm } from '@inertiajs/react';
-import GuestLayout from '@/layouts/guest-layout';
-import React, { FormEventHandler } from 'react';
-import { CardDescription } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Head, Link, useForm } from "@inertiajs/react";
+import GuestLayout from "@/layouts/guest-layout";
+import React, { FormEventHandler } from "react";
+import { CardDescription } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 interface VerifyEmailProps {
   status: string;
@@ -14,7 +14,7 @@ const VerifyEmail = ({ status }: VerifyEmailProps) => {
   const submit: FormEventHandler = (e) => {
     e.preventDefault();
 
-    post(route('verification.send'));
+    post(route("verification.send"));
   };
 
   return (
@@ -26,7 +26,7 @@ const VerifyEmail = ({ status }: VerifyEmailProps) => {
         just emailed to you? If you didn't receive the email, we will gladly send you another.
       </CardDescription>
 
-      {status === 'verification-link-sent' && (
+      {status === "verification-link-sent" && (
         <div className='mb-4 font-medium text-sm text-green-600'>
           A new verification link has been sent to the email address you provided during registration.
         </div>
@@ -37,7 +37,7 @@ const VerifyEmail = ({ status }: VerifyEmailProps) => {
           <Button disabled={processing}>Resend Verification Email</Button>
 
           <Button variant='link' asChild>
-            <Link href={route('logout')} method='post' as='button'>
+            <Link href={route("logout")} method='post' as='button'>
               Log Out
             </Link>
           </Button>

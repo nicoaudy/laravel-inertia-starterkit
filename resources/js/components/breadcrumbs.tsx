@@ -1,5 +1,5 @@
-import { Link } from '@inertiajs/react';
-import React from 'react';
+import { Link } from "@inertiajs/react";
+import React from "react";
 
 interface BreadcrumbItem {
   title: string;

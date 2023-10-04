@@ -1,14 +1,14 @@
-import { useState, useEffect, ChangeEvent } from 'react';
-import { usePrevious } from 'react-use';
-import { usePage, router } from '@inertiajs/react';
-import { debounce, pickBy } from 'lodash';
+import { useState, useEffect, ChangeEvent } from "react";
+import { usePrevious } from "react-use";
+import { usePage, router } from "@inertiajs/react";
+import { debounce, pickBy } from "lodash";
 
 interface Filters {
   search?: string;
   perPage?: string;
   page?: string;
   sortBy?: string;
-  sortDir?: 'asc' | 'desc' | undefined;
+  sortDir?: "asc" | "desc" | undefined;
 }
 
 type ChangeEventHandler = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
@@ -18,10 +18,10 @@ const useFilterPagination = (): [Filters, React.Dispatch<React.SetStateAction<Fi
   const filters = props.filters as Filters;
 
   const [values, setValues] = useState<Filters>({
-    search: filters.search || '',
-    perPage: filters.perPage || '100',
-    page: filters.page || '',
-    sortBy: filters.sortBy || '',
+    search: filters.search || "",
+    perPage: filters.perPage || "100",
+    page: filters.page || "",
+    sortBy: filters.sortBy || "",
     sortDir: filters.sortDir,
   });
 
@@ -32,10 +32,10 @@ const useFilterPagination = (): [Filters, React.Dispatch<React.SetStateAction<Fi
     const value = e.target.value;
 
     // Reset page to null when perPage was changed
-    if (key === 'perPage') {
+    if (key === "perPage") {
       setValues((values) => ({
         ...values,
-        page: '',
+        page: "",
       }));
     }
 

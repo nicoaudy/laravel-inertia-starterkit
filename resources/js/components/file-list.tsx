@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export interface FileListProps {
   files: File[];
@@ -14,4 +14,4 @@ export const FileList = React.memo((props: React.PropsWithChildren<FileListProps
   </ul>
 ));
 
-FileList.displayName = 'FileList';
+FileList.displayName = "FileList";

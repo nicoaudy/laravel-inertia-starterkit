@@ -1,5 +1,5 @@
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import {
   CommandDialog,
   CommandEmpty,
@@ -7,13 +7,13 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@/components/ui/command';
-import React from 'react';
-import { useTheme } from './theme-provider';
-import { router } from '@inertiajs/react';
-import { type DialogProps } from '@radix-ui/react-alert-dialog';
-import { FileSearch, Monitor } from '@phosphor-icons/react';
-import { ChevronRightIcon, MoonIcon, SunIcon } from '@radix-ui/react-icons';
+} from "@/components/ui/command";
+import React from "react";
+import { useTheme } from "./theme-provider";
+import { router } from "@inertiajs/react";
+import { type DialogProps } from "@radix-ui/react-alert-dialog";
+import { FileSearch, Monitor } from "@phosphor-icons/react";
+import { ChevronRightIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons";
 
 export interface Item {
   id: number;
@@ -34,14 +34,14 @@ export function CommandMenu({ ...props }: DialogProps) {
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         setOpen((open) => !open);
       }
     };
 
-    document.addEventListener('keydown', down);
-    return () => document.removeEventListener('keydown', down);
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
   }, []);
 
   const runCommand = React.useCallback((command: () => unknown) => {
@@ -51,45 +51,45 @@ export function CommandMenu({ ...props }: DialogProps) {
 
   const group: CommandBar[] = [
     {
-      category: 'Navigation',
+      category: "Navigation",
       items: [
         {
           id: 1,
           icon: <ChevronRightIcon className='mr-2 h-4 w-4' aria-hidden='true' />,
           myAction: function () {
-            router.visit(route('dashboard'));
+            router.visit(route("dashboard"));
           },
-          name: 'Go to Home',
+          name: "Go to Home",
         },
       ],
     },
 
     {
-      category: 'General',
+      category: "General",
       items: [
         {
           id: 1,
           icon: <MoonIcon className='mr-2 h-4 w-4' aria-hidden='true' />,
           myAction: function () {
-            setTheme('dark');
+            setTheme("dark");
           },
-          name: 'Change Theme to Dark',
+          name: "Change Theme to Dark",
         },
         {
           id: 2,
           icon: <SunIcon className='mr-2 h-4 w-4' aria-hidden='true' />,
           myAction: function () {
-            setTheme('light');
+            setTheme("light");
           },
-          name: 'Change Theme to Light',
+          name: "Change Theme to Light",
         },
         {
           id: 3,
           icon: <Monitor className='mr-2 h-4 w-4' aria-hidden='true' />,
           myAction: function () {
-            setTheme('system');
+            setTheme("system");
           },
-          name: 'Change Theme to System',
+          name: "Change Theme to System",
         },
       ],
     },
@@ -99,7 +99,7 @@ export function CommandMenu({ ...props }: DialogProps) {
     <div>
       <Button
         variant='outline'
-        className={cn('relative w-full justify-start text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64')}
+        className={cn("relative w-full justify-start text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64")}
         onClick={() => setOpen(true)}
         {...props}>
         <FileSearch className='mr-2 h-4 w-4' aria-hidden='true' />

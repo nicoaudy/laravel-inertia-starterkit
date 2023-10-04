@@ -1,5 +1,5 @@
-import type { Page, PageProps, Errors, ErrorBag } from '@inertiajs/inertia';
-import { User } from '@/types/user';
+import type { Page, PageProps, Errors, ErrorBag } from "@inertiajs/inertia";
+import { User } from "@/types/user";
 
 export type DateTime = string;
 

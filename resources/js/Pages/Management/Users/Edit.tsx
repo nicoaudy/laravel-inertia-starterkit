@@ -1,14 +1,14 @@
-import React from 'react';
-import { Head, usePage, useForm, router } from '@inertiajs/react';
-import AuthenticatedLayout from '@/layouts/authenticated-layout';
-import Breadcrumbs from '@/components/breadcrumbs';
-import FileDropzone from '@/components/dropzone';
-import { Label } from '@/components/ui/label';
-import { ImagePreview } from '@/components/image-preview';
-import { Input } from '@/components/ui/input';
-import InputError from '@/components/input-error';
-import { Button } from '@/components/ui/button';
-import { User } from '@/types/interfaces';
+import React from "react";
+import { Head, usePage, useForm, router } from "@inertiajs/react";
+import AuthenticatedLayout from "@/layouts/authenticated-layout";
+import Breadcrumbs from "@/components/breadcrumbs";
+import FileDropzone from "@/components/dropzone";
+import { Label } from "@/components/ui/label";
+import { ImagePreview } from "@/components/image-preview";
+import { Input } from "@/components/ui/input";
+import InputError from "@/components/input-error";
+import { Button } from "@/components/ui/button";
+import { User } from "@/types/interfaces";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,13 +19,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { Can } from '@/components/Can';
+} from "@/components/ui/alert-dialog";
+import { Can } from "@/components/Can";
 
 const items = [
-  { title: 'Home', href: route('dashboard') },
-  { title: 'Users', href: route('management.users.index') },
-  { title: 'Edit', href: '#' },
+  { title: "Home", href: route("dashboard") },
+  { title: "Users", href: route("management.users.index") },
+  { title: "Edit", href: "#" },
 ];
 
 const Edit = () => {
@@ -33,27 +33,27 @@ const Edit = () => {
   const user = props.user as User;
 
   const { data, setData, errors, post, processing } = useForm({
-    name: user.name || '',
-    email: user.email || '',
-    password: '',
-    file: '' as File | '',
-    _method: 'PUT',
+    name: user.name || "",
+    email: user.email || "",
+    password: "",
+    file: "" as File | "",
+    _method: "PUT",
   });
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    post(route('management.users.update', user.id), {
+    post(route("management.users.update", user.id), {
       forceFormData: true,
     });
   }
 
   function destroy() {
-    router.delete(route('management.users.destroy', user.id));
+    router.delete(route("management.users.destroy", user.id));
   }
 
   const handleFileDrop = (acceptedFiles: File[]) => {
-    setData('file', acceptedFiles[0]);
+    setData("file", acceptedFiles[0]);
   };
 
   return (
@@ -66,12 +66,12 @@ const Edit = () => {
         <form className='space-y-6' onSubmit={handleSubmit}>
           <div className='grid w-full max-w-sm items-center gap-1.5'>
             <Label htmlFor='name'>Name</Label>
-            <Input name='name' type='text' value={data.name} onChange={(e) => setData('name', e.target.value)} />
+            <Input name='name' type='text' value={data.name} onChange={(e) => setData("name", e.target.value)} />
             <InputError message={errors.name} />
           </div>
           <div className='grid w-full max-w-sm items-center gap-1.5'>
             <Label htmlFor='email'>Email</Label>
-            <Input name='email' type='email' value={data.email} onChange={(e) => setData('email', e.target.value)} />
+            <Input name='email' type='email' value={data.email} onChange={(e) => setData("email", e.target.value)} />
             <InputError message={errors.email} />
           </div>
           <div className='grid w-full max-w-sm items-center gap-1.5'>
@@ -80,12 +80,12 @@ const Edit = () => {
               name='password'
               type='password'
               value={data.password}
-              onChange={(e) => setData('password', e.target.value)}
+              onChange={(e) => setData("password", e.target.value)}
             />
             <InputError message={errors.password} />
           </div>
           <div className='grid w-full max-w-sm items-center gap-1.5'>
-            <FileDropzone onDrop={handleFileDrop} accept={{ 'image/jpeg': ['.jpeg', '.png'] }}>
+            <FileDropzone onDrop={handleFileDrop} accept={{ "image/jpeg": [".jpeg", ".png"] }}>
               {!data.file && <Label>Drag & drop image files here (max size: 5MB, accepted formats: .jpg, .png)</Label>}
               {data.file && <ImagePreview files={[data.file]} />}
             </FileDropzone>

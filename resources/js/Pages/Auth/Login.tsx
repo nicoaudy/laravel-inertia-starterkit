@@ -1,11 +1,11 @@
-import React, { FormEventHandler, useEffect } from 'react';
-import { Head, Link, useForm } from '@inertiajs/react';
-import GuestLayout from '@/layouts/guest-layout';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
-import { Button } from '@/components/ui/button';
-import InputError from '@/components/input-error';
+import React, { FormEventHandler, useEffect } from "react";
+import { Head, Link, useForm } from "@inertiajs/react";
+import GuestLayout from "@/layouts/guest-layout";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { Button } from "@/components/ui/button";
+import InputError from "@/components/input-error";
 
 interface LoginProps {
   status: string;
@@ -13,21 +13,21 @@ interface LoginProps {
 
 export function Login({ status }: LoginProps) {
   const { data, setData, post, processing, errors, reset } = useForm({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
     remember: false,
   });
 
   useEffect(() => {
     return () => {
-      reset('password');
+      reset("password");
     };
   }, []);
 
   const submit: FormEventHandler = (e) => {
     e.preventDefault();
 
-    post(route('login'));
+    post(route("login"));
   };
 
   return (
@@ -46,7 +46,7 @@ export function Login({ status }: LoginProps) {
             value={data.email}
             className='mt-1 block w-full'
             autoComplete='username'
-            onChange={(e) => setData('email', e.target.value)}
+            onChange={(e) => setData("email", e.target.value)}
             autoFocus
           />
           <InputError message={errors.email} className='mt-2' />
@@ -60,19 +60,19 @@ export function Login({ status }: LoginProps) {
             value={data.password}
             className='mt-1 block w-full'
             autoComplete='current-password'
-            onChange={(e) => setData('password', e.target.value)}
+            onChange={(e) => setData("password", e.target.value)}
           />
           <InputError message={errors.password} className='mt-2' />
         </div>
         <div className='block mt-4'>
           <Label className='flex items-center'>
-            <Switch name='remember' checked={data.remember} onCheckedChange={(value) => setData('remember', value)} />
+            <Switch name='remember' checked={data.remember} onCheckedChange={(value) => setData("remember", value)} />
             <span className='ml-2 text-sm text-gray-600'>Remember me</span>
           </Label>
         </div>
         <div className='flex items-center justify-end mt-4'>
           <Button variant='link' asChild>
-            <Link href={route('password.request')}>Forgot your password?</Link>
+            <Link href={route("password.request")}>Forgot your password?</Link>
           </Button>
           <Button className='ml-4' disabled={processing} loading={processing}>
             Log in

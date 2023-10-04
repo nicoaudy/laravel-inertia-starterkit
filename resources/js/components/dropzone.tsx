@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react';
-import { Accept, useDropzone } from 'react-dropzone';
+import React, { useCallback } from "react";
+import { Accept, useDropzone } from "react-dropzone";
 
 interface FileDropzoneProps {
   onDrop: (acceptedFiles: File[]) => void;
@@ -29,7 +29,7 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({ onDrop, children, accept, m
   return (
     <div
       className={`hover:cursor-pointer border-dashed border-2 ${
-        isDragActive ? 'border-blue-500' : 'border-gray-300'
+        isDragActive ? "border-blue-500" : "border-gray-300"
       } p-8 rounded-md text-center`}
       {...getRootProps()}>
       <input {...getInputProps()} />
